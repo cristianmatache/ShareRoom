@@ -3,7 +3,7 @@ Software Engineering 3rd Year Group Project
 Please read the tutorials and the instalation guides if you want to clone properly so you don't have to get `mad`.
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) if you don't have it, you can either install it with `brew install node` or download it
-2. After that you need [Ionic framework](https://ionicframework.com/getting-started/), if you don't have it install it with `npm install -g cordova ionic`
+2. After that you need [Ionic framework](https://ionicframework.com/getting-started/), if you don't have it install it with `npm install -g cordova ionic` (probably need `sudo` which is problematic for Computing labs). If it doesn't work on Computing labs try without the `-g` flag while in the project root folder
 
 ## New Clone
 1. Run `npm install` all the time you clone a new repo in oreder to install all dependencies. Otherwise the thing won't compile or work properly
