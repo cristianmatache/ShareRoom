@@ -1,7 +1,7 @@
 # ShareRoom
 Software Engineering 3rd Year Group Project
 Please read the tutorials and the instalation guides if you want to clone properly so you don't have to get `mad`.
-If you work on labs `ssh username@146.169.46.124`
+If you work on labs `ssh username@146.169.46.124 -L some_port:localhost:some_port`
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) if you don't have it, you can either install it with `brew install node` or download it
 2. After that you need [Ionic framework](https://ionicframework.com/getting-started/), if you don't have it install it with `npm install -g cordova ionic` (probably need `sudo` which is problematic for Computing labs). If it doesn't work on Computing labs try without the `-g` flag while in the project root folder
@@ -11,10 +11,10 @@ If you work on labs `ssh username@146.169.46.124`
 2. Always save new npm packages `npm install -s {package_name}`. **The `-s` flag is really important because it adds the package to the packages.json file wich is the dependencies list**
 
 ## Development
-1. Run `ionic serve` to run the development environment. You can use `ionic serve --lab` to see all platforms side by side
+1. Run `ionic serve -p some_port` to run the development environment(everyone needs to work on different ports). You can use `ionic serve --lab` to see all platforms side by side
 2. Every time you install a new package **don't forget** about the `-s` flag
 3. If you work on labs you need ssh tunnelling in order for the thing to work `ssh username@146.169.46.124
- -L 8100:localhost:8100`
+ -L some_port:localhost:some_port`
 
 ## Technologies
 We will be using the following technologies:
