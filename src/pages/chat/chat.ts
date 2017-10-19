@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../models/user";
 import {Message} from "../../models/message";
+import {Database} from "../../providers/database";
 
 /**
  * Generated class for the ChatPage page.
@@ -21,7 +22,16 @@ export class ChatPage {
   friendName: String = "Alex";
   messages: Message[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database) {
+    database.login({email: "hello@google.com", password: "password"} as User).then((data) => {
+      this.messages.push({
+        text: "Hello",
+        from: {email: "alex"} as User,
+        at: new Date()
+      });
+    }).catch((err) => {
+      console.error(err);
+    });
   }
 
   public sendMessage() {
@@ -30,13 +40,14 @@ export class ChatPage {
     }
     this.messages.push({
       text: this.input,
-      from: {email: "bart", password: "acs"} as User,
+      from: {email: "hello@google.com"} as User,
       at: new Date()
     });
     this.input = ""
   }
 
   public getBubbleClass(message: Message): String {
-    return message.from == message.from ? "chat-bubble chat-bubble-me" : "chat-bubble chat-bubble-other";
+    return message.from.email === this.database.getCurrentUser().email ? "chat-bubble" +
+      " chat-bubble-me" : "chat-bubble chat-bubble-other";
   }
 }
