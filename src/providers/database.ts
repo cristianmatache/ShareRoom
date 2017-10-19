@@ -92,21 +92,6 @@ export class Database {
     });
   }
 
-  getCurrentUser() : User {
-    var current_user = firebase.auth().currentUser;
-    console.log(current_user);
-    let user : User = {
-      uid: current_user.uid,
-      email: current_user.email,
-      password: null,
-      profile_picture: current_user.photoURL,
-      display_name: current_user.displayName,
-      emailVerified: current_user.emailVerified,
-      phoneNumber: current_user.phoneNumber
-    };
-    return user;
-  }
-
   private getCurrentUserParam(param_name : string) : Promise<string> {
     var userId = this.getCurrentUserId();
     if (userId) {

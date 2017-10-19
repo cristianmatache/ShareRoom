@@ -1,144 +1,88 @@
-page-login {
+.login {
+  background-image: url('../../assets/images/BoardGames.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-  .login-content {
-    background: #56CA96;
+.login-small {
+  width: 30%;
+  height: 100px;
+  margin: auto;
+  padding: 10px;
+  top: 25%;
+}
 
-    .logo-row {
-      padding-top: 50px;
-      padding-bottom: 20px;
-    }
-
-    .login-box {
-      background: #399F8B;
-      padding: 20px 20px 0px 20px;
-      margin-top: 30px;
-    }
-
-    ion-row {
-      align-items: center;
-      text-align: center;
-    }
-
-    ion-item {
-      border-radius: 30px !important;
-      padding-left: 30px !important;
-      font-size: 0.9em;
-      margin-bottom: 10px;
-      border: 1px solid #ffffff;
-      border-bottom: 0px !important;
-      box-shadow: none !important;
-    }
-
-    .signup-col {
-      margin: 0px 16px 0px 16px;
-      padding-bottom: 20px;
-    }
-
-    .item-inner {
-      border-bottom-color: #ffffff !important;
-      box-shadow: none !important;
-    }
-
-    .submit-btn {
-      background: #51CFB1;
-      border-radius: 30px !important;
-      border: 1px solid #ffffff;
-    }
-
-    .register-btn {
-      color: #ffffff;
-      font-size: 0.8em;
-    }
-  }
-
+.centered {
+  width: 30%;
+  height: 100px;
+  margin: auto;
+  padding: 10px;
+  top: 55%;
+  background: transparent;
 }
 
 
-//.login {
-//  background-image: url('../../assets/images/BoardGames.jpeg');
-//  background-position: center;
-//  background-repeat: no-repeat;
-//}
-//
-//.login-small {
-//  width: 30%;
-//  height: 100px;
-//  margin: auto;
-//  padding: 10px;
-//  top: 25%;
-//}
-//
-//.centered {
-//  width: 30%;
-//  height: 100px;
-//  margin: auto;
-//  padding: 10px;
-//  top: 55%;
-//  background: transparent;
-//}
-//
-//
-//.border {
-//  border: 3px solid #73AD21;
-//}
-//
-//.button-rounded-share {
-//  display: block !important;
-//  width: 100px !important;
-//  height: 100px !important;
-//  line-height: 30px !important;
-//  border: 2px solid white !important;
-//  border-radius: 50% !important;
-//  color: white !important;
-//  text-align: center !important;
-//  text-decoration: none !important;
-//  font-size: 10px !important;
-//  font-weight: bold !important;
-//  background-image: url('../../assets/images/Share.png');
-//  background-position: center;
-//  background-repeat: no-repeat;
-//  background-size: cover;
-//}
-//
-//.button-rounded-fb {
-//  display: block !important;
-//  width: 40px !important;
-//  height: 40px !important;
-//  line-height: 30px !important;
-//  border: 2px solid white !important;
-//  border-radius: 50% !important;
-//  color: white !important;
-//  text-align: center !important;
-//  text-decoration: none !important;
-//  font-size: 10px !important;
-//  font-weight: bold !important;
-//  background-image: url('../../assets/images/fb.png');
-//  background-position: center;
-//  background-repeat: no-repeat;
-//  background-size: cover;
-//}
-//
-//.button-rounded-google {
-//  display: block !important;
-//  width: 40px !important;
-//  height: 40px !important;
-//  line-height: 30px !important;
-//  border: 2px solid white !important;
-//  border-radius: 50% !important;
-//  color: white !important;
-//  text-align: center !important;
-//  text-decoration: none !important;
-//  font-size: 10px !important;
-//  font-weight: bold !important;
-//  background-image: url('../../assets/images/google1.jpg');
-//  background-position: center;
-//  background-repeat: no-repeat;
-//  background-size: cover;
-//  background-color: white;
-//}
-//
-//
-//.bar .buttons .button.button-icon .icon::before, .bar .buttons .button.button-icon::before, .bar .buttons .button.button-icon.icon-left::before, .bar .buttons .button.button-icon.icon-right::before {
-//  font-size: 24px;
-//  line-height: 24px;
-//}
+.border {
+  border: 3px solid #73AD21;
+}
+
+.button-rounded-share {
+  display: block !important;
+  width: 100px !important;
+  height: 100px !important;
+  line-height: 30px !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 10px !important;
+  font-weight: bold !important;
+  background-image: url('../../assets/images/Share.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.button-rounded-fb {
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 30px !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 10px !important;
+  font-weight: bold !important;
+  background-image: url('../../assets/images/fb.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.button-rounded-google {
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 30px !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 10px !important;
+  font-weight: bold !important;
+  background-image: url('../../assets/images/google1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+}
+
+
+.bar .buttons .button.button-icon .icon::before, .bar .buttons .button.button-icon::before, .bar .buttons .button.button-icon.icon-left::before, .bar .buttons .button.button-icon.icon-right::before {
+  font-size: 24px;
+  line-height: 24px;
+}
