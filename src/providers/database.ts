@@ -52,30 +52,12 @@ export class Database {
       })
     }
     else {
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then(res => {
-          this.setProfilePicture(res.user.uid, res.additionalUserInfo.profile.picture.data.url);
-          this.setUserFirstName(res.user.uid, res.additionalUserInfo.profile.first_name);
-          this.setUserLastName(res.user.uid, res.additionalUserInfo.profile.last_name);
-        });
+      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
     }
   }
 
   googleLogin() : Promise<any> {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
-
-  setProfilePicture(userId, imageUrl) : Promise<any> {
-    return firebase.database().ref('users/' + userId).child('profile_picture').set(imageUrl);
-  }
-
-  setUserFirstName(userId, firstName) : Promise<any> {
-    return firebase.database().ref('users/' + userId).child('first_name').set(firstName);
-  }
-
-  setUserLastName(userId, lastName) : Promise<any> {
-    return firebase.database().ref('users/' + userId).child('last_name').set(lastName);
   }
 
   getCurrentUserId() : any {
@@ -87,12 +69,28 @@ export class Database {
     }
   }
 
-  getCurrentUserProfilePicture() : any {
+  getCurrentUserFirebase() : User {
+    var current_user = firebase.auth().currentUser;
+    console.log(current_user);
+    let user : User = {
+      uid: current_user.uid,
+      email: current_user.email,
+      password: null,
+      profile_picture: current_user.photoURL,
+      display_name: current_user.displayName,
+      emailVerified: current_user.emailVerified,
+      phoneNumber: current_user.phoneNumber
+    };
+    return user;
+  }
+
+  private getCurrentUserParam(param_name) : any {
     var userId = this.getCurrentUserId();
     if (userId) {
-      firebase.database().ref('/users/' + userId + '/profile_picture').once('value',
+      firebase.database().ref('/users/' + userId + '/' + param_name).once('value',
         function(snapshot) {
           console.log(snapshot.val());
+          return snapshot.val();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
         });
@@ -101,42 +99,14 @@ export class Database {
     }
   }
 
-  getCurrentUserFirstName() : any {
-    var userId = this.getCurrentUserId();
-    if (userId) {
-      firebase.database().ref('/users/' + userId + '/first_name').once('value',
-        function(snapshot) {
-          console.log(snapshot.val());
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-    } else {
-      console.log("You need to log in");
-    }
-  }
-
-  getCurrentUserLastName() : any {
-    var userId = this.getCurrentUserId();
-    if (userId) {
-      firebase.database().ref('/users/' + userId + '/last_name').once('value',
-        function(snapshot) {
-          console.log(snapshot.val());
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-    } else {
-      console.log("You need to log in");
-    }
-  }
-
-  addFriend(userId_1, userId_2) {
-    firebase.database().ref('/users/' + userId_1 + '/friends').push().set({
-      userId_2
-    });
-    firebase.database().ref('/users/' + userId_2 + '/friends').push().set({
-      userId_1
-    });
-  }
+  // addFriend(userId_1, userId_2) {
+  //   firebase.database().ref('/users/' + userId_1 + '/friends').push().set({
+  //     userId_2
+  //   });
+  //   firebase.database().ref('/users/' + userId_2 + '/friends').push().set({
+  //     userId_1
+  //   });
+  // }
 
   getCurrentUser(): User {
 
