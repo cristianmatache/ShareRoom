@@ -10,6 +10,8 @@ import { Facebook } from '@ionic-native/facebook';
 @Injectable()
 export class Database {
 
+  private user: User = {} as User;
+
   constructor(private afAuth: AngularFireAuth, private afData: AngularFireDatabase,
     private fb: Facebook, private platform: Platform) {
   }
@@ -41,7 +43,6 @@ export class Database {
   //   user : User = facebookLogin();
   //
   // }
-
   facebookRegister() : Promise<any> {
     if (this.platform.is('cordova')) {
       return this.fb.login(['email', 'public_profile']).then(res => {
@@ -135,6 +136,11 @@ export class Database {
     firebase.database().ref('/users/' + userId_2 + '/friends').push().set({
       userId_1
     });
+  }
+
+  getCurrentUser(): User {
+
+    return null;
   }
 
 }
