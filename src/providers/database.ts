@@ -69,7 +69,7 @@ export class Database {
     }
   }
 
-  getCurrentUserFirebase() : User {
+  getCurrentUser() : User {
     var current_user = firebase.auth().currentUser;
     console.log(current_user);
     let user : User = {
@@ -107,10 +107,5 @@ export class Database {
   //     userId_1
   //   });
   // }
-
-  getCurrentUser(): User {
-
-    return null;
-  }
 
 }
