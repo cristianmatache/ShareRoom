@@ -1,7 +1,6 @@
-import {User} from "./user";
-
 export interface Message {
   text: String;
-  from: User;
-  at: Date;
+  from: string;
+  by: string;
+  timestamp: Date;
 }
