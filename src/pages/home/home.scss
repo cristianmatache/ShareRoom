@@ -1,3 +1,28 @@
 page-home {
 
+  .card-ios{
+    margin: 0;
+    width: 100%;
+  }
+
+  .card-md {
+    margin: 0;
+    width: 100%;
+  }
+
+  .card-title-md {
+    margin: 2px 0 2px 2px;
+    padding: 4px 0 4px 4px;
+    font-size:1.8rem;
+
+  }
+
+  .time-indicator-column {
+    color: color($colors, secondary);
+    font-size: 120%;
+    font-weight: bold;
+    padding-bottom: 0;
+    padding-top: 0;
+
+  }
 }
