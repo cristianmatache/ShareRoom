@@ -18,6 +18,7 @@ import {Message} from "../../models/message";
 export class ChatPage {
 
   input: String = "";
+  friendName: String = "Alex";
   messages: Message[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
