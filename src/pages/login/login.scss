@@ -1,3 +1,49 @@
-page-login {
+ion-content {
+  background-image: url('../../assets/images/BoardGames.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
 
+}
+
+.button-rounded-fb {
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 30px !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 10px !important;
+  font-weight: bold !important;
+  background-image: url('../../assets/images/fb.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.button-rounded-google {
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 30px !important;
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 10px !important;
+  font-weight: bold !important;
+  background-image: url('../../assets/images/google1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+}
+
+
+.bar .buttons .button.button-icon .icon::before, .bar .buttons .button.button-icon::before, .bar .buttons .button.button-icon.icon-left::before, .bar .buttons .button.button-icon.icon-right::before {
+  font-size: 24px;
+  line-height: 24px;
 }
