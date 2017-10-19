@@ -14,8 +14,7 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
 import * as firebase from 'firebase';
-import 'firebase/auth';
-import 'firebase/database';
+import { Database } from '../providers/database';
 
 @NgModule({
   declarations: [
@@ -41,6 +40,7 @@ import 'firebase/database';
     SplashScreen,
     Facebook,
     AngularFireDatabaseModule,
+    Database,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
