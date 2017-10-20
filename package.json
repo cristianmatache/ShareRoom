@@ -11,7 +11,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "test": "karma start ./test-config/karma.conf.js",
-    "test-ci": "karma start ./test-config/karma.conf.js --single-run --browsers PhantomJS",
+    "test-ci": "karma start ./test-config/karma.conf.js --single-run --browsers Firefox",
     "test-coverage": "karma start ./test-config/karma.conf.js --coverage"
   },
   "dependencies": {
@@ -63,6 +63,7 @@
     "karma-coverage-istanbul-reporter": "^1.3.0",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.5",
     "null-loader": "^0.1.1",
