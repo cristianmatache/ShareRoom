@@ -10,7 +10,7 @@ import {ChatPage} from "../pages/chat/chat";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = ChatPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
