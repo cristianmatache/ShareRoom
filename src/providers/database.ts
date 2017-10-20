@@ -82,12 +82,23 @@ export class Database {
     }
   }
 
-  getUserInfoById(uid : string) : any {
-    if (firebase.auth().currentUser) {
-      //TODO
-    } else {
-      return null;
-    }
+  getUserInfoById(uid : string) : User {
+    firebase.database().ref('/users/' + uid ).once('value',
+      function(snapshot) {
+        var db_user = snapshot.val();
+        let user : User = {
+          uid: db_user.uid,
+          email: db_user.email,
+          password: null,
+          profile_picture: db_user.profile_picture,
+          display_name: db_user.display_name,
+          emailVerified: db_user.email_verified,
+          phoneNumber: db_user.phone_number
+        };
+        return user;
+      }, function (errorObject) {
+        return null;
+      });
   }
 
   getCurrentUser() : User {
