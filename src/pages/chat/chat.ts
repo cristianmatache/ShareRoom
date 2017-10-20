@@ -39,7 +39,6 @@ export class ChatPage {
   }
 
   public getBubbleClass(message: Message): String {
-    return message.from.email === this.database.getCurrentUser().email ? "chat-bubble" +
-      " chat-bubble-me" : "chat-bubble chat-bubble-other";
+    return "";
   }
 }

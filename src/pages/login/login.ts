@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { Database } from '../../providers/database';
 import { User } from '../../models/user';
 
 /**
@@ -17,7 +18,7 @@ import { User } from '../../models/user';
 export class LoginPage {
   user = {} as User;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public database : Database) {
   }
 
   ionViewDidLoad() {
