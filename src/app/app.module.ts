@@ -14,14 +14,15 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
 import * as firebase from 'firebase';
-import 'firebase/auth';
-import 'firebase/database';
+import { Database } from '../providers/database';
+import {ChatPage} from "../pages/chat/chat";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -34,13 +35,15 @@ import 'firebase/database';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Facebook,
     AngularFireDatabaseModule,
+    Database,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

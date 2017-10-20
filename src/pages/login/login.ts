@@ -6,8 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import '@firebase/auth';
-import '@firebase/database';
+import { Database } from '../../providers/database';
 
 /**
  * Generated class for the LoginPage page.
@@ -22,47 +21,15 @@ import '@firebase/database';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  user = {} as User;
-
+  user = {} as User
 
   constructor(private afAuth: AngularFireAuth,
     public navCtrl: NavController, public navParams: NavParams,
-    private fb: Facebook, private platform: Platform) {
+    private fb: Facebook, private platform: Platform, private database: Database) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-  }
-
-  login(user: User) {
-    try {
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      if (result) {
-        this.navCtrl.setRoot('HomePage');
-      }
-    }
-    catch (e) {
-      console.error(e);
-    }
-  }
-
-  facebookLogin() {
-    if (this.platform.is('cordova')) {
-      return this.fb.login(['email', 'public_profile']).then(res => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        return firebase.auth().signInWithCredential(facebookCredential);
-      })
-    }
-    else {
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then(res => console.log(res));
-    }
-  }
-
-  googleLogin() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   register() {
