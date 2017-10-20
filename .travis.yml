@@ -3,4 +3,6 @@ node_js:
   - '8.6.0'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'ShareRoom' ]; then cd .. && eval "mv $currentfolder ShareRoom" && cd generator-ionic; fi
+  - if [ "$currentfolder" != 'ShareRoom' ]; then cd .. && eval "mv $currentfolder ShareRoom" && cd ShareRoom fi
+script:
+  - npm run test
