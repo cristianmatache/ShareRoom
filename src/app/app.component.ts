@@ -3,12 +3,12 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {ChatPage} from "../pages/chat/chat";
+import {LoginPage} from "../pages/login/login";
 @Component({
   templateUrl: 'app.html'
 })
 export class ShareRoom {
-  rootPage:any = ChatPage;
+  rootPage:any = LoginPage;
   pages:number =1;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {

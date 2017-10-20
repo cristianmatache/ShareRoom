@@ -15,7 +15,7 @@ import { User } from '../../models/user';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  user = {} as User
+  user = {} as User;
 
   constructor(public navCtrl: NavController) {
   }
