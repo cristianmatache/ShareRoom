@@ -5,92 +5,23 @@
   Ionic pages and navigation.
 -->
 
-<ion-content padding class="login">
-
-  <ion-card class="button-rounded-share centered"></ion-card>
-
-  <ion-item class="login-small border">
-    <ion-label floating>Email Address</ion-label>
-    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-  </ion-item>
-
-  <ion-item class="login-small border">
-    <ion-label floating >Password</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-  </ion-item>
-
-  <ion-content class="centered">
-  <button ion-button (click)="login(user)">Login</button>
-  </ion-content>
-  <button ion-button class="button-rounded-fb" (click)="facebookLogin()"></button>
-  <button ion-button class="button-rounded-google" (click)="googleLogin()"></button>
-  <button ion-button color="light" (click)="register()">Register</button>
-  <button ion-button color="light" (click)="database.getCurrentUserFirebase()">Current user</button>
-
-</ion-content>
-
-
-<!--
-<ion-view style="" class=" " id="page5" title="Login">
-
-  <ion-content class="has-header" padding="true" style="background: url('../../assets/images/BoardGames.jpeg') center; background-size: cover;">
-    <form name="loginForm" class="list " id="login-form1">
-      <ion-list class=" " id="login-list2">
-        <div class="app-icon"></div>
-        <label class="item item-input item-floating-label">
-          <span class="input-label" style="color: #9F9F9F;">Email</span>
-          <input ng-model="user.email" style="color: white;" type="email" placeholder="Email">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span class="input-label" style="color: #9F9F9F;" >Password</span>
-          <input ng-model="user.password" style="color: white;" type="password" placeholder="Password">
-        </label>
-      </ion-list>
-      <div style="height: 40px;" class="spacer"></div>
-      <button ng-click="login(user)" class=" button button-assertive  button-block  icon-left ion-ios-email-outline "  id="signup-button3">LOGIN WITH EMAIL</button>
-
-      <button ng-click="facebookLogin()" class=" button button-positive  button-block icon-left ion-social-facebook "  id="signup-button4">LOGIN WITH FACEBOOK</button>
-    </form>
-    <a class=" button button-stable  button-block button-clear icon-left ion-ios-email-outline " id="login-button5" ui-sref="tabsController.forgotPassword">FORGOT PASSWORD</a>
-  </ion-content>
-</ion-view>
--->
-
-<!--
-<ion-content class="login-content" padding>
-  <ion-row class="logo-row">
-    <ion-col></ion-col>
-    <ion-col width-67>
-      <img src="http://placehold.it/300x200"/>
-    </ion-col>
-    <ion-col></ion-col>
-  </ion-row>
-  <div class="login-box">
+  <ion-content padding class="container">
+  <div class="form_box">
     <form>
-      <ion-row>
-        <ion-col>
-          <ion-list inset>
 
-            <ion-item>
-              <ion-input type="text" placeholder="Email" name="email" required></ion-input>
-            </ion-item>
+      <div class="form_heading button-rounded-share"></div>
+      <input type="email" placeholder="Enter Email"><br />
+      <input type="password" placeholder="Enter Password"><br />
+      <input type="submit" value="Login"><br />
+      <a class="font_20">Forgot your Password?</a><br /><br />
 
-            <ion-item>
-              <ion-input type="password" placeholder="Password" name="password" required></ion-input>
-            </ion-item>
+      <section>
+            <button class='entypo-facebook' style="margin-right:5%;" (click)="database.facebookRegister()"></button>
 
-          </ion-list>
-        </ion-col>
-      </ion-row>
+            <button class='entypo-gplus' style="margin-left:5%;" (click)="database.googleLogin()"></button>
 
-      <ion-row>
-        <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" >Login</button>
-          <button ion-button class="register-btn" block clear >Create New Account</button>
-        </ion-col>
-      </ion-row>
-
+      </section>
     </form>
   </div>
 </ion-content>
--->
+
