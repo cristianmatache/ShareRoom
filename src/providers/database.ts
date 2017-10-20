@@ -39,20 +39,20 @@ export class Database {
     }
   }
 
-  // facebookRegister() : Promise<any> {
-  //   user : User = facebookLogin();
-  //
-  // }
   facebookRegister() : Promise<any> {
     if (this.platform.is('cordova')) {
       return this.fb.login(['email', 'public_profile']).then(res => {
-        //TODO: add user picture and name here as well
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        firebase.auth().signInWithCredential(facebookCredential);
-      })
-    }
-    else {
-      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+        firebase.auth().signInWithCredential(facebookCredential).then(res =>
+        this.saveBasicUserInfo(res.user.uid, res.user.displayName,
+          res.additionalUserInfo.profile.picture.data.url,
+          res.user.emailVerified, res.user.phoneNumber, res.user.email))});
+    } else {
+      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res =>
+        { console.log(res);
+      this.saveBasicUserInfo(res.user.uid, res.user.displayName,
+        res.additionalUserInfo.profile.picture.data.url,
+        res.user.emailVerified, res.user.phoneNumber, res.user.email);});
     }
   }
 
@@ -60,10 +60,31 @@ export class Database {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
+  saveBasicUserInfo(uid: string, display_name : string, profile_picture: string,
+                    email_verified : string, phone_number: string, email : string) {
+    this.saveUserInfoParam(uid, 'display_name', display_name);
+    this.saveUserInfoParam(uid, 'profile_picture', profile_picture);
+    this.saveUserInfoParam(uid, 'email_verified', email_verified);
+    this.saveUserInfoParam(uid, 'phone_number', phone_number);
+    this.saveUserInfoParam(uid, 'email', email);
+  }
+
+  private saveUserInfoParam(uid : string, param : string, value: string) {
+    firebase.database().ref('users/' + uid + '/' + param).set(value);
+  }
+
   getCurrentUserId() : any {
     if (firebase.auth().currentUser) {
       console.log(firebase.auth().currentUser.uid);
       return firebase.auth().currentUser.uid;
+    } else {
+      return null;
+    }
+  }
+
+  getUserInfoById(uid : string) : any {
+    if (firebase.auth().currentUser) {
+      //TODO
     } else {
       return null;
     }

@@ -17,7 +17,7 @@ export class Chat {
   }
 
   sendMessage(msg : string, uid2: string) : Promise<Message> {
-    if (this.otherUser) {
+    if (uid2) {
       let uid1 : string = firebase.auth().currentUser.uid;
       var path = this.getChatPath(uid1, uid2);
 
