@@ -11,20 +11,14 @@ import { Message } from '../models/message';
 export class Chat {
 
   private database_chats = firebase.database().ref('/chats');
-  private otherUser : User = {} as User;
 
   constructor(public events: Events, private afAuth: AngularFireAuth, private afData: AngularFireDatabase) {
 
   }
 
-  initializeOther(otherUser : User) {
-    this.otherUser = otherUser;
-  }
-
-  sendMessage(msg : string) : Promise<any> {
+  sendMessage(msg : string, uid2: string) : Promise<Message> {
     if (this.otherUser) {
       let uid1 : string = firebase.auth().currentUser.uid;
-      let uid2 : string = this.otherUser.uid;
       var path = this.getChatPath(uid1, uid2);
 
       var promise = new Promise((resolve, reject) => {
