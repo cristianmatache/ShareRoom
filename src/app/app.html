@@ -1,1 +1,22 @@
-<ion-nav [root]="rootPage"></ion-nav>
+
+<ion-menu [content]="navMenu">
+
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose="navMenu" detail-none>
+        Close Menu 1
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav #navMenu [root]="rootPage" swipeBackEnabled="false"></ion-nav>
+
+
