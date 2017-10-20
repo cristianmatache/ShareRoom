@@ -82,7 +82,7 @@ export class Database {
     }
   }
 
-  getUserInfoById(uid : string) : User {
+  getUserInfoById(uid : string) : User | void {
     firebase.database().ref('/users/' + uid ).once('value',
       function(snapshot) {
         var db_user = snapshot.val();
@@ -116,7 +116,7 @@ export class Database {
     return user;
   }
 
-  private getCurrentUserParam(param_name) : any {
+  private getCurrentUserParam(param_name : string) : any {
     var userId = this.getCurrentUserId();
     if (userId) {
       firebase.database().ref('/users/' + userId + '/' + param_name).once('value',
