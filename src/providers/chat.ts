@@ -21,30 +21,38 @@ export class Chat {
       let uid1 : string = firebase.auth().currentUser.uid;
       var path = this.getChatPath(uid1, uid2);
 
-      var promise = new Promise((resolve, reject) => {
-        this.database_chats.child(path).push({
+      return new Promise((resolve, reject) => {
+        let message = {
           text: msg,
           from: uid2,
           by: uid1,
           timestamp: firebase.database.ServerValue.TIMESTAMP
-        })
-      })
-      return promise;
+        };
+        this.database_chats.child(path).push(message);
+        resolve(message);
+      });
+    } else {
+      return new Promise<Message>((resolve, reject) => {
+        reject("sendMessage: uid2");
+      });
     }
   }
 
-  getFriendMessages(num_of_messages : number, friend_iud : string) : Array<Message> {
+  getFriendMessages(num_of_messages : number, friend_iud : string) : Promise<Array<Message>> {
     let temp;
     let messages : Array<Message> = [];
     let uid1 : string = firebase.auth().currentUser.uid;
     var path = this.getChatPath(uid1, friend_iud);
-    this.database_chats.child(path).on('value', (snapshot) => {
-      temp = snapshot.val();
-      for (var i = 0; i < num_of_messages && i < temp.length; i++) {
-        messages.push(temp[i]);
-      }
-    })
-    return messages;
+
+    return new Promise<Array<Message>>((resolve, reject) => {
+      this.database_chats.child(path).on('value', (snapshot) => {
+        temp = snapshot.val();
+        for (var i = 0; i < num_of_messages && i < temp.length; i++) {
+          messages.push(temp[i]);
+        }
+        resolve(messages);
+      });
+    });
   }
 
   private getChatPath(uid1: string, uid2 : string) : string {

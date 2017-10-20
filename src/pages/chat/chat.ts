@@ -39,12 +39,6 @@ export class ChatPage {
   }
 
   public getBubbleClass(message: Message): String {
-    this.database.getUserInfoById(message.from)
-      .then((user) => {
-        user.email;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    return "";
   }
 }

@@ -10,50 +10,40 @@ import { Facebook } from '@ionic-native/facebook';
 @Injectable()
 export class Database {
 
-  private user: User = {} as User;
-
   constructor(private afAuth: AngularFireAuth, private afData: AngularFireDatabase,
     private fb: Facebook, private platform: Platform) {
   }
 
   login(user: User) : Promise<any> {
-    try {
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      return result;
-    }
-    catch (e) {
-      console.error(e);
-      return e;
-    }
+    return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
   }
 
   registerEmail(user: User) : Promise<any> {
-    try {
-      const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-      console.log("User created");
-      return result;
-    }
-    catch (e) {
-      console.log("ERROR: User NOT created");
-      return e;
-    }
+    return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
-  facebookRegister() : Promise<any> {
-    if (this.platform.is('cordova')) {
-      return this.fb.login(['email', 'public_profile']).then(res => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        firebase.auth().signInWithCredential(facebookCredential).then(res =>
-        this.saveBasicUserInfo(res.user.uid, res.user.displayName,
-          res.additionalUserInfo.profile.picture.data.url,
-          res.user.emailVerified, res.user.phoneNumber, res.user.email))});
-    } else {
-      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res =>
-        { console.log(res);
-      this.saveBasicUserInfo(res.user.uid, res.user.displayName,
-        res.additionalUserInfo.profile.picture.data.url,
-        res.user.emailVerified, res.user.phoneNumber, res.user.email);});
-    }
+  facebookRegister() : Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      if (this.platform.is('cordova')) {
+        this.fb.login(['email', 'public_profile']).then(res => {
+          const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          firebase.auth().signInWithCredential(facebookCredential).then(res => {
+            this.saveBasicUserInfo(res.user.uid, res.user.displayName,
+              res.additionalUserInfo.profile.picture.data.url,
+              res.user.emailVerified, res.user.phoneNumber, res.user.email);
+            resolve();
+          }).catch(reject);
+        }).catch(reject);
+      } else {
+        this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
+          console.log(res);
+          this.saveBasicUserInfo(res.user.uid, res.user.displayName,
+            res.additionalUserInfo.profile.picture.data.url,
+            res.user.emailVerified, res.user.phoneNumber, res.user.email);
+          resolve();
+        }).catch(reject);
+      }
+    });
   }
 
   googleLogin() : Promise<any> {
@@ -73,9 +63,8 @@ export class Database {
     firebase.database().ref('users/' + uid + '/' + param).set(value);
   }
 
-  getCurrentUserId() : any {
+  getCurrentUserId() : string {
     if (firebase.auth().currentUser) {
-      console.log(firebase.auth().currentUser.uid);
       return firebase.auth().currentUser.uid;
     } else {
       return null;
@@ -98,7 +87,7 @@ export class Database {
           };
           resolve(user);
         }, function (errorObject) {
-          reject("Error on returning");
+          reject("Error on returning: " + errorObject.code);
         });
     });
   }
@@ -118,28 +107,22 @@ export class Database {
     return user;
   }
 
-  private getCurrentUserParam(param_name : string) : any {
+  private getCurrentUserParam(param_name : string) : Promise<string> {
     var userId = this.getCurrentUserId();
     if (userId) {
-      firebase.database().ref('/users/' + userId + '/' + param_name).once('value',
-        function(snapshot) {
-          console.log(snapshot.val());
-          return snapshot.val();
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
+      return new Promise<string>((resolve, reject) => {
+        firebase.database().ref('/users/' + userId + '/' + param_name).once('value',
+          function(snapshot) {
+            resolve(snapshot.val());
+          }, function (errorObject) {
+            reject("The read failed: " + errorObject.code);
+          });
+      });
     } else {
-      console.log("You need to log in");
+      return new Promise<string>((resolve, reject) => {
+        reject("You need to log in");
+      });
     }
   }
-
-  // addFriend(userId_1, userId_2) {
-  //   firebase.database().ref('/users/' + userId_1 + '/friends').push().set({
-  //     userId_2
-  //   });
-  //   firebase.database().ref('/users/' + userId_2 + '/friends').push().set({
-  //     userId_1
-  //   });
-  // }
 
 }
