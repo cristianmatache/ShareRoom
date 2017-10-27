@@ -1,5 +1,5 @@
 export interface Message {
-  text: String;
+  text: string;
   from: string;
   by: string;
   timestamp: Date;

@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-import { Platform } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Database } from '../../providers/database';
+import { User } from '../../models/user';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,11 +16,9 @@ import { Database } from '../../providers/database';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  user = {} as User
+  user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth,
-    public navCtrl: NavController, public navParams: NavParams,
-    private fb: Facebook, private platform: Platform, private database: Database) {
+  constructor(public navCtrl: NavController, public database : Database) {
   }
 
   ionViewDidLoad() {
