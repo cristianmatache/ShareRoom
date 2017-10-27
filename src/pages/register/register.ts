@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { User } from '../../models/user';
-
 /**
  * Generated class for the RegisterPage page.
  *
