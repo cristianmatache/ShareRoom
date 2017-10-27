@@ -20,8 +20,8 @@ export class Chat {
       return new Promise((resolve) => {
         let message = {
           text: msg,
-          from: uid2,
-          by: uid1,
+          from: uid1,
+          to: uid2,
           timestamp: firebase.database.ServerValue.TIMESTAMP
         };
         this.database_chats.child(path).push(message).then(() => {
@@ -52,9 +52,14 @@ export class Chat {
     });
   }
 
-  subscribeToChat(friend_uid : string) {
-    // let uid1 : string = firebase.auth().currentUser.uid;
-    // var path = this.getChatPath(uid1, friend_uid);
+  subscribeToChat(num_of_messages: number, friend_uid : string) {
+    let uid1 : string = firebase.auth().currentUser.uid;
+    var path = this.getChatPath(uid1, friend_uid);
+
+    var friendChat = firebase.database().ref(path);
+    friendChat.on('value', function(snapshot) {
+      return this.getFriendMessages(num_of_messages, friend_uid);
+    });
   }
 
   private getChatPath(uid1: string, uid2 : string) : string {

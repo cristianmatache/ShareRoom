@@ -1,6 +1,6 @@
 export interface Message {
   text: string;
   from: string;
-  by: string;
+  to: string;
   timestamp: Date;
 }
