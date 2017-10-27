@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {User} from "../../models/user";
-import {Message} from "../../models/message";
-import {Database} from "../../providers/database";
-import {Chat} from "../../providers/chat";
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { User } from "../../models/user";
+import { Message } from "../../models/message";
+import { Database } from "../../providers/database";
+import { Chat } from "../../providers/chat";
 
 /**
  * Generated class for the ChatPage page.
@@ -19,11 +19,11 @@ import {Chat} from "../../providers/chat";
 })
 export class ChatPage {
 
-  input: String = "";
-  friendName: String = "Alex";
+  input: string = "";
+  friendId: string = "Alex";
   messages: Message[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public chat: Chat) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public chat: Chat, public db: Database) {
     database.login({email: "hello@google.com", password: "password"} as User).then((data) => {
     }).catch((err) => {
       console.error(err);
@@ -35,10 +35,15 @@ export class ChatPage {
       return
     }
 
+    this.chat.sendMessage(this.input, this.friendId).then(msg => {
+      this.messages.push(msg);
+    }).catch(console.error);
+
     this.input = ""
   }
 
-  public getBubbleClass(message: Message): String {
-    return "";
+  public getBubbleClass(message: Message): string {
+    return message.from == this.db.getCurrentUserId() ? ".chat-bubble" +
+      " .chat-bubble-me" : ".chat-bubble .chat-bubble-other";
   }
 }
