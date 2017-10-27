@@ -1,7 +1,5 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
@@ -10,7 +8,7 @@ import { Facebook } from '@ionic-native/facebook';
 @Injectable()
 export class Database {
 
-  constructor(private afAuth: AngularFireAuth, private afData: AngularFireDatabase,
+  constructor(private afAuth: AngularFireAuth,
     private fb: Facebook, private platform: Platform) {
   }
 
@@ -92,7 +90,7 @@ export class Database {
     });
   }
 
-  private getCurrentUserParam(param_name : string) : Promise<string> {
+  /*private getCurrentUserParam(param_name : string) : Promise<string> {
     var userId = this.getCurrentUserId();
     if (userId) {
       return new Promise<string>((resolve, reject) => {
@@ -108,6 +106,6 @@ export class Database {
         reject("You need to log in");
       });
     }
-  }
+  }*/
 
 }

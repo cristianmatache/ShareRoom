@@ -1,8 +1,4 @@
-import { Component, Injectable } from '@angular/core';
-import { User } from '../models/user';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { Events } from 'ionic-angular';
 import { Message } from '../models/message';
@@ -12,7 +8,7 @@ export class Chat {
 
   private database_chats = firebase.database().ref('/chats');
 
-  constructor(public events: Events, private afAuth: AngularFireAuth, private afData: AngularFireDatabase) {
+  constructor(public events: Events) {
 
   }
 
@@ -57,11 +53,8 @@ export class Chat {
   }
 
   subscribeToChat(friend_uid : string) {
-    let uid1 : string = firebase.auth().currentUser.uid;
-    var path = this.getChatPath(uid1, friend_uid);
-
-
-
+    // let uid1 : string = firebase.auth().currentUser.uid;
+    // var path = this.getChatPath(uid1, friend_uid);
   }
 
   private getChatPath(uid1: string, uid2 : string) : string {
