@@ -52,30 +52,15 @@ export class Chat {
     });
   }
 
-  subscribeToChat(friend_uid : string) {
+  subscribeToChat(num_of_messages: number, friend_uid : string) {
     let uid1 : string = firebase.auth().currentUser.uid;
     var path = this.getChatPath(uid1, friend_uid);
-  }
 
-  // observeMessages(friend_uid : string) {
-  //   let uid1 : string = firebase.auth().currentUser.uid;
-  //   var path = this.getChatPath(uid1, friend_uid);
-  //
-  //   var newMessageRefHandle = messageQuery.observe(.childAdded, with: { (snapshot) -> Void in
-  //     // 3
-  //     let messageData = snapshot.value as! Dictionary<String, String>
-  //
-  //     if let id = messageData["senderId"] as String!, let name = messageData["senderName"] as String!, let text = messageData["text"] as String!, text.characters.count > 0 {
-  //       // 4
-  //       self.addMessage(withId: id, name: name, text: text)
-  //
-  //       // 5
-  //       self.finishReceivingMessage()
-  //     } else {
-  //       print("Error! Could not decode message data")
-  //     }
-  //   })
-  // }
+    var friendChat = firebase.database().ref(path);
+    friendChat.on('value', function(snapshot) {
+      return this.getFriendMessages(num_of_messages, friend_uid);
+    });
+  }
 
   private getChatPath(uid1: string, uid2 : string) : string {
     return uid1 < uid2 ? uid1+'/'+uid2 : uid2+'/'+uid1;
