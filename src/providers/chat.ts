@@ -57,9 +57,11 @@ export class Chat {
     var path = this.getChatPath(uid1, friend_uid);
 
     var friendChat = firebase.database().ref(path);
-    friendChat.on('value', function(snapshot) {
-      return this.getFriendMessages(num_of_messages, friend_uid);
-    });
+    return new Promise<Array<Message>>((resolve, reject) => {
+      friendChat.on('value', function(snapshot) {
+        resolve(this.getFriendMessages(num_of_messages, friend_uid));
+      });
+    })
   }
 
   private getChatPath(uid1: string, uid2 : string) : string {
