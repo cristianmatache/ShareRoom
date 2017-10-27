@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { User } from '../../models/user';
+import {Database} from "../../providers/database";
 
 /**
  * Generated class for the RegisterPage page.
@@ -18,7 +19,7 @@ export class RegisterPage {
 
   user = {} as User;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public database : Database) {
   }
 
   ionViewDidLoad() {

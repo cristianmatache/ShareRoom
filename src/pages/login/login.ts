@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { User } from '../../models/user';
+import { RegisterPage } from '../../pages/register/register';
 
 /**
  * Generated class for the LoginPage page.
@@ -13,7 +14,7 @@ import { User } from '../../models/user';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
   user = {} as User;

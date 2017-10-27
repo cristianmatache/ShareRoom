@@ -4,11 +4,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {LoginPage} from "../pages/login/login";
+import {RegisterPage} from "../pages/register/register";
+import {ChatPage} from "../pages/chat/chat";
+import {ProfilePage} from "../pages/profile/profile";
+
 @Component({
   templateUrl: 'app.html'
 })
 export class ShareRoom {
-  rootPage:any = LoginPage;
+  rootPage:any = ProfilePage;
   pages:number =1;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {

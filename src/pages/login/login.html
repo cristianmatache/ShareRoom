@@ -5,20 +5,22 @@
   Ionic pages and navigation.
 -->
 
-  <ion-content padding class="container">
+<ion-content padding class="container">
   <div class="form_box">
     <form>
 
       <div class="form_heading button-rounded-share"></div>
       <input type="email" placeholder="Enter Email"><br />
       <input type="password" placeholder="Enter Password"><br />
-      <input type="submit" value="Login"><br />
-      <a class="font_20">Forgot your Password?</a><br /><br />
-
       <section>
-            <button class='entypo-facebook' style="margin-right:5%;" (click)="database.facebookRegister()"></button>
+        <button class="form_button" value="Login"><br />Login</button>
+        <button class="form_button" (click)="this.register()" value="Register"><br />Register</button>
+      </section>
+      <a class="font_20">Forgot your Password?</a><br /><br />
+      <section>
+            <button class=' button-custom entypo-facebook' style="margin-right:5%;" (click)="database.facebookRegister()"></button>
 
-            <button class='entypo-gplus' style="margin-left:5%;" (click)="database.googleLogin()"></button>
+            <button class='button-custom entypo-gplus' style="margin-left:5%;" (click)="database.googleLogin()"></button>
 
       </section>
     </form>
