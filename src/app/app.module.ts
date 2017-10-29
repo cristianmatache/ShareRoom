@@ -21,8 +21,7 @@ import { Database } from '../providers/database';
 import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
 import {MapPage} from "../pages/map/map";
-import {PostItemPage} from "../pages/post-item/post-item";
-import {AddItemPage} from "../pages/add-item/add-item";
+import {AddItemPage} from "../pages/post-item/post-item";
 import {TabsPage} from "../pages/tabs/tabs";
 import {ItemPage} from "../pages/item/item";
 
@@ -33,7 +32,6 @@ import {ItemPage} from "../pages/item/item";
     LoginPage,
     ChatPage,
     MapPage,
-    PostItemPage,
     AddItemPage,
     TabsPage,
     ItemPage,
@@ -52,7 +50,6 @@ import {ItemPage} from "../pages/item/item";
     LoginPage,
     ChatPage,
     MapPage,
-    PostItemPage,
     AddItemPage,
     TabsPage,
     ItemPage,

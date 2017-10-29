@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HomePage} from "../home/home";
-import {AddItemPage} from "../add-item/add-item";
+import {AddItemPage} from "../post-item/post-item";
 
 /**
  * Generated class for the TabsPage page.
