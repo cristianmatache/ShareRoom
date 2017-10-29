@@ -14,5 +14,23 @@
 
 
 <ion-content padding>
+  <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === ''">
+  <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+
+  <button ion-button icon-left (click)="presentActionSheet()">
+    <ion-icon name="camera"></ion-icon>Select Image
+  </button>
+
+  <ion-item>
+    <ion-label floating>Name</ion-label>
+    <ion-input type="text" [(ngModel)]="item.name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating >Description</ion-label>
+    <ion-input type="text" [(ngModel)]="item.description"></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="addItem()">Post Item</button>
 
 </ion-content>

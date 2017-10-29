@@ -5,14 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {Database} from "../providers/database";
 import {LoginPage} from "../pages/login/login";
-import {HomePage} from "../pages/home/home";
 import {User} from "../models/user";
 import {MapPage} from "../pages/map/map";
+import {AddItemPage} from "../pages/add-item/add-item";
 @Component({
   templateUrl: 'app.html'
 })
 export class ShareRoom {
-  rootPage: any = LoginPage;
+  rootPage: any = AddItemPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private db: Database) {
     platform.ready().then(() => {
@@ -23,8 +23,8 @@ export class ShareRoom {
         splashScreen.hide();
       }
 
-      this.subscribeLoginEvent();
-      this.fakeLogin();
+      //this.subscribeLoginEvent();
+      //this.fakeLogin();
     });
   }
 
@@ -38,10 +38,10 @@ export class ShareRoom {
     });
   }
 
-  fakeLogin() {
-    this.db.login({email: "hello@google.com", password: "password"} as User).then((data) => {
-    }).catch((err) => {
-      console.error(err);
-    });
-  }
+  // fakeLogin() {
+  //   this.db.login({email: "hello@google.com", password: "password"} as User).then((data) => {
+  //   }).catch((err) => {
+  //     console.error(err);
+  //   });
+  // }
 }
