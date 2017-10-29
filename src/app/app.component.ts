@@ -13,7 +13,7 @@ import {TabsPage} from "../pages/tabs/tabs";
   templateUrl: 'app.html'
 })
 export class ShareRoom {
-  rootPage: any = AddItemPage;
+  rootPage: any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private db: Database) {
     platform.ready().then(() => {
@@ -24,8 +24,8 @@ export class ShareRoom {
         splashScreen.hide();
       }
 
-      //this.subscribeLoginEvent();
-      //this.fakeLogin();
+      this.subscribeLoginEvent();
+      this.fakeLogin();
     });
   }
 
@@ -39,10 +39,10 @@ export class ShareRoom {
     });
   }
 
-  // fakeLogin() {
-  //   this.db.login({email: "hello@google.com", password: "password"} as User).then((data) => {
-  //   }).catch((err) => {
-  //     console.error(err);
-  //   });
-  // }
+  fakeLogin() {
+    this.db.login({email: "hello@google.com", password: "password"} as User).then((data) => {
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
 }

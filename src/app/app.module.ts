@@ -23,6 +23,7 @@ import { Chat } from "../providers/chat";
 import {MapPage} from "../pages/map/map";
 import {AddItemPage} from "../pages/add-item/add-item";
 import {TabsPage} from "../pages/tabs/tabs";
+import {ItemPage} from "../pages/item/item";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {TabsPage} from "../pages/tabs/tabs";
     MapPage,
     AddItemPage,
     TabsPage,
+    ItemPage,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import {TabsPage} from "../pages/tabs/tabs";
     MapPage,
     AddItemPage,
     TabsPage,
+    ItemPage,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
