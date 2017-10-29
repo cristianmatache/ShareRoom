@@ -1,3 +1,42 @@
 page-post-item {
+  .card-background-page {
 
+    ion-card {
+      position: relative;
+      text-align: center;
+    }
+
+    .card-md {
+      width: 50%;
+      margin: auto;
+      margin-top:20px;
+      max-width: 300px ;
+      margin-bottom: 20px;
+    }
+
+    ion-textarea {
+      height:105px
+    }
+
+    textarea{
+      height:100%
+    }
+
+    .card-ios{
+      width: 50%;
+      margin: auto;
+      margin-top:20px;
+      margin-bottom:20px;
+    }
+
+    .card-title {
+      position: absolute;
+      top: 40%;
+      font-size: 1.4em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+
+  }
 }

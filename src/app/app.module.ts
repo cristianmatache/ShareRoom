@@ -17,6 +17,7 @@ import { Database } from '../providers/database';
 import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
 import {MapPage} from "../pages/map/map";
+import {PostItemPage} from "../pages/post-item/post-item";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MapPage} from "../pages/map/map";
     HomePage,
     LoginPage,
     ChatPage,
-    MapPage
+    MapPage,
+    PostItemPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import {MapPage} from "../pages/map/map";
     HomePage,
     LoginPage,
     ChatPage,
-    MapPage
+    MapPage,
+    PostItemPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
