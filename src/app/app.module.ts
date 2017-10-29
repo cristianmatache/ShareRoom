@@ -21,8 +21,10 @@ import { Database } from '../providers/database';
 import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
 import {MapPage} from "../pages/map/map";
-import {AddItemPage} from "../pages/add-item/add-item";
+import {PostItemPage} from "../pages/post-item/post-item";
 import {TabsPage} from "../pages/tabs/tabs";
+import {ItemPage} from "../pages/item/item";
+import {ProfilePage} from "../pages/profile/profile";
 
 @NgModule({
   declarations: [
@@ -31,8 +33,10 @@ import {TabsPage} from "../pages/tabs/tabs";
     LoginPage,
     ChatPage,
     MapPage,
-    AddItemPage,
+    PostItemPage,
     TabsPage,
+    ItemPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,10 @@ import {TabsPage} from "../pages/tabs/tabs";
     LoginPage,
     ChatPage,
     MapPage,
-    AddItemPage,
+    PostItemPage,
     TabsPage,
+    ItemPage,
+    ProfilePage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

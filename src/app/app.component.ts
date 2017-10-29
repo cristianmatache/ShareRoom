@@ -7,8 +7,9 @@ import {Database} from "../providers/database";
 import {LoginPage} from "../pages/login/login";
 import {User} from "../models/user";
 import {MapPage} from "../pages/map/map";
-import {AddItemPage} from "../pages/add-item/add-item";
+import {PostItemPage} from "../pages/post-item/post-item";
 import {TabsPage} from "../pages/tabs/tabs";
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -32,7 +33,7 @@ export class ShareRoom {
   subscribeLoginEvent() {
     this.db.subscribeLoginEvent(() => {
       if (this.db.isLoggedin()) {
-        this.rootPage = AddItemPage;
+        this.rootPage = PostItemPage;
       } else {
         this.rootPage = LoginPage;
       }

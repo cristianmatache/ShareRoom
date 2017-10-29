@@ -110,7 +110,7 @@ export class Database {
     }
   }*/
 
-  addItem(name : string, description : string, picture: string) {
+  addItem(name : string, description : string, picture: string, type : string) {
     console.log("----------- UPLOAD ITEM -------------");
     console.log(picture);
     let item = {
@@ -120,6 +120,7 @@ export class Database {
       owner_uid: this.getCurrentUserId(),
       picture: picture,
       date_posted: firebase.database.ServerValue.TIMESTAMP,
+      type: type,
     };
     this.uploadImage(picture, "/pic", () => {
       console.log("IT IS DONE---------------------------");

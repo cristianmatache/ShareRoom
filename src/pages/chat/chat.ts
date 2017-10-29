@@ -20,10 +20,18 @@ import { Chat } from "../../providers/chat";
 export class ChatPage {
 
   input: string = "";
-  friendId: string = "PhMUkbbHHRXFy9XqmeYxHN3GYx13";
+  friendId: string;
   messages: Message[] = [];
+  friend: User = {} as User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public chat: Chat, public db: Database) {
+    this.friendId = navParams.get("friendId");
+    database.getUserInfoById(this.friendId)
+      .then((u) => {
+        this.friend = u;
+      })
+      .catch(console.error);
+
     database.login({email: "hello@google.com", password: "password"} as User).then((data) => {
       this.refresh(100);
       this.subscribeToNewChats();

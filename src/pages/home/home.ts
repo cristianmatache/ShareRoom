@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import { MapPage } from '../map/map';
-import {Item} from "../../models/item";
+import {Item, ItemType} from "../../models/item";
+import { ItemPage } from "../item/item";
+import { Database } from "../../providers/database";
 
 @Component({
   selector: 'page-home',
@@ -14,7 +16,7 @@ export class HomePage {
 
   items: Item[] = [];
 
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController) {}
+  constructor(public navCtrl: NavController, public menuCtrl: MenuController, public app: App, private db: Database) {}
 
   ionViewDidLoad() {
     this.refreshItems();
@@ -24,38 +26,43 @@ export class HomePage {
     this.items.push({
       name: "Bed",
       location: [-1, 1],
-      owner_uid: "owner",
+      owner_uid: this.db.getCurrentUserId(),
       picture: "../../assets/image/bed.jpg",
       description: "This is a bed",
-      date_posted: new Date().getTime()
+      date_posted: new Date().getTime(),
+      type: ItemType.FREE
     }, {
       name: "Bed",
       location: [-1, 1],
-      owner_uid: "owner",
+      owner_uid: this.db.getCurrentUserId(),
       picture: "../../assets/image/bicycle.JPG",
       description: "This is a bed",
-      date_posted: new Date().getTime()
+      date_posted: new Date().getTime(),
+      type: ItemType.SWAP
     }, {
       name: "Bed",
       location: [-1, 1],
-      owner_uid: "owner",
+      owner_uid: this.db.getCurrentUserId(),
       picture: "../../assets/image/marty-avatar.png",
       description: "This is a bed",
-      date_posted: new Date().getTime()
+      date_posted: new Date().getTime(),
+      type: ItemType.SWAP
     }, {
       name: "Bed",
       location: [-1, 1],
-      owner_uid: "owner",
+      owner_uid: this.db.getCurrentUserId(),
       picture: "../../assets/image/tv.jpg",
       description: "This is a bed",
-      date_posted: new Date().getTime()
+      date_posted: new Date().getTime(),
+      type: ItemType.SWAP
     }, {
       name: "Bed",
       location: [-1, 1],
-      owner_uid: "owner",
+      owner_uid: this.db.getCurrentUserId(),
       picture: "../../assets/image/bed.jpg",
       description: "This is a bed",
-      date_posted: new Date().getTime()
+      date_posted: new Date().getTime(),
+      type: ItemType.LOAN
     });
   }
 
@@ -69,6 +76,10 @@ export class HomePage {
 
   changeToMap() {
     this.navCtrl.setRoot(MapPage);
+  }
+
+  showItem(item) {
+    this.app.getRootNav().push(ItemPage, {item: item});
   }
 
   getDistanceTill(item) {

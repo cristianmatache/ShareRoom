@@ -5,10 +5,11 @@ export interface Item {
   picture: string;
   description: string;
   date_posted: number;
+  type: string;
 }
 
-enum ItemType {
-  FOR_SWAP,
-  FOR_FREE,
-  FOR_LOAN,
-}
+export let ItemType = {
+  SWAP: "SWAP",
+  FREE: "FREE",
+  LOAN: "LOAN",
+};
