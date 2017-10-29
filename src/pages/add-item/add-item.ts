@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera';
 import { ActionSheetController, ToastController, Platform } from 'ionic-angular';
 
 import { File } from '@ionic-native/file';
@@ -34,31 +34,48 @@ export class AddItemPage {
   lastImage = "src/assets/image/bed.jpg";
 
   item = {} as Item;
+  private isActiveToast: boolean = false;
 
   options: CameraOptions = {
     quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
+    destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
+    saveToPhotoAlbum: true
   };
 
-  public presentActionSheet() {
+  private presentToast(toastMessage: string) {
+    let toast = this.toastCtrl.create({
+      message: toastMessage,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      this.isActiveToast = false;
+    });
+
+    if (!this.isActiveToast) {
+      toast.present();
+      this.isActiveToast = true;
+    }
+  }
+
+  public changePhoto() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Select Image Source',
+      title: 'Choose source',
       buttons: [
         {
-          text: 'Load from Library',
+          text: 'Photo Library',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.selectPic();
           }
-        },
-        {
-          text: 'Use Camera',
+        }, {
+          text: 'Camera',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
+            this.takePic();
           }
-        },
-        {
+        }, {
           text: 'Cancel',
           role: 'cancel'
         }
@@ -67,101 +84,36 @@ export class AddItemPage {
     actionSheet.present();
   }
 
-  takePicture(sourceType) {
-    // Get the data of an image
-    console.log("TAKE PICTURE! (both lib and camera)");
-    this.camera.getPicture(this.options).then((imagePath) => {
-      console.log("TAKE PICTURE FROM CAMERA!");
-      // Special handling for Android library
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-        this.filePath.resolveNativePath(imagePath).then(filePath => {
-          let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-          let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-          this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-        });
-      } else {
-        console.log("TAKE PICTURE FROM LIBRARY!");
-        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-        var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-      }
-    }, (err) => {
-      this.presentToast('Error while selecting image.');
+  selectPic() {
+    this.camera.getPicture({
+      quality: this.options.quality,
+      destinationType: this.options.destinationType,
+      encodingType: this.options.encodingType,
+      mediaType: this.options.mediaType,
+      sourceType: PictureSourceType.PHOTOLIBRARY
+    })
+    .then((imageData) => {
+      this.item.picture = imageData;
+      console.log("The image data is:" + imageData);
+    })
+    .catch((error) => {
+      console.error(error);
     });
   }
 
-  // Create a new name for the image
-  private createFileName() {
-    var d = new Date(),
-      n = d.getTime(),
-      newFileName =  n + ".jpg";
-    return newFileName;
-  }
-
-  //Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
-    }, error => {
-      this.presentToast('Error while storing file.');
+  takePic() {
+    this.camera.getPicture(this.options)
+    .then((imageData) => {
+      this.item.picture = imageData;
+      console.log(imageData);
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  }
-
-  private presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
-
-  // Always get the accurate path to your apps folder
-  public pathForImage(img) {
-    if (img === null) {
-      return '';
-    } else {
-      return this.file.dataDirectory + img;
-    }
-  }
-
-  public uploadImage() {
-    // Destination URL
-    var url = "http://yoururl/upload.php";
-
-    // File for Upload
-    var targetPath = this.pathForImage(this.lastImage);
-
-    // File name only
-    var filename = this.lastImage;
-
-    var options = {
-      fileKey: "file",
-      fileName: filename,
-      chunkedMode: false,
-      mimeType: "multipart/form-data",
-      params : {'fileName': filename}
-    };
-
-    const fileTransfer: TransferObject = this.transfer.create();
-
-    // const loading = this.loadingCtrl.create({
-    //   content: 'Please wait...'
-    // });
-    // loading.present();
-    //
-    // // Use the FileTransfer to upload the image
-    // fileTransfer.upload(targetPath, url, options).then(data => {
-    //   loading.dismissAll()
-    //   this.presentToast('Image succesful uploaded.');
-    // }, err => {
-    //   loading.dismissAll()
-    //   this.presentToast('Error while uploading file.');
-    // });
   }
 
   addItem() {
-    this.database.addItem(this.item.name, this.item.description);
+    this.database.addItem(this.item.name, this.item.description, this.item.picture);
   }
 
 }

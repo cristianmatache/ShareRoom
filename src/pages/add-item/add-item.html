@@ -14,12 +14,15 @@
 
 
 <ion-content padding>
-  <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === ''">
+  <!--<img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === ''">-->
   <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
 
-  <button ion-button icon-left (click)="presentActionSheet()">
+  <button ion-button icon-left (click)="changePhoto()">
     <ion-icon name="camera"></ion-icon>Select Image
   </button>
+
+  <img [src]="item.picture" />
+  {{item.picture}}
 
   <ion-item>
     <ion-label floating>Name</ion-label>
