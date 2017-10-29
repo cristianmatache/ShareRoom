@@ -25,17 +25,40 @@ export class ChatPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public chat: Chat, public db: Database) {
     database.login({email: "hello@google.com", password: "password"} as User).then((data) => {
-      this.refresh();
+      this.refresh(100);
+      this.subscribeToNewChats();
     }).catch((err) => {
       console.error(err);
     });
   }
 
-  public refresh() {
-    this.chat.getFriendMessages(100, this.friendId)
+  ngOnDestroy() {
+    this.chat.unsubscribeFromChat(this.friendId);
+  }
+
+  private subscribeToNewChats() {
+    this.chat.subscribeToChat(this.friendId, (snap) => {
+      this.refresh(1);
+    })
+  }
+
+  public refresh(num) {
+    this.chat.getFriendMessages(num, this.friendId)
       .then(messages => {
-        console.log(messages);
-        messages.map(m => this.messages.push(m));
+        messages.map(m => {
+          if (this.messages.indexOf(m) < 0) {
+            this.messages.push(m);
+          }
+        });
+        this.messages.sort((a, b) => {
+          if (a.timestamp === b.timestamp) {
+            return 0;
+          } else if (a.timestamp > b.timestamp) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
       })
       .catch(console.error);
   }

@@ -6,7 +6,7 @@ import { Message } from '../models/message';
 @Injectable()
 export class Chat {
 
-  private database_chats = firebase.database().ref('/chats');
+  private databaseChats = firebase.database().ref('/chats');
 
   constructor(public events: Events) {
 
@@ -24,7 +24,7 @@ export class Chat {
           to: uid2,
           timestamp: firebase.database.ServerValue.TIMESTAMP
         };
-        this.database_chats.child(path).push(message).then(() => {
+        this.databaseChats.child(path).push(message).then(() => {
           resolve(message);
         });
       });
@@ -42,7 +42,7 @@ export class Chat {
     let path = this.getChatPath(uid1, friend_uid);
 
     return new Promise<Array<Message>>((resolve, reject) => {
-      this.database_chats.child(path).once('value', (snapshot) => {
+      this.databaseChats.child(path).once('value', (snapshot) => {
         temp = snapshot.val();
 
         var i = 0;
@@ -59,16 +59,23 @@ export class Chat {
     });
   }
 
-  subscribeToChat(num_of_messages: number, friend_uid : string) {
+  subscribeToChat(friend_uid: string, sub: (snap) => void) {
     let uid1 : string = firebase.auth().currentUser.uid;
     var path = this.getChatPath(uid1, friend_uid);
 
     var friendChat = firebase.database().ref(path);
-    return new Promise<Array<Message>>((resolve, reject) => {
-      friendChat.on('value', function(snapshot) {
-        resolve(this.getFriendMessages(num_of_messages, friend_uid));
-      });
-    })
+
+    friendChat.on('value', function(snapshot) {
+      sub(snapshot);
+    });
+  }
+
+  unsubscribeFromChat(friend_uid: string) {
+    let uid1 : string = firebase.auth().currentUser.uid;
+    var path = this.getChatPath(uid1, friend_uid);
+
+    var friendChat = firebase.database().ref(path);
+    friendChat.off();
   }
 
   private getChatPath(uid1: string, uid2 : string) : string {

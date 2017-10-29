@@ -108,4 +108,12 @@ export class Database {
     }
   }*/
 
+  subscribeLoginEvent(callback: () => void) {
+    firebase.auth().onAuthStateChanged(callback);
+  }
+
+  isLoggedin(): boolean {
+    return firebase.auth().currentUser != null;
+  }
+
 }
