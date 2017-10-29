@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import {User} from "../../models/user";
 import {Database} from "../../providers/database";
+import {ChatPage} from "../chat/chat";
 
 /**
  * Generated class for the ItemPage page.
@@ -32,5 +33,11 @@ export class ItemPage {
 
   getPicture() {
     return this.item.picture ? this.item.picture : "";
+  }
+
+  startChat() {
+    this.navCtrl.push(ChatPage, {
+      friendId: this.item.owner_uid
+    })
   }
 }
