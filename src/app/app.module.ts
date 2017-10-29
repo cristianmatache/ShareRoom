@@ -16,13 +16,15 @@ import { Facebook } from '@ionic-native/facebook';
 import { Database } from '../providers/database';
 import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
+import {MapPage} from "../pages/map/map";
 
 @NgModule({
   declarations: [
     ShareRoom,
     HomePage,
     LoginPage,
-    ChatPage
+    ChatPage,
+    MapPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { Chat } from "../providers/chat";
     ShareRoom,
     HomePage,
     LoginPage,
-    ChatPage
+    ChatPage,
+    MapPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
