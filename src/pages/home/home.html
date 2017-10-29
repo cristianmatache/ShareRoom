@@ -1,198 +1,47 @@
-<ion-header >
+<ion-header>
   <ion-navbar color="primary">
-    <button ion-button [menuToggle]="navMenu">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      ShareRoom
-    </ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9 col-xl-11>
+          <ion-searchbar
+            [(ngModel)]="searchQuerry"
+            [showCancelButton]="searchQuerry !== null"
+            (ionInput)="onSearch($event)"
+            (ionCancel)="onCancelSearch($event)">
+          </ion-searchbar>
+        </ion-col>
+        <ion-col col-1 col-xl-1>
+          <button ion-button color="secondary">Filters</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-
   <ion-grid>
     <ion-row>
-
-
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/monopoly.jpg">
-
-              <ion-card-title>Monopoly Board</ion-card-title>
+      <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
+        <ion-row *ngFor="let item of items; let i = index">
+          <ion-col *ngIf="i % getNumberOfColumns().length === nr">
+            <ion-card (click)="showItem(item)">
+              <img [src]="item.picture">
+              <ion-card-title>{{item.name}}</ion-card-title>
               <ion-row no-padding>
                 <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-              <img src="../../assets/image/bed.jpg">
-              <ion-card-title>Bed and Matress</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
+                  <div>{{this.getDistanceTill(item)}}</div>
                 </ion-col>
               </ion-row>
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-col>
-
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/tv.jpg">
-
-              <ion-card-title>Samsung TV</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>11min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(1.6 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/bicycle.JPG">
-
-              <ion-card-title>Bike</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/monopoly.jpg">
-
-              <ion-card-title>Monopoly Board</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-              <img src="../../assets/image/bed.jpg">
-              <ion-card-title>Bed and Matress</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/tv.jpg">
-
-              <ion-card-title>Samsung TV</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/bicycle.JPG">
-
-              <ion-card-title>Bike</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-
-
     </ion-row>
   </ion-grid>
-
+  <ion-fab bottom right>
+    <button ion-fab (click)="changeToMap()">
+      <ion-icon name="pin"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
