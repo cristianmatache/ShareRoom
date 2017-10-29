@@ -5,10 +5,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {Database} from "../providers/database";
 import {LoginPage} from "../pages/login/login";
-import {HomePage} from "../pages/home/home";
 import {User} from "../models/user";
 import {MapPage} from "../pages/map/map";
 import {PostItemPage} from "../pages/post-item/post-item";
+import {AddItemPage} from "../pages/add-item/add-item";
+import {TabsPage} from "../pages/tabs/tabs";
+
 @Component({
   templateUrl: 'app.html'
 })

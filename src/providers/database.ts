@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import {Item} from "../models/item";
 
 @Injectable()
 export class Database {
@@ -107,6 +108,18 @@ export class Database {
       });
     }
   }*/
+
+  addItem(name : string, description : string) {
+    let item = {
+      name: name,
+      description: description,
+      location: [0,0],
+      owner_uid: this.getCurrentUserId(),
+      picture: "",
+      date_posted: firebase.database.ServerValue.TIMESTAMP,
+    };
+    firebase.database().ref('users/' + this.getCurrentUserId() + '/items/').push(item);
+  }
 
   subscribeLoginEvent(callback: () => void) {
     firebase.auth().onAuthStateChanged(callback);
