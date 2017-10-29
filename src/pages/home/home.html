@@ -1,8 +1,20 @@
 <ion-header >
   <ion-navbar color="primary">
-    <ion-title>
-      ShareRoom
-    </ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9 col-xl-11>
+          <ion-searchbar
+            [(ngModel)]="searchQuerry"
+            [showCancelButton]="searchQuerry !== null"
+            (ionInput)="onSearch($event)"
+            (ionCancel)="onCancelSearch($event)">
+          </ion-searchbar>
+        </ion-col>
+        <ion-col col-1 col-xl-1>
+          <button ion-button color="secondary">Filters</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-navbar>
 </ion-header>
 

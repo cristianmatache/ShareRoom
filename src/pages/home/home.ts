@@ -14,7 +14,13 @@ export class HomePage {
 
   items: Item[] = [];
 
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public menuCtrl: MenuController) {}
+
+  ionViewDidLoad() {
+    this.refreshItems();
+  }
+
+  refreshItems() {
     this.items.push({
       name: "Bed",
       location: [-1, 1],
@@ -53,11 +59,12 @@ export class HomePage {
     });
   }
 
-  ionViewDidLoad() {
-    this.refreshItems();
+  onSearch(event) {
+
   }
 
-  refreshItems() {
+  onCancelSearch(event) {
+
   }
 
   changeToMap() {
@@ -68,9 +75,10 @@ export class HomePage {
     return "15miles";
   }
 
+  // not really working for web app
   getNumberOfColumns() {
     var nrList = [];
-    for (var i = 0; i < Math.floor(window.innerWidth / 360); i++) {
+    for (var i = 0; i < Math.floor(window.innerWidth / 150); i++) {
       nrList.push(i);
     }
     return nrList;
