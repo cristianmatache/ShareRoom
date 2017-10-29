@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the MapPage page.
@@ -27,4 +28,7 @@ export class MapPage {
     });
   }
 
+  changeToHome() {
+    this.navCtrl.setRoot(HomePage);
+  }
 }

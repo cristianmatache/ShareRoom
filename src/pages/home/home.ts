@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
-
+import { MapPage } from '../map/map';
 
 @Component({
   selector: 'page-home',
@@ -15,18 +15,8 @@ export class HomePage {
 
   }
 
-  openMenu() {
-    this.menuCtrl.open();
+  changeToMap() {
+    this.navCtrl.setRoot(MapPage);
   }
-
-  closeMenu() {
-    this.menuCtrl.close();
-  }
-
-  toggleMenu() {
-    this.menuCtrl.toggle();
-  }
-
-
 
 }

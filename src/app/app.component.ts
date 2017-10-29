@@ -8,6 +8,8 @@ import {LoginPage} from "../pages/login/login";
 import {HomePage} from "../pages/home/home";
 import {User} from "../models/user";
 import {MapPage} from "../pages/map/map";
+import {TabsPage} from "../pages/tabs/tabs";
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -31,7 +33,7 @@ export class ShareRoom {
   subscribeLoginEvent() {
     this.db.subscribeLoginEvent(() => {
       if (this.db.isLoggedin()) {
-        this.rootPage = MapPage;
+        this.rootPage = TabsPage;
       } else {
         this.rootPage = LoginPage;
       }
