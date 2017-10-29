@@ -1,27 +1,27 @@
-import { Injectable } from '@angular/core';
-import { User } from '../models/user';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {Injectable} from '@angular/core';
+import {User} from '../models/user';
+import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Platform } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
+import {Platform} from 'ionic-angular';
+import {Facebook} from '@ionic-native/facebook';
 import {Item} from "../models/item";
 
 @Injectable()
 export class Database {
 
   constructor(private afAuth: AngularFireAuth,
-    private fb: Facebook, private platform: Platform) {
+              private fb: Facebook, private platform: Platform) {
   }
 
-  login(user: User) : Promise<any> {
+  login(user: User): Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
   }
 
-  registerEmail(user: User) : Promise<any> {
+  registerEmail(user: User): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
-  facebookRegister() : Promise<void> {
+  facebookRegister(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       if (this.platform.is('cordova')) {
         this.fb.login(['email', 'public_profile']).then(res => {
@@ -45,12 +45,12 @@ export class Database {
     });
   }
 
-  googleLogin() : Promise<any> {
+  googleLogin(): Promise<any> {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  saveBasicUserInfo(uid: string, display_name : string, profile_picture: string,
-                    email_verified : string, phone_number: string, email : string) {
+  saveBasicUserInfo(uid: string, display_name: string, profile_picture: string,
+                    email_verified: string, phone_number: string, email: string) {
     this.saveUserInfoParam(uid, 'display_name', display_name);
     this.saveUserInfoParam(uid, 'profile_picture', profile_picture);
     this.saveUserInfoParam(uid, 'email_verified', email_verified);
@@ -58,11 +58,11 @@ export class Database {
     this.saveUserInfoParam(uid, 'email', email);
   }
 
-  private saveUserInfoParam(uid : string, param : string, value: string) {
+  private saveUserInfoParam(uid: string, param: string, value: string) {
     firebase.database().ref('users/' + uid + '/' + param).set(value);
   }
 
-  getCurrentUserId() : string {
+  getCurrentUserId(): string {
     if (firebase.auth().currentUser) {
       return firebase.auth().currentUser.uid;
     } else {
@@ -70,12 +70,12 @@ export class Database {
     }
   }
 
-  getUserInfoById(uid : string) : Promise<User> {
+  getUserInfoById(uid: string): Promise<User> {
     return new Promise<User>((resolve, reject) => {
-      firebase.database().ref('/users/' + uid ).once('value',
-        function(snapshot) {
+      firebase.database().ref('/users/' + uid).once('value',
+        function (snapshot) {
           var db_user = snapshot.val();
-          let user : User = {
+          let user: User = {
             uid: db_user.uid,
             email: db_user.email,
             password: null,
@@ -109,11 +109,11 @@ export class Database {
     }
   }*/
 
-  addItem(name : string, description : string) {
+  addItem(name: string, description: string) {
     let item = {
       name: name,
       description: description,
-      location: [0,0],
+      location: [0, 0],
       owner_uid: this.getCurrentUserId(),
       picture: "",
       date_posted: firebase.database.ServerValue.TIMESTAMP,
@@ -127,6 +127,31 @@ export class Database {
 
   isLoggedin(): boolean {
     return firebase.auth().currentUser != null;
+  }
+
+  getAllItems(): Promise<Item[]> {
+    return new Promise<Item[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        function (snapshot) {
+          let items = [];
+          snapshot.forEach(function (user) {
+            let user_items = user.val().items;
+
+            // probably need this null check because of how val works
+            if (user_items != null) {
+              for (var index in user_items) {
+                console.log(user_items[index]);
+                items.push(user_items[index]);
+              }
+            }
+            return false;
+          });
+          resolve(items);
+        }, () => {
+          reject("Error in fetching users from the database!");
+        });
+    });
   }
 
 }

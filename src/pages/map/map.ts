@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import { Geolocation } from '@ionic-native/geolocation'
+
+import {Database} from "../../providers/database";
 import {HomePage} from "../home/home";
 
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 /**
  * Generated class for the MapPage page.
  *
@@ -18,7 +20,11 @@ import {HomePage} from "../home/home";
 })
 export class MapPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private geolocation: Geolocation,
+    private database: Database) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmFydGltYWV1czEwNzMiLCJhIjoiY2o5Y3JreW8wMjFtcjMzdDQxMzV1dW5qaCJ9.zD5CWEgzi2GGq9vMU9Ylog';
   }
 
@@ -42,42 +48,37 @@ export class MapPage {
       let map = new mapboxgl.Map({
         container: 'map_id',
         style: 'mapbox://styles/mapbox/streets-v10',
-        center: [-76.53238901390978, 38.913188059745586],
-        //center: [resp.coords.longitude, resp.coords.latitude],
+        center: [resp.coords.longitude, resp.coords.latitude],
         zoom: 9, // Ideal zoom is somewhere between 12-15
       });
 
-      let demoCoordinates = [[-77.03238901390978, 38.913188059745586], [-76.03238901390978, 38.913188059745586]]
+      map.on('load', () => {
 
-      let features = demoCoordinates.map(function (obj) {
-        return MapPage.toFeature(obj[0], obj[1], 'test');
-      });
+        this.database.getAllItems().then(function(items) {
 
-      map.on('load', function () {
+          let features = items.map(function(item) {
+            return MapPage.toFeature(item.location[0], item.location[1], "faketitle")
+          });
 
-        map.addLayer({
-          "id": "item-pins",
-          "type": "symbol",
-          "source": {
-            "type": "geojson",
-            "data": {
-              "type": "FeatureCollection",
-              "features": features
+          map.addLayer({
+            "id": "item-pins",
+            "type": "symbol",
+            "source": {
+              "type": "geojson",
+              "data": {
+                "type": "FeatureCollection",
+                "features": features
+              }
+            },
+            "layout": {
+              "icon-image": "{icon}-15",
+              "text-field": "{title}",
+              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              "text-offset": [0, 0.6],
+              "text-anchor": "top"
             }
-          },
-          "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-          }
+          });
         });
-      });
-
-      map.on('moveend', () => {
-        let bounds = map.getBounds();
-        console.log(bounds.getWest(), bounds.getEast());
       });
 
       // On clicking an item, go to the item page.
@@ -98,7 +99,6 @@ export class MapPage {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-
 
   }
 
