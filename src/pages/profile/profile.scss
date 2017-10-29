@@ -1,4 +1,11 @@
 page-profile {
+
+  .profile_page{
+    background-image: url('https://www.sunsetbayleisure.com/wp-content/uploads/bgblue.jpeg');
+    //https://ak7.picdn.net/shutterstock/videos/8708527/thumb/1.jpg
+    background-position: center;
+  }
+
   .profile{
     position: absolute;
     top: 50%;
@@ -28,7 +35,8 @@ page-profile {
     -o-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
     /* Box Style Front*/
-    background-color: #fff;
+    //background-color: #fff;
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
   }
@@ -101,6 +109,7 @@ page-profile {
     margin-bottom: 0px;
     font-size: 30px;
     font-weight: 400;
+    color: white;
   }
   .profile_des{
     font-size: 14px;
@@ -115,6 +124,7 @@ page-profile {
   }
 
   .btn-align {
+    margin-top: 80px;
     display: flex;
     display: -webkit-flex;
   }
@@ -139,7 +149,7 @@ page-profile {
 
   .text-pos {
     margin-top: 90px;
-    color: black;
+    color: white;
     font-size: 14px;
     font-weight: 400;
   }
@@ -162,8 +172,8 @@ page-profile {
   .profile_social{
     width: 100%;
     margin: 0px auto;
-    border-top: 1px solid #eee;
-    background-color: #fafafa;
+    //border-top: 1px solid #eee;
+    //background-color: #fafafa;
     border-radius: 0px 0px 10px 10px;
     position: absolute;
     bottom: 0px;
@@ -242,5 +252,71 @@ page-profile {
     color: #ddd;
     font-size: 14px;
     text-decoration: none;
+  }
+
+
+  @mixin star-rating( $filled-color: #F9BF3B, $empty-color: #444, $size: 35px, $width: 135px) {
+    $star--filled: ★;
+    $star--empty: ☆;
+    width: $width;
+    > * {
+      float: right;
+    }
+    // optional initial pulse of stars
+    @at-root {
+      @keyframes pulse {
+        50% {
+          color: lighten($empty-color, 10%);
+          text-shadow: 0 0 15px lighten($empty-color, 20%);
+        }
+      }
+    }
+
+    label {
+      height: 40px;
+      width: 20%;
+      display: block;
+      position: relative;
+      cursor: pointer;
+      @for $i from 5 through (6-4) {
+        &:nth-of-type(#{$i}):after {
+          content: '#{$star--filled}';
+          color: #F9BF3B;
+          text-shadow: 0 0 20px $filled-color;
+          $animation-delay: $i * .05s;
+          animation-delay: $animation-delay;
+        }
+      }
+      &:after {
+        transition: all 0.4s ease-out;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        content: '#{$star--empty}';
+        color: $empty-color;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: $size;
+        animation: 1s pulse ease;
+      }
+    }
+    input {
+      display: none;
+    }
+  }
+
+  .rating {
+    margin: auto;
+    @include star-rating();
+  }
+
+  .display {
+    display: block;
+  }
+
+  body {
+    background-color: #111;
   }
 }
