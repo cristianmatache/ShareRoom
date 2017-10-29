@@ -8,187 +8,23 @@
 
 
 <ion-content padding>
-
   <ion-grid>
     <ion-row>
-
-
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
+      <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
+        <ion-row *ngFor="let item of items; let i = index">
+          <ion-col *ngIf="i % getNumberOfColumns().length === nr">
             <ion-card>
-
-              <img src="../../assets/image/monopoly.jpg">
-
-              <ion-card-title>Monopoly Board</ion-card-title>
+              <img [src]="item.picture">
+              <ion-card-title>{{item.name}}</ion-card-title>
               <ion-row no-padding>
                 <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-              <img src="../../assets/image/bed.jpg">
-              <ion-card-title>Bed and Matress</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
+                  <div>{{this.getDistanceTill(item)}}</div>
                 </ion-col>
               </ion-row>
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-col>
-
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/tv.jpg">
-
-              <ion-card-title>Samsung TV</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>11min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(1.6 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/bicycle.JPG">
-
-              <ion-card-title>Bike</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/monopoly.jpg">
-
-              <ion-card-title>Monopoly Board</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-              <img src="../../assets/image/bed.jpg">
-              <ion-card-title>Bed and Matress</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-
-      <ion-col col-xl-3 col-6>
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/tv.jpg">
-
-              <ion-card-title>Samsung TV</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col>
-            <ion-card>
-
-              <img src="../../assets/image/bicycle.JPG">
-
-              <ion-card-title>Bike</ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>15min</div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>(2.1 miles)</div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-
-
     </ion-row>
   </ion-grid>
   <ion-fab bottom right>
