@@ -42,6 +42,19 @@ page-login {
     border-radius: 10px;
   }
 
+  .form_button {
+    background: none;
+    line-height: 0.5;
+    outline: none;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #DDDDDD;
+    color: white;
+    font-family: 'Raleway', 'arial';
+    font-weight: 100;
+    font-size: 17px;
+  }
+
   .form_heading {
     //color: color($colors,secondary);
     padding: 75px 10px 10px 10px;
@@ -70,15 +83,16 @@ page-login {
   }
 
   input:focus {
-    box-shadow: 0 0 10px color($colors, secondary);
+    box-shadow: 0 0 10px color($colors,form);
     padding: 10px;
     margin: 10px;
-    border: 1px solid color($colors, secondary);
+    border: 1px solid color($colors,form);
   }
 
   input[type=submit]:hover {
     cursor: pointer;
   }
+
 
   .credits_box {
     background: rgba(0, 0, 0, 0.4);
@@ -130,7 +144,7 @@ page-login {
     font-family: 'entypo', sans-serif;
   }
 
-  button {
+  .button-custom {
     width: 40px;
     height: 40px;
     color: white;

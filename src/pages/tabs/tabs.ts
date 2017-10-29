@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {AddItemPage} from "../post-item/post-item";
+import {ProfilePage} from "../profile/profile";
 
 /**
  * Generated class for the TabsPage page.
@@ -19,7 +20,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = AddItemPage;
-  tab3Root = HomePage;
+  tab3Root = ProfilePage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
