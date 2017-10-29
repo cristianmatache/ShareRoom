@@ -39,14 +39,21 @@ export class Chat {
     let temp;
     let messages : Array<Message> = [];
     let uid1 : string = firebase.auth().currentUser.uid;
-    var path = this.getChatPath(uid1, friend_uid);
+    let path = this.getChatPath(uid1, friend_uid);
 
     return new Promise<Array<Message>>((resolve, reject) => {
       this.database_chats.child(path).once('value', (snapshot) => {
         temp = snapshot.val();
-        for (var i = 0; i < num_of_messages && i < temp.length; i++) {
-          messages.push(temp[i]);
+
+        var i = 0;
+        for (var attr in temp) {
+          i++;
+          if (i > num_of_messages) {
+            break;
+          }
+          messages.push(temp[attr]);
         }
+
         resolve(messages);
       }, reject);
     });
