@@ -16,6 +16,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { Database } from '../providers/database';
 import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
+import { Geolocation } from '@ionic-native/geolocation';
 import {MapPage} from "../pages/map/map";
 
 @NgModule({
@@ -51,6 +52,7 @@ import {MapPage} from "../pages/map/map";
     AngularFireDatabaseModule,
     Database,
     Chat,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
