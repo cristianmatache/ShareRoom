@@ -7,12 +7,49 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>postItem</ion-title>
+    <ion-title>Add Item</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="card-background-page">
+  <ion-card >
+
+    <img src="../../assets/image/add-Item1.png"/>
+    <div class="card-title">Add Picture</div>
+
+  </ion-card>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Enter Item Name</ion-label>
+      <ion-input type="text" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-textarea type="text" ></ion-textarea>
+    </ion-item>
+
+    <button ion-item>
+      Choose Category
+    </button>
+
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-select [(ngModel)]="gender" interface="popover">
+        <ion-option value="Swap">Swap</ion-option>
+        <ion-option value="Free">Free</ion-option>
+        <ion-option value="Loan">Loan</ion-option>
+      </ion-select>
+    </ion-item>
+
+
+  </ion-list>
+
+
+  <button ion-button color="secondary" full>Submit</button>
 
 </ion-content>
