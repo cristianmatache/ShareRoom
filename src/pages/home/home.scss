@@ -6,6 +6,10 @@ page-home {
     background-size: cover;
   }
 
+  .searchbar-input{
+    background-color: mintcream;
+  }
+
   .card{
     border-radius : 5px;
     box-shadow: 0 3px 3px rgba(0,0,0, 0.2);
@@ -27,6 +31,7 @@ page-home {
   .filters-button{
     background-color: color($colors, primary);
     color: white;
+    border-radius: 6px;
   }
 
   .item-image{

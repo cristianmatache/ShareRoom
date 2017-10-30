@@ -14,3 +14,27 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.searchbar-md .searchbar-input{
+  background-color: #56595E;
+  padding: 3.5px 45px;
+  border-radius: 6px;
+  color: white;
+}
+
+.searchbar-md .searchbar-search-icon{
+  background-image: url('http://www.freeiconspng.com/uploads/search-icon-png-18.png');
+  //background-position: center;
+  width: 20%;
+  height: 50%;
+  margin-left: -5px;
+}
+
+.searchbard-md .searchbar-search-icon,
+.searchbar-md .searchbar-md-cancel {
+  color: white;
+}
+
+
+.button-ios{
+  height: 2.2em;
+}
