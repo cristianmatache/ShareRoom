@@ -1,9 +1,7 @@
 page-home {
 
   .app-background{
-    background-image: url('
-    http://www.policrete.com/wp-content/uploads/2015/09/AdobeStock_83709107.jpeg
-    ');
+    background-color: #f0faf5;
     background-position: center;
     background-size: cover;
   }
@@ -12,7 +10,7 @@ page-home {
     border-radius : 5px;
     box-shadow: 0 3px 3px rgba(0,0,0, 0.2);
     //background: rgba(83,202,144, 0.3);
-    background: rgba(0,0,0, 0.65);
+    background: rgba(0,0,0, 0.5);
     border: rgba(0,0,0, 0.2) 1px groove;
     margin: 2%;
     width: 100%;
