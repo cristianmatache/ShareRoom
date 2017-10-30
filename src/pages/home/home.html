@@ -11,7 +11,7 @@
           </ion-searchbar>
         </ion-col>
         <ion-col col-1 col-xl-1>
-          <button ion-button color="secondary">Filters</button>
+          <button ion-button class="filters-button">Filters</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -19,25 +19,31 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="app-background">
   <ion-grid>
     <ion-row>
       <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
         <ion-row *ngFor="let item of items; let i = index">
           <ion-col *ngIf="i % getNumberOfColumns().length === nr">
+
             <ion-card (click)="showItem(item)">
-              <img [src]="item.picture">
-              <ion-card-title>{{item.name}}
-                <ion-badge item-end>
-                  {{item.type}}
-                </ion-badge>
-              </ion-card-title>
-              <ion-row no-padding>
-                <ion-col class="time-indicator-column">
-                  <div>{{this.getDistanceTill(item)}}</div>
-                </ion-col>
+
+              <!--<ion-item>-->
+               <!--<ion-avatar item-start>-->
+                <!--<img src="https://assets.babycenter.com/ims/2016/10/iStock_43693432_4x3.jpg">-->
+               <!--</ion-avatar>-->
+               <!--<h2>James Evianeurope</h2>-->
+               <!--<p>Aug 2017</p>-->
+              <!--</ion-item>-->
+
+              <img [src]="item.picture" class="item-image">
+              <ion-card-title>{{item.name}}</ion-card-title>
+              <ion-row>
+                <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
+                <ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>
               </ion-row>
             </ion-card>
+
           </ion-col>
         </ion-row>
       </ion-col>
