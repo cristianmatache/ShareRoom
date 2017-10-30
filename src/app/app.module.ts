@@ -26,6 +26,7 @@ import {AddItemPage} from "../pages/add-item/add-item";
 import {TabsPage} from "../pages/tabs/tabs";
 import {ItemPage} from "../pages/item/item";
 import {ProfilePage} from "../pages/profile/profile";
+import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {ProfilePage} from "../pages/profile/profile";
     AddItemPage,
     TabsPage,
     ItemPage,
-    ProfilePage
+    ProfilePage,
+    LoggedInReviewsPage,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import {ProfilePage} from "../pages/profile/profile";
     AddItemPage,
     TabsPage,
     ItemPage,
-    ProfilePage
+    ProfilePage,
+    LoggedInReviewsPage,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
