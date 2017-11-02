@@ -6,6 +6,9 @@ import {Database} from "../../providers/database";
 import {HomePage} from "../home/home";
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import {Item} from "../../models/item";
+import {ItemPage} from "../item/item";
+
 /**
  * Generated class for the MapPage page.
  *
@@ -25,65 +28,32 @@ export class MapPage {
     public navParams: NavParams,
     private geolocation: Geolocation,
     private database: Database) {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYmFydGltYWV1czEwNzMiLCJhIjoiY2o5Y3JreW8wMjFtcjMzdDQxMzV1dW5qaCJ9.zD5CWEgzi2GGq9vMU9Ylog';
+    mapboxgl.accessToken
+      = 'pk.eyJ1IjoiYmFydGltYWV1czEwNzMiLCJhIjoiY2o5Y3JreW8wMjFtcjMzdDQxMzV1dW5qaCJ9.zD5CWEgzi2GGq9vMU9Ylog';
   }
 
- static toFeature(longitude: number, latitude: number, title: string): any{
-    return {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [longitude, latitude]
-      },
-      "properties": {
-        "title": title,
-        "icon": "monument"
-      }
-    };
-  }
-
+  // Initializes and configures the map.
   ionViewDidLoad() {
     this.geolocation.getCurrentPosition().then((resp) => {
 
       let map = new mapboxgl.Map({
-        container: 'map_id',
+        container: 'map-container',
         style: 'mapbox://styles/mapbox/streets-v10',
         center: [resp.coords.longitude, resp.coords.latitude],
         zoom: 9, // Ideal zoom is somewhere between 12-15
       });
 
+      // Once the map is loaded, add the item pins layer.
       map.on('load', () => {
-
-        this.database.getAllItems().then(function(items) {
-
-          let features = items.map(function(item) {
-            return MapPage.toFeature(item.location[0], item.location[1], "faketitle")
-          });
-
-          map.addLayer({
-            "id": "item-pins",
-            "type": "symbol",
-            "source": {
-              "type": "geojson",
-              "data": {
-                "type": "FeatureCollection",
-                "features": features
-              }
-            },
-            "layout": {
-              "icon-image": "{icon}-15",
-              "text-field": "{title}",
-              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              "text-offset": [0, 0.6],
-              "text-anchor": "top"
-            }
-          });
-        });
+        this.database.getAllItems().then((items) => MapPage.addItemsLayer(items, map));
       });
 
       // On clicking an item, go to the item page.
-      map.on('click', 'item-pins', function (item) {
+      map.on('click', 'item-pins', (item) => {
         map.flyTo({center: item.features[0].geometry.coordinates});
+        this.navCtrl.push(ItemPage, {
+          item: JSON.parse(item.features[0].properties.associatedItem)
+        });
       });
 
       // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
@@ -105,4 +75,44 @@ export class MapPage {
   changeToHome() {
     this.navCtrl.setRoot(HomePage);
   }
+
+  // Converts an item to a format that can be stored inside a map layer.
+  static itemToFeature(item: Item): any{
+    return {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [item.location[0], item.location[1]]
+      },
+      "properties": {
+        "title": item.name,
+        "icon": "monument",
+        "associatedItem": JSON.stringify(item)
+      }
+    };
+  }
+
+  static addItemsLayer(items: Item[], map: mapboxgl.Map) {
+    let features = items.map(item => MapPage.itemToFeature(item));
+
+    map.addLayer({
+      "id": "item-pins",
+      "type": "symbol",
+      "source": {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": features
+        }
+      },
+      "layout": {
+        "icon-image": "{icon}-15",
+        "text-field": "{title}",
+        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top"
+      }
+    });
+  }
+
 }

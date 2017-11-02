@@ -71,6 +71,9 @@ export class Database {
   }
 
   getUserInfoById(uid: string): Promise<User> {
+
+    console.log('UID IS: ' + uid);
+
     return new Promise<User>((resolve, reject) => {
       firebase.database().ref('/users/' + uid).once('value',
         function (snapshot) {
@@ -141,7 +144,6 @@ export class Database {
             // probably need this null check because of how val works
             if (user_items != null) {
               for (var index in user_items) {
-                console.log(user_items[index]);
                 items.push(user_items[index]);
               }
             }
