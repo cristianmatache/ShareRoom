@@ -45,6 +45,8 @@ export class MapPage {
 
       // Once the map is loaded, add the item pins layer.
       map.on('load', () => {
+        // TODO: What should happen if two items have the exact same location?
+        // Right now it simply brings up the topmost item in the stack of the point.
         this.database.getAllItems().then((items) => MapPage.addItemsLayer(items, map));
       });
 
@@ -87,6 +89,7 @@ export class MapPage {
       "properties": {
         "title": item.name,
         "icon": "monument",
+        // TODO: Does the stringify properly handle pictures? Check this once pictures are implemented.
         "associatedItem": JSON.stringify(item)
       }
     };
