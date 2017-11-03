@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Add Item</ion-title>
+    <ion-title>Post Item</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,7 +17,7 @@
   <ion-card >
 
     <img src="../../assets/image/add-Item1.png"/>
-    <div class="card-title">Add Picture</div>
+    <div class="card-title" (click)="presentActionSheet()">Add Picture</div>
 
   </ion-card>
 
@@ -25,12 +25,12 @@
 
     <ion-item>
       <ion-label stacked>Enter Item Name</ion-label>
-      <ion-input type="text" ></ion-input>
+      <ion-input type="text" [(ngModel)]="item.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Description</ion-label>
-      <ion-textarea type="text" ></ion-textarea>
+      <ion-textarea type="text" [(ngModel)]="item.description"></ion-textarea>
     </ion-item>
 
     <button ion-item>
@@ -39,7 +39,7 @@
 
     <ion-item>
       <ion-label>Type</ion-label>
-      <ion-select [(ngModel)]="gender" interface="popover">
+      <ion-select [(ngModel)]="item.type" interface="popover">
         <ion-option value="Swap">Swap</ion-option>
         <ion-option value="Free">Free</ion-option>
         <ion-option value="Loan">Loan</ion-option>
@@ -50,6 +50,6 @@
   </ion-list>
 
 
-  <button ion-button color="secondary" full>Submit</button>
+  <button ion-button color="secondary" full (click)="addItem()">Submit</button>
 
 </ion-content>

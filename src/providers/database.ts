@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import {Platform} from 'ionic-angular';
 import {Facebook} from '@ionic-native/facebook';
 import {Item} from "../models/item";
+import {error} from "util";
 
 @Injectable()
 export class Database {
@@ -112,16 +113,25 @@ export class Database {
     }
   }*/
 
-  addItem(name: string, description: string) {
+  addItem(name : string, description : string, picture: string, type : string) {
+    console.log("----------- UPLOAD ITEM -------------");
+    console.log(picture);
     let item = {
       name: name,
       description: description,
       location: [0, 0],
       owner_uid: this.getCurrentUserId(),
-      picture: "",
+      picture: picture,
       date_posted: firebase.database.ServerValue.TIMESTAMP,
+      type: type,
     };
-    firebase.database().ref('users/' + this.getCurrentUserId() + '/items/').push(item);
+    this.uploadImage(picture, "/pic", () => {
+      console.log("IT IS DONE---------------------------");
+    }, (percent) => {
+      console.log(percent + " --------------------------------");
+    }, (err) => {
+      console.log("-----------------------___ERRORRRR" + err);
+    });
   }
 
   subscribeLoginEvent(callback: () => void) {
@@ -153,6 +163,40 @@ export class Database {
         }, () => {
           reject("Error in fetching users from the database!");
         });
+    });
+  }
+
+
+  private getBlobFromUrl(url: string, onComplete: (response) => void) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.onload = () => {
+      onComplete(xhr.response);
+    };
+    xhr.send();
+  }
+
+  public uploadImage(fileLocation: string, storageLocation: string,
+                     onComplete = () => {},
+                     onRunning = (percent) => {},
+                     onError = (error) => {console.error(error)}
+  ): any {
+    var currentUpload = null;
+    this.getBlobFromUrl(fileLocation, (data) => {
+      currentUpload = firebase.storage()
+        .ref(storageLocation)
+        .put(data);
+      console.log(currentUpload);
+      currentUpload.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          let percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+          onRunning(percent);
+        },
+        onError,
+        onComplete
+      );
     });
   }
 

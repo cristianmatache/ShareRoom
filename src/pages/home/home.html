@@ -27,7 +27,11 @@
           <ion-col *ngIf="i % getNumberOfColumns().length === nr">
             <ion-card (click)="showItem(item)">
               <img [src]="item.picture">
-              <ion-card-title>{{item.name}}</ion-card-title>
+              <ion-card-title>{{item.name}}
+                <ion-badge item-end>
+                  {{item.type}}
+                </ion-badge>
+              </ion-card-title>
               <ion-row no-padding>
                 <ion-col class="time-indicator-column">
                   <div>{{this.getDistanceTill(item)}}</div>

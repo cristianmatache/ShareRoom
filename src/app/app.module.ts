@@ -23,9 +23,9 @@ import { Chat } from "../providers/chat";
 import { Geolocation } from '@ionic-native/geolocation';
 import {MapPage} from "../pages/map/map";
 import {PostItemPage} from "../pages/post-item/post-item";
-import {AddItemPage} from "../pages/add-item/add-item";
 import {TabsPage} from "../pages/tabs/tabs";
 import {ItemPage} from "../pages/item/item";
+import {ProfilePage} from "../pages/profile/profile";
 
 @NgModule({
   declarations: [
@@ -35,9 +35,9 @@ import {ItemPage} from "../pages/item/item";
     ChatPage,
     MapPage,
     PostItemPage,
-    AddItemPage,
     TabsPage,
     ItemPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -54,9 +54,9 @@ import {ItemPage} from "../pages/item/item";
     ChatPage,
     MapPage,
     PostItemPage,
-    AddItemPage,
     TabsPage,
     ItemPage,
+    ProfilePage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

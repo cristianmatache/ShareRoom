@@ -6,6 +6,7 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
+    <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -22,7 +23,11 @@
       <h2>{{user?.display_name}}</h2>
     </ion-item>
     <ion-item>
-      <h1>{{item.name}}</h1>
+      <h1>{{item.name}}
+        <ion-badge item-end>
+        {{item.type}}
+        </ion-badge>
+      </h1>
       <p>{{item.description}}</p>
     </ion-item>
   </ion-list>
