@@ -30,7 +30,10 @@ export class HomePage {
       picture: "../../assets/image/bed.jpg",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.FREE
+      type: ItemType.FREE,
+      borrower_uid: null,
+      borrowTime: 0,
+      returnTime: 0,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -38,7 +41,10 @@ export class HomePage {
       picture: "../../assets/image/bicycle.JPG",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.SWAP
+      type: ItemType.SWAP,
+      borrower_uid: null,
+      borrowTime: 0,
+      returnTime: 0,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -46,7 +52,10 @@ export class HomePage {
       picture: "../../assets/image/marty-avatar.png",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.SWAP
+      type: ItemType.SWAP,
+      borrower_uid: null,
+      borrowTime: 0,
+      returnTime: 0,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -54,7 +63,10 @@ export class HomePage {
       picture: "../../assets/image/tv.jpg",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.SWAP
+      type: ItemType.SWAP,
+      borrower_uid: null,
+      borrowTime: 0,
+      returnTime: 0,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -62,7 +74,10 @@ export class HomePage {
       picture: "../../assets/image/bed.jpg",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.LOAN
+      type: ItemType.LOAN,
+      borrower_uid: null,
+      borrowTime: 0,
+      returnTime: 0,
     });
   }
 
