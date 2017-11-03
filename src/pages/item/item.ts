@@ -24,6 +24,7 @@ export class ItemPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private database: Database) {
     this.item = navParams.get("item");
+
     this.database.getUserInfoById(this.item.owner_uid)
       .then((user) => {
         this.user = user;
