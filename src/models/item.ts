@@ -1,3 +1,5 @@
+import {User} from "./user";
+
 export interface Item {
   name: string;
   location: Array<number>;
@@ -6,6 +8,9 @@ export interface Item {
   description: string;
   date_posted: number;
   type: string;
+  borrower_uid : string;
+  borrowTime: number;
+  returnTime: number;
 }
 
 export let ItemType = {

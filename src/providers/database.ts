@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import {Platform} from 'ionic-angular';
 import {Facebook} from '@ionic-native/facebook';
 import {Item} from "../models/item";
+import { Geolocation } from '@ionic-native/geolocation';
 import {error} from "util";
 import {Review} from "../models/review";
 
@@ -12,7 +13,8 @@ import {Review} from "../models/review";
 export class Database {
 
   constructor(private afAuth: AngularFireAuth,
-              private fb: Facebook, private platform: Platform) {
+              private fb: Facebook, private platform: Platform,
+              private geolocation : Geolocation) {
   }
 
   login(user: User): Promise<any> {
@@ -119,15 +121,22 @@ export class Database {
   addItem(name : string, description : string, picture: string, type : string) {
     console.log("----------- UPLOAD ITEM -------------");
     console.log(picture);
-    let item = {
-      name: name,
-      description: description,
-      location: [0, 0],
-      owner_uid: this.getCurrentUserId(),
-      picture: picture,
-      date_posted: firebase.database.ServerValue.TIMESTAMP,
-      type: type,
-    };
+    this.geolocation.getCurrentPosition().then((resp) =>
+    {
+      let item = {
+        name: name,
+        description: description,
+        location: [resp.coords.longitude,resp.coords.latitude],
+        owner_uid: this.getCurrentUserId(),
+        picture: picture,
+        date_posted: firebase.database.ServerValue.TIMESTAMP,
+        type: type,
+        borrower_uid: null,
+        borrowTime: 0,
+        returnTime: 0,
+      };
+    });
+
     this.uploadImage(picture, "/pic", () => {
       console.log("IT IS DONE---------------------------");
     }, (percent) => {
