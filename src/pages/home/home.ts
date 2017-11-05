@@ -32,8 +32,9 @@ export class HomePage {
       date_posted: new Date().getTime(),
       type: ItemType.FREE,
       borrower_uid: null,
-      borrowTime: 0,
-      returnTime: 0,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -43,8 +44,9 @@ export class HomePage {
       date_posted: new Date().getTime(),
       type: ItemType.SWAP,
       borrower_uid: null,
-      borrowTime: 0,
-      returnTime: 0,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -54,8 +56,9 @@ export class HomePage {
       date_posted: new Date().getTime(),
       type: ItemType.SWAP,
       borrower_uid: null,
-      borrowTime: 0,
-      returnTime: 0,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -65,8 +68,9 @@ export class HomePage {
       date_posted: new Date().getTime(),
       type: ItemType.SWAP,
       borrower_uid: null,
-      borrowTime: 0,
-      returnTime: 0,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -76,8 +80,9 @@ export class HomePage {
       date_posted: new Date().getTime(),
       type: ItemType.LOAN,
       borrower_uid: null,
-      borrowTime: 0,
-      returnTime: 0,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     });
   }
 

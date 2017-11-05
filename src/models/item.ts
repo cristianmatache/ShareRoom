@@ -9,8 +9,9 @@ export interface Item {
   date_posted: number;
   type: string;
   borrower_uid : string;
-  borrowTime: number;
-  returnTime: number;
+  borrow_time: number;
+  return_time: number;
+  max_borrow_duration: number;
 }
 
 export let ItemType = {

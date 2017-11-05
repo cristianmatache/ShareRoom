@@ -6,7 +6,6 @@ import {Platform} from 'ionic-angular';
 import {Facebook} from '@ionic-native/facebook';
 import {Item} from "../models/item";
 import { Geolocation } from '@ionic-native/geolocation';
-import {error} from "util";
 
 @Injectable()
 export class Database {
@@ -116,8 +115,9 @@ export class Database {
   }*/
 
   addItem(name : string, description : string, picture: string, type : string) {
+    console.log("current user");
+    console.log(this.getCurrentUserId());
     console.log("----------- UPLOAD ITEM -------------");
-    console.log(picture);
     this.geolocation.getCurrentPosition().then((resp) =>
     {
       let item = {
@@ -125,22 +125,47 @@ export class Database {
         description: description,
         location: [resp.coords.longitude,resp.coords.latitude],
         owner_uid: this.getCurrentUserId(),
-        picture: picture,
+        picture: 'some/picture',
         date_posted: firebase.database.ServerValue.TIMESTAMP,
         type: type,
         borrower_uid: null,
         borrowTime: 0,
         returnTime: 0,
       };
+      firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
+      console.log("AFTER PUSH");
     });
 
-    this.uploadImage(picture, "/pic", () => {
-      console.log("IT IS DONE---------------------------");
-    }, (percent) => {
-      console.log(percent + " --------------------------------");
-    }, (err) => {
-      console.log("-----------------------___ERRORRRR" + err);
-    });
+
+    // this.uploadImage(picture, "/pic", () => {
+    //   console.log("IT IS DONE---------------------------");
+    // }, (percent) => {
+    //   console.log(percent + " --------------------------------");
+    // }, (err) => {
+    //   console.log("-----------------------___ERRORRRR" + err);
+    // });
+  }
+
+  borrowItem(id: string, end_time: number, owner_uid: string, max_borrow_time: number) {
+    if (this.getCurrentUserId()) {
+      firebase.database().ref()
+        .child('users/' + owner_uid + '/' + id + 'borrower_uid')
+        .set(this.getCurrentUserId());
+      firebase.database().ref()
+        .child('users/' + owner_uid + '/' + id + 'borrow_time')
+        .set(firebase.database.ServerValue.TIMESTAMP);
+      firebase.database().ref()
+        .child('users/' + owner_uid + '/' + id + 'return_time')
+        .set(parseInt(firebase.database.ServerValue.TIMESTAMP.toString())+max_borrow_time);
+    }
+  }
+
+  returnItem(id: string, owner_uid: string) {
+    if (this.getCurrentUserId()) {
+      firebase.database().ref().child('users/' + owner_uid + '/' + id + 'borrower_uid').set(null);
+      firebase.database().ref().child('users/' + owner_uid + '/' + id + 'borrow_time').set(0);
+      firebase.database().ref().child('users/' + owner_uid + '/' + id + 'return_time').set(0);
+    }
   }
 
   subscribeLoginEvent(callback: () => void) {
