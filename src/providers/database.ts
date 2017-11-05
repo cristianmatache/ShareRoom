@@ -6,6 +6,7 @@ import {Platform} from 'ionic-angular';
 import {Facebook} from '@ionic-native/facebook';
 import {Item} from "../models/item";
 import { Geolocation } from '@ionic-native/geolocation';
+import {Review} from "../models/review";
 
 @Injectable()
 export class Database {
@@ -87,7 +88,9 @@ export class Database {
             profile_picture: db_user.profile_picture,
             display_name: db_user.display_name,
             emailVerified: db_user.email_verified,
-            phoneNumber: db_user.phone_number
+            phoneNumber: db_user.phone_number,
+            items: db_user.items,
+            reviews: db_user.reviews
           };
           resolve(user);
         }, function (errorObject) {
@@ -135,7 +138,6 @@ export class Database {
       firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
       console.log("AFTER PUSH");
     });
-
 
     // this.uploadImage(picture, "/pic", () => {
     //   console.log("IT IS DONE---------------------------");
@@ -200,7 +202,6 @@ export class Database {
     });
   }
 
-
   private getBlobFromUrl(url: string, onComplete: (response) => void) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -232,6 +233,17 @@ export class Database {
         onComplete
       );
     });
+  }
+
+  public addReview(user_id: string, rating: number, review: string) {
+    let newReview = {
+      user_id: user_id,
+      review: review,
+      rating: rating
+    } as Review;
+
+    let uid : string = this.getCurrentUserId();
+    firebase.database().ref('/users/' + uid + '/reviews').push(newReview);
   }
 
 }
