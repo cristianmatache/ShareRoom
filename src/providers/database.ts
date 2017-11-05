@@ -148,7 +148,7 @@ export class Database {
     // });
   }
 
-  borrowItem(id: string, end_time: number, owner_uid: string, max_borrow_time: number) {
+  borrowItem(id: string, owner_uid: string, max_borrow_time: number) {
     if (this.getCurrentUserId()) {
       firebase.database().ref()
         .child('users/' + owner_uid + '/' + id + 'borrower_uid')
