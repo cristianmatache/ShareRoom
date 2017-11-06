@@ -2,13 +2,9 @@ page-profile {
 
   .profile_page{
     background-color: mintcream;
-    //http://www.policrete.com/wp-content/uploads/2015/09/AdobeStock_83709107.jpeg
-    //https://previews.123rf.com/images/oleksiy/oleksiy1107/oleksiy110700004/9841039-Concrete-surface-closeup-background--Stock-Photo-concrete-beton-cement.jpg
-    //http://www.churchhill.worcs.sch.uk/wp-content/uploads/2015/09/blue-abstract-background.jpg
-    //https://www.sunsetbayleisure.com/wp-content/uploads/bgblue.jpeg
-    //https://ak7.picdn.net/shutterstock/videos/8708527/thumb/1.jpg
     background-position: center;
     background-size:cover;
+    margin-top: -13px;
   }
 
   .profile{
@@ -23,65 +19,21 @@ page-profile {
 
 
   .profile .front {
-    height: inherit;
+    height: 108%;
     position: relative;
-    top: 0px;
+    top: 0;
     transform: translate(-50%, -50%);
     //z-index: 900;
     -webkit-transform: rotateX(0deg) rotateY(0deg);
     -moz-transform: rotateX(0deg) rotateY(0deg);
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -webkit-transition: all .4s ease-in-out;
-    -moz-transition: all .4s ease-in-out;
-    -ms-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
     /* Box Style Front*/
     //background-color: #fff;
-    background: rgba(0, 0, 0, 0.65);
+    background: mintcream;
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
   }
   .profile .front:hover{
-    box-shadow: 0px 5px 25px rgba(0,0,0,0.8);
-  }
-
-  .profile .back {
-    height: inherit;
-    position: absolute;
-    top: 0px;
-    //z-index: 1000;
-    -webkit-transform: rotateY(-180deg);
-    -moz-transform: rotateY(-180deg);
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -webkit-transition: all .4s ease-in-out;
-    -moz-transition: all .4s ease-in-out;
-    -ms-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-    /* Box Style Back*/
-    background-color: #8C9EFF;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
-  }
-  .profile .back:hover{
-    box-shadow: 0px 5px 25px rgba(0,0,0,0.8);
-  }
-  .profile.flip .front {
-    z-index: 900;
-    -webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-  }
-  .profile.flip .back {
-    z-index: 1000;
-    -webkit-transform: rotateX(0deg) rotateY(0deg);
-    -moz-transform: rotateX(0deg) rotateY(0deg);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.8);
   }
 
   /*  Front Style
@@ -89,21 +41,22 @@ page-profile {
   .profile_banner{
     width: 100%;
     height: auto;
-    padding: 60px 0px;
+    padding: 40px 0;
     background-color: #ddd;
     border-radius: 10px 10px 0px 0px;
     margin-bottom: -50px;
     background-image: url(https://www.airbnbcitizen.com/wp-content/uploads/2017/04/Future-of-Sharing-Cover.png);
     background-position: center;
-    background-size: 500px auto;
+    background-size: cover;
     background-repeat: no-repeat;
   }
   .profile_photo{
     width: 100px;
-    height: 100px;
+    height: 90px;
     background-color: #eee;
     margin: 0px auto;
     border-radius: 100%;
+    border-size: cover;
   }
 
   .profile_photo img{ width: 100%; border-radius: 100%; opacity: 0.9;}
@@ -114,7 +67,7 @@ page-profile {
     margin-bottom: 0px;
     font-size: 30px;
     font-weight: 400;
-    color: white;
+    color: color($colors, light);
   }
   .profile_des{
     font-size: 14px;
@@ -125,7 +78,7 @@ page-profile {
   }
 
   .btn-space {
-    margin-top: 40px;
+    margin-top: 60px;
   }
 
   .btn-align {
@@ -149,12 +102,12 @@ page-profile {
     padding: 5px 10px;
     background-color: #abb6c5;
     text-decoration: none;
-    margin:0 auto;
+    //margin:0 auto;
   }
 
   .text-pos {
     margin-top: 90px;
-    color: white;
+    color: color($colors, light);
     font-size: 14px;
     font-weight: 400;
   }
@@ -169,7 +122,7 @@ page-profile {
     background-color: #abb6c5;
     color: #fff;
     text-decoration: none;
-    margin:0 auto;
+    //margin:0 auto;
     border-radius: 50px;
     margin-top: 20px;
   }
