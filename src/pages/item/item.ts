@@ -36,6 +36,10 @@ export class ItemPage {
     return this.item.picture ? this.item.picture : "";
   }
 
+  borrowItem() {
+    this.database.borrowItem(this.item.id, this.item.owner_uid, this.item.max_borrow_duration);
+  }
+
   startChat() {
     this.navCtrl.push(ChatPage, {
       friendId: this.item.owner_uid
