@@ -148,6 +148,39 @@ export class Database {
     // });
   }
 
+  editItem(id: string, name : string, description : string, picture: string, type : string) {
+    this.geolocation.getCurrentPosition().then((resp) =>
+    {
+      let item = {
+        id: id,
+        name: name,
+        description: description,
+        location: [resp.coords.longitude,resp.coords.latitude],
+        owner_uid: this.getCurrentUserId(),
+        picture: 'some/picture',
+        date_posted: firebase.database.ServerValue.TIMESTAMP,
+        type: type,
+        borrower_uid: null,
+        borrowTime: 0,
+        returnTime: 0,
+      };
+      firebase.database().ref().child('users/' + item.owner_uid + '/items/' + id + '/').set(item);
+      console.log("AFTER  EDIT");
+    });
+
+    // this.uploadImage(picture, "/pic", () => {
+    //   console.log("IT IS DONE---------------------------");
+    // }, (percent) => {
+    //   console.log(percent + " --------------------------------");
+    // }, (err) => {
+    //   console.log("-----------------------___ERRORRRR" + err);
+    // });
+  }
+
+  removeItem(id: string, owner_uid: string) {
+    firebase.database().ref().child('users/' + owner_uid + '/items/' + id).remove();
+  }
+
   borrowItem(id: string, owner_uid: string, max_borrow_time: number) {
     if (this.getCurrentUserId()) {
       firebase.database().ref()
@@ -190,7 +223,9 @@ export class Database {
             // probably need this null check because of how val works
             if (user_items != null) {
               for (var index in user_items) {
-                items.push(user_items[index]);
+                var item = user_items[index];
+                item.id = index;
+                items.push(item);
               }
             }
             return false;
