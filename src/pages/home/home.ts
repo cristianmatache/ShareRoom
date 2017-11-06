@@ -5,6 +5,7 @@ import { MapPage } from '../map/map';
 import {Item, ItemType} from "../../models/item";
 import { ItemPage } from "../item/item";
 import { Database } from "../../providers/database";
+import {ItemByUserPage} from "../item-by-user/item-by-user";
 
 @Component({
   selector: 'page-home',
@@ -19,7 +20,8 @@ export class HomePage {
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public app: App, private db: Database) {}
 
   ionViewDidLoad() {
-    this.refreshItems();
+    this.db.getAllItems().then((items) => this.items = items);
+      //this.refreshItems();
   }
 
   refreshItems() {
@@ -99,7 +101,11 @@ export class HomePage {
   }
 
   showItem(item) {
-    this.app.getRootNav().push(ItemPage, {item: item});
+    if (item.owner_uid == this.db.getCurrentUserId()) {
+      this.app.getRootNav().push(ItemByUserPage, {item: item});
+    } else {
+      this.app.getRootNav().push(ItemPage, {item: item});
+    }
   }
 
   getDistanceTill(item) {
