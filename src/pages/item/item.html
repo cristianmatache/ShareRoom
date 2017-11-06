@@ -14,11 +14,11 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <img [src]="getPicture()">
+      <img [src]="getPicture()" style="border-radius:20px">
     </ion-item>
     <ion-item>
       <ion-avatar item-start>
-        <img [src]="user?.picture">
+          <img [src]="user?.profile_picture">
       </ion-avatar>
       <h2>{{user?.display_name}}</h2>
     </ion-item>
@@ -37,7 +37,7 @@
   <ion-toolbar>
     <ion-buttons left>
       <button ion-button color="primary">
-        Something else
+        Review owner
       </button>
     </ion-buttons>
 

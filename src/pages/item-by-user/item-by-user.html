@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="light">
     <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,7 +14,7 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <img [src]="getPicture()">
+      <img [src]="getPicture()" style="border-radius:20px">
     </ion-item>
     <ion-item>
       <ion-avatar item-start>

@@ -1,6 +1,23 @@
 page-item {
-  div {
-    padding: 0px !important;
+  //div {
+  //  padding: 0px !important;
+  //}
+
+  .toolbar-md-light .toolbar-title-md {
+    text-align: left;
+    padding: 0 25%;
+  }
+
+  .item{
+    background-color: red;
+  }
+
+  .item-block .item-inner{
+    background-color: red;
+  }
+
+  .scroll-content {
+    background-color: red;
   }
 
   img {

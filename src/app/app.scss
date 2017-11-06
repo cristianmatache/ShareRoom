@@ -16,17 +16,19 @@
 // automatically applied to the <body> element in the app.
 .searchbar-md .searchbar-input{
   background-color: #56595E;
-  padding: 3.5px 45px;
+  margin-top:4px;
+  padding: 0px 45px;
   border-radius: 6px;
   color: white;
 }
 
 .searchbar-md .searchbar-search-icon{
   background-image: url('http://www.freeiconspng.com/uploads/search-icon-png-18.png');
-  //background-position: center;
-  width: 20%;
-  height: 50%;
-  margin-left: -5px;
+  background-position: left;
+  background-size: 70%;
+  //height: 50%;
+  margin-left: -6px;
+  margin-top: -3.5px;
 }
 
 .searchbard-md .searchbar-search-icon,
@@ -34,7 +36,12 @@
   color: white;
 }
 
-
 .button-ios{
   height: 2.2em;
+}
+
+.toolbar-title{
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 600;
 }
