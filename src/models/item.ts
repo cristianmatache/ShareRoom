@@ -1,6 +1,7 @@
 import {User} from "./user";
 
 export interface Item {
+  id: string;
   name: string;
   location: Array<number>;
   owner_uid: string;
