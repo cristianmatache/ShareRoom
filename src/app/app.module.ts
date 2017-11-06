@@ -26,7 +26,7 @@ import {PostItemPage} from "../pages/post-item/post-item";
 import {TabsPage} from "../pages/tabs/tabs";
 import {ItemPage} from "../pages/item/item";
 import {ProfilePage} from "../pages/profile/profile";
-import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
+//import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
 import {ItemByUserPage} from "../pages/item-by-user/item-by-user";
 import {EditItemPage} from "../pages/edit-item/edit-item";
 
@@ -41,7 +41,7 @@ import {EditItemPage} from "../pages/edit-item/edit-item";
     TabsPage,
     ItemPage,
     ProfilePage,
-    LoggedInReviewsPage,
+    //LoggedInReviewsPage,
     ItemByUserPage,
     EditItemPage,
   ],
@@ -63,7 +63,7 @@ import {EditItemPage} from "../pages/edit-item/edit-item";
     TabsPage,
     ItemPage,
     ProfilePage,
-    LoggedInReviewsPage,
+    //LoggedInReviewsPage,
     ItemByUserPage,
     EditItemPage,
   ],

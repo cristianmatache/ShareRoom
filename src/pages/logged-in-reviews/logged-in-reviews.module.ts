@@ -9,5 +9,8 @@ import { LoggedInReviewsPage } from './logged-in-reviews';
   imports: [
     IonicPageModule.forChild(LoggedInReviewsPage),
   ],
+  exports: [
+    LoggedInReviewsPage
+  ]
 })
 export class LoggedInReviewsPageModule {}

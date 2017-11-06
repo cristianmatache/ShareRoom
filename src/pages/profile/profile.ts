@@ -22,4 +22,8 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
+  getReviews() {
+    this.navCtrl.push('LoggedInReviewsPage');
+  }
+
 }
