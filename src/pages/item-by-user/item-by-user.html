@@ -25,7 +25,7 @@
     <ion-item>
       <h1>{{item.name}}
         <ion-badge item-end>
-        {{item.type}}
+          {{item.type}}
         </ion-badge>
       </h1>
       <p>{{item.description}}</p>
@@ -36,20 +36,14 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons left>
-      <button ion-button color="primary">
-        Something else
-      </button>
-    </ion-buttons>
-
-    <ion-buttons center>
-      <button ion-button color="primary" (click)="borrowItem()">
-        Borrow
+      <button ion-button color="primary" (click)="removeItem()">
+        Remove Item
       </button>
     </ion-buttons>
 
     <ion-buttons right>
-      <button ion-button color="primary" (click)="startChat()">
-        Chat
+      <button ion-button color="primary" (click)="editItem()">
+        Edit
       </button>
     </ion-buttons>
   </ion-toolbar>

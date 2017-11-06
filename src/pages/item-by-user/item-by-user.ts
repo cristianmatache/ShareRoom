@@ -4,6 +4,7 @@ import {Item} from "../../models/item";
 import {User} from "../../models/user";
 import {Database} from "../../providers/database";
 import {ChatPage} from "../chat/chat";
+import {EditItemPage} from "../edit-item/edit-item";
 
 /**
  * Generated class for the ItemPage page.
@@ -14,10 +15,10 @@ import {ChatPage} from "../chat/chat";
 
 @IonicPage()
 @Component({
-  selector: 'page-item',
-  templateUrl: 'item.html',
+  selector: 'page-item-by-user',
+  templateUrl: 'item-by-user.html',
 })
-export class ItemPage {
+export class ItemByUserPage {
 
   item: Item = {} as Item;
   user: User = {} as User;
@@ -36,13 +37,11 @@ export class ItemPage {
     return this.item.picture ? this.item.picture : "";
   }
 
-  borrowItem() {
-    this.database.borrowItem(this.item.id, this.item.owner_uid, this.item.max_borrow_duration);
+  removeItem() {
+    this.database.removeItem(this.item.id, this.database.getCurrentUserId());
   }
 
-  startChat() {
-    this.navCtrl.push(ChatPage, {
-      friendId: this.item.owner_uid
-    })
+  editItem() {
+    this.navCtrl.push(EditItemPage, {item: this.item});
   }
 }

@@ -20,13 +20,15 @@ import { Facebook } from '@ionic-native/facebook';
 import { Database } from '../providers/database';
 import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
+import { Geolocation } from '@ionic-native/geolocation';
 import {MapPage} from "../pages/map/map";
 import {PostItemPage} from "../pages/post-item/post-item";
-import {AddItemPage} from "../pages/add-item/add-item";
 import {TabsPage} from "../pages/tabs/tabs";
 import {ItemPage} from "../pages/item/item";
 import {ProfilePage} from "../pages/profile/profile";
 import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
+import {ItemByUserPage} from "../pages/item-by-user/item-by-user";
+import {EditItemPage} from "../pages/edit-item/edit-item";
 
 @NgModule({
   declarations: [
@@ -36,11 +38,12 @@ import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews"
     ChatPage,
     MapPage,
     PostItemPage,
-    AddItemPage,
     TabsPage,
     ItemPage,
     ProfilePage,
     LoggedInReviewsPage,
+    ItemByUserPage,
+    EditItemPage,
   ],
   imports: [
     BrowserModule,
@@ -57,11 +60,12 @@ import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews"
     ChatPage,
     MapPage,
     PostItemPage,
-    AddItemPage,
     TabsPage,
     ItemPage,
     ProfilePage,
     LoggedInReviewsPage,
+    ItemByUserPage,
+    EditItemPage,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -73,6 +77,7 @@ import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews"
     AngularFireDatabaseModule,
     Database,
     Chat,
+    Geolocation,
     File,
     Camera,
     Transfer,

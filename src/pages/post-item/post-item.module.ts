@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { PostItemPage } from './post-item';
+import {PostItemPage} from './post-item';
 
 @NgModule({
   declarations: [

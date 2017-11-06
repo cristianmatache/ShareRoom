@@ -5,6 +5,7 @@ import { MapPage } from '../map/map';
 import {Item, ItemType} from "../../models/item";
 import { ItemPage } from "../item/item";
 import { Database } from "../../providers/database";
+import {ItemByUserPage} from "../item-by-user/item-by-user";
 
 @Component({
   selector: 'page-home',
@@ -19,7 +20,8 @@ export class HomePage {
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public app: App, private db: Database) {}
 
   ionViewDidLoad() {
-    this.refreshItems();
+    this.db.getAllItems().then((items) => this.items = items);
+      //this.refreshItems();
   }
 
   refreshItems() {
@@ -30,7 +32,11 @@ export class HomePage {
       picture: "../../assets/image/bed.jpg",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.FREE
+      type: ItemType.FREE,
+      borrower_uid: null,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -38,7 +44,11 @@ export class HomePage {
       picture: "../../assets/image/bicycle.JPG",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.SWAP
+      type: ItemType.SWAP,
+      borrower_uid: null,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -46,7 +56,11 @@ export class HomePage {
       picture: "../../assets/image/marty-avatar.png",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.SWAP
+      type: ItemType.SWAP,
+      borrower_uid: null,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -54,7 +68,11 @@ export class HomePage {
       picture: "../../assets/image/tv.jpg",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.SWAP
+      type: ItemType.SWAP,
+      borrower_uid: null,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     }, {
       name: "Bed",
       location: [-1, 1],
@@ -62,7 +80,11 @@ export class HomePage {
       picture: "../../assets/image/bed.jpg",
       description: "This is a bed",
       date_posted: new Date().getTime(),
-      type: ItemType.LOAN
+      type: ItemType.LOAN,
+      borrower_uid: null,
+      borrow_time: 0,
+      return_time: 0,
+      max_borrow_duration: 604800000,
     });
   }
 
@@ -79,7 +101,11 @@ export class HomePage {
   }
 
   showItem(item) {
-    this.app.getRootNav().push(ItemPage, {item: item});
+    if (item.owner_uid == this.db.getCurrentUserId()) {
+      this.app.getRootNav().push(ItemByUserPage, {item: item});
+    } else {
+      this.app.getRootNav().push(ItemPage, {item: item});
+    }
   }
 
   getDistanceTill(item) {
