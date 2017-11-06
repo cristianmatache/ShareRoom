@@ -21,11 +21,12 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.db.getAllItems().then((items) => this.items = items);
-      //this.refreshItems();
+    //this.refreshItems();
   }
 
   refreshItems() {
     this.items.push({
+      id: "1",
       name: "Bed",
       location: [-1, 1],
       owner_uid: this.db.getCurrentUserId(),
@@ -38,6 +39,7 @@ export class HomePage {
       return_time: 0,
       max_borrow_duration: 604800000,
     }, {
+      id: "2",
       name: "Bed",
       location: [-1, 1],
       owner_uid: this.db.getCurrentUserId(),
@@ -50,6 +52,7 @@ export class HomePage {
       return_time: 0,
       max_borrow_duration: 604800000,
     }, {
+      id: "3",
       name: "Bed",
       location: [-1, 1],
       owner_uid: this.db.getCurrentUserId(),
@@ -62,6 +65,7 @@ export class HomePage {
       return_time: 0,
       max_borrow_duration: 604800000,
     }, {
+      id: "4",
       name: "Bed",
       location: [-1, 1],
       owner_uid: this.db.getCurrentUserId(),
@@ -74,6 +78,7 @@ export class HomePage {
       return_time: 0,
       max_borrow_duration: 604800000,
     }, {
+      id: "5",
       name: "Bed",
       location: [-1, 1],
       owner_uid: this.db.getCurrentUserId(),

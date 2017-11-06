@@ -34,7 +34,7 @@ export class ShareRoom {
   subscribeLoginEvent() {
     this.db.subscribeLoginEvent(() => {
       if (this.db.isLoggedin()) {
-        this.rootPage = HomePage;
+        this.rootPage = TabsPage;//HomePage;
       } else {
         this.rootPage = LoginPage;
       }
