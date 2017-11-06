@@ -363,8 +363,8 @@ page-logged-in-reviews {
   }
 
   $enabled-disabled-stars: (
-    enabled: 'https://scontent.fdsa1-1.fna.fbcdn.net/v/t34.0-12/23140501_10210305962264953_1458812613_n.png?oh=b7aaad7b8f54a35df5784bc7c4a4df55&oe=59FA7157',
-    disabled: 'https://scontent.fdsa1-1.fna.fbcdn.net/v/t34.0-12/23114671_10210305964024997_1000238021_n.png?oh=eda006b877d14d59894283cba5b6a4a8&oe=59FA8400',
+    enabled: '../../assets/images/light_star.png',
+    disabled: '../../assets/images/dark_star.png'
   );
 
   @function get-icon($color) {
