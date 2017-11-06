@@ -9,5 +9,8 @@ import { BorrowedItemsPage } from './borrowed-items';
   imports: [
     IonicPageModule.forChild(BorrowedItemsPage),
   ],
+  exports: [
+    BorrowedItemsPage,
+  ]
 })
 export class BorrowedItemsPageModule {}

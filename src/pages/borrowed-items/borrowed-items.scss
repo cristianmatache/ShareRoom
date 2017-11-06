@@ -25,16 +25,23 @@ page-borrowed-items {
   }
 
   .container {
-    width:100%;
-    padding: 10px 10px;
-    border: 2px solid #474B4F;
+    width:90%;
+    margin: auto;
+    padding: 10px 0px 50px 10px;
+    margin-top: 20px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
   }
 
   .return-button {
     background-color: color($colors, primary);
     color: white;
     border-radius: 6px;
-    margin-left: 30px;
+    float: right;
+    height: 2.5rem;
+    padding: 10px 10px;
+    margin-top: 15px;
+    margin-right: 10px;
   }
 
   .item1, item2 {
@@ -42,11 +49,12 @@ page-borrowed-items {
   }
   .item2 {
     text-align: center;
-    color: #474B4F;
+    color: white;
+    font-size: 15px;
   }
 
   .item1 {
-    background-image: url("../../assets/images/default_user.png");
+    background-image: url("http://www.ikea.com/gb/en/images/products/tarva-bed-frame-pine-lur%C3%B6y__0448696_pe598331_s5.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

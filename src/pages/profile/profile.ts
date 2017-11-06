@@ -26,4 +26,8 @@ export class ProfilePage {
     this.navCtrl.push('LoggedInReviewsPage');
   }
 
+  getBorrowed() {
+    this.navCtrl.push('BorrowedItemsPage');
+  }
+
 }
