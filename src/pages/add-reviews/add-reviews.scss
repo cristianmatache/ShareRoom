@@ -465,4 +465,7 @@ page-add-reviews {
     padding: 10px 10px;
   }
 
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
 }
