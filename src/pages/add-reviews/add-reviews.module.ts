@@ -9,5 +9,8 @@ import { AddReviewsPage } from './add-reviews';
   imports: [
     IonicPageModule.forChild(AddReviewsPage),
   ],
+  exports: [
+    AddReviewsPage,
+  ]
 })
 export class AddReviewsPageModule {}

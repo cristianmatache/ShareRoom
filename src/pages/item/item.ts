@@ -4,6 +4,7 @@ import {Item} from "../../models/item";
 import {User} from "../../models/user";
 import {Database} from "../../providers/database";
 import {ChatPage} from "../chat/chat";
+import {AddReviewsPage} from "../add-reviews/add-reviews";
 
 /**
  * Generated class for the ItemPage page.
@@ -44,5 +45,9 @@ export class ItemPage {
     this.navCtrl.push(ChatPage, {
       friendId: this.item.owner_uid
     })
+  }
+
+  reviewOwner() {
+    this.navCtrl.push("AddReviewsPage");
   }
 }

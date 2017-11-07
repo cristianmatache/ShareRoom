@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color=light hideBackButton="false">
-    <ion-title color="white">Your reviews</ion-title>
+    <ion-title color="white">Write a review</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,80 +16,89 @@
 <ion-content padding class="profile_page">
 
   <div class="profile">
-    <div class="front">
-      <div class="profile_banner"></div>
-      <div class="profile_photo"><img src="../../assets/images/default_user.png"></div>
-      <div class="profile_info">
-        <div class="display">
-          <div class="profile_name">Oana Ciocioman</div>
-          <div class="rating-5">   <!--#{number-of-stars}">-->
-            <label for="r1"></label>
-            <label for="r2"></label>
-            <label for="r3"></label>
-            <label for="r4"></label>
-            <label for="r5"></label>
+    <!--<div class="front">-->
+    <div class="profile_banner"></div>
+    <div class="profile_photo"><img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAaVAAAAJGUyNzI1ZGFlLTcyYzAtNDhjNC1hZjk1LTMxYWNkYjQ1NmVhYw.jpg"></div>
+    <div class="profile_info">
+      <div class="display">
+        <div class="profile_name">Oana Ciocioman</div>
+        <div class="rating-5">   <!--#{number-of-stars}">-->
+          <label for="r1"></label>
+          <label for="r2"></label>
+          <label for="r3"></label>
+          <label for="r4"></label>
+          <label for="r5"></label>
+        </div>
+      </div>
+
+
+      <!--<h2 class="profile_des" style="margin-top:15px">oana.ciocioman@gmail.com</h2>-->
+
+      <div class=amazing-reviews>
+        <div class="profile_des">ADD YOUR REVIEW HERE</div>
+        <blockquote style="padding: 10px 10px 50px 10px">
+          <h1>
+            <form class="am-review-card-title" accept-charset="UTF-8" method="post" id="form1">
+              <input type="text" name="title" value="Your highlight" class="title-form">
+              <div class="c-rating-form" data-rating-value="4.51">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+              </div>
+            </form>
+            <div style="margin-top:5px">
+              <span>By <em>Me</em></span>
+            </div>
+          </h1>
+          <textarea rows="4" cols="50" class="details-form" form="form1">Any details?</textarea>
+          <div>
+            <button ion-button class="submit-button">Submit</button>
           </div>
-        </div>
+          <!--<p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>-->
+        </blockquote>
 
+        <div class="profile_des">OTHERS' REVIEWS</div>
 
-        <!--<h2 class="profile_des" style="margin-top:15px">oana.ciocioman@gmail.com</h2>-->
-
-        <div class=amazing-reviews>
-          <blockquote>
-            <h1>
-              <div class="am-review-card-title">
-                Good experience
-                <div class="c-rating" data-rating-value="4.51">
-                  <button>1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>5</button>
-                </div>
+        <blockquote>
+          <h1>
+            <div class="am-review-card-title">
+              Good experience
+              <div class="c-rating" data-rating-value="4.51">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
               </div>
-              <span>By <em>Cristian Matache</em></span>
-            </h1>
-            <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
-          </blockquote>
+            </div>
+            <span>By <em>Me</em></span>
+          </h1>
+          <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
+        </blockquote>
 
-          <blockquote>
-            <h1>
-              <div class="am-review-card-title">
-                Good experience
-                <div class="c-rating" data-rating-value="4.51">
-                  <button>1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>5</button>
-                </div>
+        <blockquote>
+          <h1>
+            <div class="am-review-card-title">
+              Good experience
+              <div class="c-rating" data-rating-value="4.51">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
               </div>
-              <span>By <em>Cristian Matache</em></span>
-            </h1>
-            <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
-          </blockquote>
+            </div>
+            <span>By <em>Me</em></span>
+          </h1>
+          <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
+        </blockquote>
 
-          <blockquote>
-            <h1>
-              <div class="am-review-card-title">
-                Good experience
-                <div class="c-rating" data-rating-value="4">
-                  <button>1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>5</button>
-                </div>
-              </div>
-              <span>By <em>Cristian Matache</em></span>
-            </h1>
-            <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
-          </blockquote>
-
-        </div>
       </div>
     </div>
   </div>
+  <!--</div>-->
 
 
 
