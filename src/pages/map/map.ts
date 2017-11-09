@@ -77,23 +77,6 @@ export class MapPage {
     this.navCtrl.setRoot(HomePage);
   }
 
-  // Converts an item to a format that can be stored inside a map layer.
-  static itemToFeature(item: Item): any{
-    return {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [item.location[0], item.location[1]]
-      },
-      "properties": {
-        "title": item.name,
-        "icon": "monument",
-        // TODO: Does the stringify properly handle pictures? Check this once pictures are implemented.
-        "associatedItem": JSON.stringify(item)
-      }
-    };
-  }
-
   static addItemsLayer(items: Item[], map: mapboxgl.Map) {
     let features = items.map(item => MapPage.itemToFeature(item));
 
@@ -115,6 +98,23 @@ export class MapPage {
         "text-anchor": "top"
       }
     });
+  }
+
+  // Converts an item to a format that can be stored inside a map layer.
+  static itemToFeature(item: Item): any{
+    return {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [item.location[0], item.location[1]]
+      },
+      "properties": {
+        "title": item.name,
+        "icon": "monument",
+        // TODO: Does the stringify properly handle pictures? Check this once pictures are implemented.
+        "associatedItem": JSON.stringify(item)
+      }
+    };
   }
 
 }
