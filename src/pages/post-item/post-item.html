@@ -24,7 +24,7 @@
   <ion-list>
 
     <ion-item>
-      <ion-label stacked>Enter Item Name</ion-label>
+      <ion-label stacked>Item Name</ion-label>
       <ion-input type="text" [(ngModel)]="item.name"></ion-input>
     </ion-item>
 
@@ -46,6 +46,22 @@
       </ion-select>
     </ion-item>
 
+    <!--Only want borrowing time if item is for loan-->
+    <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
+    <ion-item *ngIf="item.type == 'Loan'" interface="popover">
+      <ion-label stacked>
+        Maxloan
+      </ion-label>
+      <ion-select [(ngModel)]="borrow_duration" >
+        <ion-option value="one_day">1 day</ion-option>
+        <ion-option value="two_days">2 days</ion-option>
+        <ion-option value="three_days">3 days</ion-option>
+        <ion-option value="five_days">5 days</ion-option>
+        <ion-option value="one_week">1 week</ion-option>
+        <ion-option value="two_weeks">2 weeks</ion-option>
+        <ion-option value="four_weeks">4 weeks</ion-option>
+      </ion-select>
+    </ion-item>
 
   </ion-list>
 

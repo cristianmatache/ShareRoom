@@ -16,6 +16,7 @@ import { Database } from "../../providers/database";
  * Ionic pages and navigation.
  */
 
+
 @IonicPage()
 @Component({
   selector: 'page-post-item',
@@ -32,6 +33,8 @@ export class PostItemPage {
   }
 
   lastImage = "src/assets/image/bed.jpg";
+  ONE_DAY_AS_MS : number = 86400000;
+  borrow_duration: string;
 
   item = {} as Item;
   private isActiveToast: boolean = false;
@@ -112,7 +115,37 @@ export class PostItemPage {
       });
   }
 
+  // TODO: why not simply have addItem(Item item) in the db?
   addItem() {
-    this.database.addItem(this.item.name, this.item.description, this.item.picture, this.item.type);
+    this.findMaxBorrowDuration();
+
+    this.database.addItem(
+      this.item.name,
+      this.item.description,
+      this.item.picture,
+      this.item.type,
+      this.item.max_borrow_duration);
   }
+
+  private findMaxBorrowDuration() {
+
+    if (this.item.type != "Loan") {
+      this.item.max_borrow_duration = null;
+      return;
+    }
+
+    switch(this.borrow_duration) {
+      case "one_day": this.item.max_borrow_duration = this.ONE_DAY_AS_MS; break;
+      case "two_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 2; break;
+      case "three_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 3; break;
+      case "five_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 5; break;
+      case "one_week": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 7; break;
+      case "two_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 14; break;
+      case "four_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break
+      // TODO: we shouldn't allow user to submit item without checking for valid borrow duration.
+      // So temporarily one day is the default.
+      default: this.item.max_borrow_duration = this.ONE_DAY_AS_MS;
+    }
+  }
+
 }
