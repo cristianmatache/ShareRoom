@@ -124,7 +124,8 @@ export class PostItemPage {
       this.item.description,
       this.item.picture,
       this.item.type,
-      this.item.max_borrow_duration);
+      this.item.max_borrow_duration,
+      this.item.category);
   }
 
   private findMaxBorrowDuration() {

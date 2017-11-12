@@ -13,7 +13,11 @@ export interface Item {
   borrow_time: number;
   return_time: number;
   max_borrow_duration: number;
+  category: string;
 }
+
+// TODO: I plagiaried categories from shpock, might want to change them.
+// TODO: add constants for category names.
 
 export let ItemType = {
   SWAP: "SWAP",

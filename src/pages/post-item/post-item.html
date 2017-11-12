@@ -33,9 +33,14 @@
       <ion-textarea type="text" [(ngModel)]="item.description"></ion-textarea>
     </ion-item>
 
-    <button ion-item>
-      Choose Category
-    </button>
+    <!--TODO: add rest of options.-->
+    <ion-item>
+      <ion-label>Choose Category</ion-label>
+      <ion-select [(ngModel)]="item.category" interface="popover">
+        <ion-option value="Other">Other</ion-option>
+        <ion-option value="Baby and child">Baby and child</ion-option>
+      </ion-select>
+    </ion-item>
 
     <ion-item>
       <ion-label>Type</ion-label>

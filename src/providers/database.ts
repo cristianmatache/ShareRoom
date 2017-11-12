@@ -117,7 +117,12 @@ export class Database {
     }
   }*/
 
-  addItem(name : string, description : string, picture: string, type : string, max_borrow_duration: number) {
+  addItem(name : string,
+          description : string,
+          picture: string,
+          type : string,
+          max_borrow_duration: number,
+          category: string) {
     console.log("current user");
     console.log(this.getCurrentUserId());
     console.log("----------- UPLOAD ITEM -------------");
@@ -134,7 +139,8 @@ export class Database {
         borrower_uid: null,
         borrowTime: 0,
         returnTime: 0,
-        max_borrow_duration: max_borrow_duration
+        max_borrow_duration: max_borrow_duration,
+        category: category
       };
       firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
       console.log("AFTER PUSH");

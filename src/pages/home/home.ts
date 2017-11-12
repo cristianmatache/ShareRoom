@@ -38,6 +38,7 @@ export class HomePage {
       borrow_time: 0,
       return_time: 0,
       max_borrow_duration: 604800000,
+      category: "Other",
     }, {
       id: "2",
       name: "Bed",
@@ -51,6 +52,7 @@ export class HomePage {
       borrow_time: 0,
       return_time: 0,
       max_borrow_duration: 604800000,
+      category: "Other",
     }, {
       id: "3",
       name: "Bed",
@@ -64,6 +66,7 @@ export class HomePage {
       borrow_time: 0,
       return_time: 0,
       max_borrow_duration: 604800000,
+      category: "Other",
     }, {
       id: "4",
       name: "Bed",
@@ -77,6 +80,7 @@ export class HomePage {
       borrow_time: 0,
       return_time: 0,
       max_borrow_duration: 604800000,
+      category: "Other",
     }, {
       id: "5",
       name: "Bed",
@@ -90,6 +94,7 @@ export class HomePage {
       borrow_time: 0,
       return_time: 0,
       max_borrow_duration: 604800000,
+      category: "Other",
     });
   }
 
