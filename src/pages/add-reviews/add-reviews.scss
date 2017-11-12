@@ -397,10 +397,6 @@ page-add-reviews {
       text-indent: -9999px;
       outline: none;
       background: get-icon($rating-color-empty);
-      //@if $interaction-type == clickable {
-      //  cursor: pointer;
-      //  transition: background 0.25s ease;
-      //}
     }
 
     @each $rating-value in rating-values() {
@@ -465,7 +461,50 @@ page-add-reviews {
     padding: 10px 10px;
   }
 
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  ::-webkit-input-placeholder {
     color: white;
+  }
+
+
+
+
+  .rating {
+    background-color: mintcream;
+    float: right;
+    padding: 1px 4px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  .star-gen{
+    font-size: 2.5rem;
+    display: inline-block;
+  }
+
+  input[type="radio"] {
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    right: 100%;
+  }
+
+  label {
+    font-size: 1.5em;
+    //padding: 0.1em;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  input[type="radio"]:checked ~ input + label {
+    background: none;
+    text-shadow: 0 0 10px lighten(color($colors, light), 30%);
+    color: #aaa;
+  }
+
+  input + label {
+    background: mintcream;
+    color: lighten(#F9BF3B, 5%);
+    text-shadow: 0 0 20px lighten(#F9BF3B, 5%);
+    margin: 0 0 0.1em 0;
   }
 }

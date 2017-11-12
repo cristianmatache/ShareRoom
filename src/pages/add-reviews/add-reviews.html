@@ -40,13 +40,20 @@
           <h1>
             <form class="am-review-card-title" accept-charset="UTF-8" method="post" id="form1">
               <input type="text" name="title" placeholder="Your highlight" class="title-form">
-              <div class="c-rating-form" data-rating-value="4.51">
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
+
+              <div class="rating">
+                <input type="radio" name="test" id="one" checked />
+                <label for="one"><div class="star-gen">★</div></label>
+                <input type="radio" name="test" id="two" />
+                <label for="two"><div class="star-gen">★</div></label>
+                <input type="radio" name="test" id="three" />
+                <label for="three"><div class="star-gen">★</div></label>
+                <input type="radio" name="test" id="four" />
+                <label for="four"><div class="star-gen">★</div></label>
+                <input type="radio" name="test" id="five" />
+                <label for="five"><div class="star-gen">★</div></label>
               </div>
+
             </form>
             <div style="margin-top:5px">
               <span>By <em>Me</em></span>
@@ -56,7 +63,6 @@
           <div>
             <button ion-button class="submit-button">Submit</button>
           </div>
-          <!--<p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>-->
         </blockquote>
 
         <div class="profile_des">OTHERS' REVIEWS</div>
@@ -99,7 +105,6 @@
     </div>
   </div>
   <!--</div>-->
-
 
 
 </ion-content>
