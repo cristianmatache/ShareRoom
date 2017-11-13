@@ -1,6 +1,8 @@
 page-post-item {
   .card-background-page {
 
+    background-color: mintcream;
+
     ion-card {
       position: relative;
       text-align: center;
@@ -42,5 +44,16 @@ page-post-item {
       width: 100%;
     }
 
+  }
+
+  .add-item-space {
+    border-radius: 10px;
+    //padding: 10px 10px;
+    box-shadow: rgba(0, 0, 0, 1);
+  }
+
+  .general-ion-item {
+    background-color: mintcream;
+    //color: white;
   }
 }

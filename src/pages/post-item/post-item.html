@@ -14,7 +14,7 @@
 
 
 <ion-content class="card-background-page">
-  <ion-card >
+  <ion-card class="add-item-space">
 
     <img src="../../assets/image/add-Item1.png"/>
     <div class="card-title" (click)="presentActionSheet()">Add Picture</div>
@@ -23,18 +23,18 @@
 
   <ion-list>
 
-    <ion-item>
+    <ion-item class="general-ion-item">
       <ion-label stacked>Item Name</ion-label>
       <ion-input type="text" [(ngModel)]="item.name"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="general-ion-item">
       <ion-label stacked>Description</ion-label>
       <ion-textarea type="text" [(ngModel)]="item.description"></ion-textarea>
     </ion-item>
 
     <!--TODO: add rest of options.-->
-    <ion-item>
+    <ion-item class="general-ion-item">
       <ion-label>Choose Category</ion-label>
       <ion-select [(ngModel)]="item.category" interface="popover">
         <ion-option value="Other">Other</ion-option>
@@ -42,7 +42,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="general-ion-item">
       <ion-label>Type</ion-label>
       <ion-select [(ngModel)]="item.type" interface="popover">
         <ion-option value="Swap">Swap</ion-option>
@@ -53,7 +53,7 @@
 
     <!--Only want borrowing time if item is for loan-->
     <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
-    <ion-item *ngIf="item.type == 'Loan'" interface="popover">
+    <ion-item *ngIf="item.type == 'Loan'" interface="popover" class="general-ion-item">
       <ion-label stacked>
         Maxloan
       </ion-label>
@@ -71,6 +71,6 @@
   </ion-list>
 
 
-  <button ion-button color="secondary" full (click)="addItem()">Submit</button>
+  <button ion-button full (click)="addItem()">Submit</button>
 
 </ion-content>
