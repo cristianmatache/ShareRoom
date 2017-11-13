@@ -8,6 +8,8 @@ import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Item } from '../../models/item'
 import { Database } from "../../providers/database";
+import { HomePage } from "../home/home";
+import {default as firebase, storage} from "firebase";
 
 /**
  * Generated class for the AddItemPage page.
@@ -87,32 +89,46 @@ export class PostItemPage {
     actionSheet.present();
   }
 
-  selectPic() {
-    this.camera.getPicture({
-      quality: this.options.quality,
-      destinationType: this.options.destinationType,
-      encodingType: this.options.encodingType,
-      mediaType: this.options.mediaType,
-      sourceType: PictureSourceType.PHOTOLIBRARY
-    })
-      .then((imageData) => {
-        this.item.picture = imageData;
-        console.log("The image data is:" + imageData);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  async selectPic() {
+    const options : CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+
+    };
+    try {
+      const result = await this.camera.getPicture(options);
+      const image = 'data:image/jpeg;base64,' + result;
+      const pictures = storage().ref('pictures');
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  takePic() {
-    this.camera.getPicture(this.options)
-      .then((imageData) => {
-        this.item.picture = imageData;
-        console.log(imageData);
-      })
-      .catch((error) => {
-        console.error(error);
+  async takePic() {
+    console.log("TAKE PIC");
+    const options : CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+
+    };
+    try {
+      console.log("BEFORE GET PICTURE");
+      const result = await this.camera.getPicture(options);
+      console.log("AFTER GET PICTURE");
+      const image = 'data:image/jpeg;base64,' + result;
+      const pictures = storage().ref('pictures/' + this.database.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
+      await pictures.putString(image, 'data_url');
+      pictures.getDownloadURL().then((downloadURL) =>
+      {
+        this.item.picture = downloadURL;
+        (document.getElementById('picture') as HTMLImageElement).src = this.item.picture;
       });
+
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   // TODO: why not simply have addItem(Item item) in the db?
@@ -126,6 +142,8 @@ export class PostItemPage {
       this.item.type,
       this.item.max_borrow_duration,
       this.item.category);
+
+    this.navCtrl.setRoot(HomePage);
   }
 
   private findMaxBorrowDuration() {

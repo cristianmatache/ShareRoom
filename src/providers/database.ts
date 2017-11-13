@@ -1,4 +1,3 @@
-import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -7,6 +6,8 @@ import {Facebook} from '@ionic-native/facebook';
 import {Item} from "../models/item";
 import { Geolocation } from '@ionic-native/geolocation';
 import {Review} from "../models/review";
+import {Injectable} from "@angular/core";
+
 
 @Injectable()
 export class Database {
@@ -128,12 +129,15 @@ export class Database {
     console.log("----------- UPLOAD ITEM -------------");
     this.geolocation.getCurrentPosition().then((resp) =>
     {
+      if (!picture) {
+        picture = "something";
+      }
       let item = {
         name: name,
         description: description,
         location: [resp.coords.longitude,resp.coords.latitude],
         owner_uid: this.getCurrentUserId(),
-        picture: 'some/picture',
+        picture: picture,
         date_posted: firebase.database.ServerValue.TIMESTAMP,
         type: type,
         borrower_uid: null,
@@ -145,14 +149,6 @@ export class Database {
       firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
       console.log("AFTER PUSH");
     });
-
-    // this.uploadImage(picture, "/pic", () => {
-    //   console.log("IT IS DONE---------------------------");
-    // }, (percent) => {
-    //   console.log(percent + " --------------------------------");
-    // }, (err) => {
-    //   console.log("-----------------------___ERRORRRR" + err);
-    // });
   }
 
   editItem(id: string, name : string, description : string, picture: string, type : string) {
