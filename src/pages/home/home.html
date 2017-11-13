@@ -7,10 +7,9 @@
             <!--<img src="../../assets/images/ShareGreen2.gif" width="20%" height="20%">-->
           <!--</ion-avatar>-->
           <ion-searchbar
-            [(ngModel)]="searchQuerry"
-            [showCancelButton]="searchQuerry !== null"
-            (ionInput)="onSearch($event)"
-            (ionCancel)="onCancelSearch($event)">
+            [(ngModel)]="searchQuery"
+            [showCancelButton]="searchQuery.length > 0"
+            (ngModelChange)="onSearch($event)">
           </ion-searchbar>
         </ion-col>
         <ion-col col-1 col-xl-1>
@@ -26,7 +25,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
-        <ion-row *ngFor="let item of items; let i = index">
+        <ion-row *ngFor="let item of filteredItems; let i = index">
           <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
             <ion-card (click)="showItem(item)">
