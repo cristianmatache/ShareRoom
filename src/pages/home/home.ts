@@ -16,11 +16,16 @@ import {ItemByUserPage} from "../item-by-user/item-by-user";
 export class HomePage {
 
   items: Item[] = [];
+  filteredItems: Item[] = [];
+  searchQuery: string = "";
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public app: App, private db: Database) {}
 
   ionViewDidLoad() {
-    this.db.getAllItems().then((items) => this.items = items);
+    this.db.getAllItems().then((items) => {
+      this.items = items;
+      this.filteredItems = items;
+    });
     //this.refreshItems();
   }
 
@@ -99,11 +104,13 @@ export class HomePage {
   }
 
   onSearch(event) {
-
+    this.filteredItems = this.items.filter((item) => {
+      return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+    });
   }
 
   onCancelSearch(event) {
-
+    this.filteredItems = this.items;
   }
 
   changeToMap() {
