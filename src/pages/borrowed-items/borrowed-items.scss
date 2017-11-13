@@ -95,6 +95,7 @@ page-borrowed-items {
 
   .profile_page{
     background-color: mintcream;
+    margin-top:-13px;
   }
 
   .profile{
@@ -104,7 +105,7 @@ page-borrowed-items {
     transform: translate(-50%, -50%);
     height: 97%;
     width: 95%;
-    margin-top: 10px;
+    margin-top:10px;
   }
 
   .profile .front {
@@ -129,13 +130,13 @@ page-borrowed-items {
   .profile_banner{
     width: 100%;
     height: auto;
-    padding: 60px 0px;
+    padding: 40px 0;
     background-color: #ddd;
     border-radius: 10px 10px 0px 0px;
     margin-bottom: -50px;
     background-image: url(https://www.airbnbcitizen.com/wp-content/uploads/2017/04/Future-of-Sharing-Cover.png);
     background-position: center;
-    background-size: 500px auto;
+    background-size: cover;
     background-repeat: no-repeat;
   }
   .profile_photo{
