@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color=light hideBackButton="false">
-    <ion-title color="white">Borrowed Items</ion-title>
+    <ion-title color="white">Borrowed and Lent</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,25 +24,35 @@
             <div class="profile_name">Oana Ciocioman</div>
           </div>
 
+          <h1 class="subtitle"> BORROWED </h1>
 
           <div class="container">
-            <div class="item1"></div>
-            <div class="item2">
-                <b>Item name</b>: <br> Bed<br>
-                <b>Due date</b>: <br> 10.11.2017<br>
-                <b>Owner</b>: <br> Cristian Matache
+            <!--<div class="item1" style="background-image: url('http://www.ikea.com/gb/en/images/products/tarva-bed-frame-pine-lur%C3%B6y__0448696_pe598331_s5.jpg')"></div>-->
+            <div class="item1">
+              <img class="item-image" src="http://www.ikea.com/gb/en/images/products/tarva-bed-frame-pine-lur%C3%B6y__0448696_pe598331_s5.jpg">
             </div>
+
+            <div class="item2">
+              <div class="text"> <b>Name</b>: <div class="value">Bed1 long name</div> <br> </div>
+              <div class="text"> <b>Taken</b>: <div class="value">10.11.2017</div><br> </div>
+              <div class="text"> <b>Due</b>: <div class="value">10.12.2017</div> <br> </div>
+              <div class="text"> <b>Owner</b>: <div class="value">Cristian Matache</div> </div>
+            </div>
+
             <button ion-button class="return-button">Return</button>
           </div>
 
+          <h1 class="subtitle"> LENT </h1>
+
           <div class="container">
-            <div class="item1"></div>
+            <div class="item1" style="background-image: url('http://www.ikea.com/gb/en/images/products/malm-bed-frame-high-w-4-storage-boxes-brown-stained-ash-veneer-lur%C3%B6y__0416866_pe577783_s5.jpg');"></div>
             <div class="item2">
-              <b>Item name</b>: <br> Bed<br>
-              <b>Due date</b>: <br> 10.11.2017<br>
-              <b>Owner</b>: <br> Cristian Matache
+              <div class="text"> <b>Name</b>: <div class="value">Bed</div> <br> </div>
+              <div class="text"> <b>Taken</b>: <div class="value">10.11.2017</div><br> </div>
+              <div class="text"> <b>Due</b>: <div class="value">10.12.2017</div> <br> </div>
+              <div class="text"> <b>Owner</b>: <div class="value">Cristian Matache</div> </div>
             </div>
-            <button ion-button class="return-button">Return</button>
+            <button ion-button class="return-button">Received</button>
           </div>
 
         </div>

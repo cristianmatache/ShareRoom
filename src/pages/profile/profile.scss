@@ -106,6 +106,7 @@ page-profile {
   }
 
   .text-pos {
+    white-space: nowrap;
     margin-top: 90px;
     color: color($colors, light);
     font-size: 14px;
@@ -213,7 +214,7 @@ page-profile {
   }
 
 
-  @mixin star-rating( $filled-color: #F9BF3B, $empty-color: #957223, $size: 35px, $width: 135px) {
+  @mixin star-rating($number-of-stars, $filled-color: #F9BF3B, $empty-color: #957223, $size: 35px, $width: 135px) {
     $star--filled: ★;
     $star--empty: ☆;
     width: $width;
@@ -236,7 +237,7 @@ page-profile {
       display: block;
       position: relative;
       cursor: pointer;
-      @for $i from 5 through (6-4) {
+      @for $i from 5 through (6-$number-of-stars) {
         &:nth-of-type(#{$i}):after {
           content: '#{$star--filled}';
           color: #F9BF3B;
@@ -265,16 +266,36 @@ page-profile {
     }
   }
 
-  .rating {
-    margin: auto;
-    @include star-rating();
-  }
-
   .display {
     display: block;
   }
 
   body {
     background-color: #111;
+  }
+
+  .rating-0 {
+    margin: auto;
+    @include star-rating(0);
+  }
+  .rating-1 {
+    margin: auto;
+    @include star-rating(1);
+  }
+  .rating-2 {
+    margin: auto;
+    @include star-rating(2);
+  }
+  .rating-3 {
+    margin: auto;
+    @include star-rating(3);
+  }
+  .rating-4 {
+    margin: auto;
+    @include star-rating(4);
+  }
+  .rating-5 {
+    margin: auto;
+    @include star-rating(5);
   }
 }
