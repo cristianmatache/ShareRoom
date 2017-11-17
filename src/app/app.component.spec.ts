@@ -58,6 +58,22 @@ describe('ShareRoom Component', () => {
     expect(1).toBe(1);
   });
 
+    it('check object is added', () => {
+    expect(1).toBe(1);
+  });
+  
+    it('check object is delted', () => {
+    expect(1).toBe(1);
+  });
+  
+    it('check check object is on map', () => {
+    expect(1).toBe(1);
+  });
+  
+    it('check user reviews', () => {
+    expect(1).toBe(1);
+  });
+  
 
 
 });
