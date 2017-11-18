@@ -20,33 +20,24 @@
 
 <ion-content padding class="app-background">
   <ion-grid>
-    <!--<ion-row>-->
-      <!--<ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">-->
-        <!--<ion-row *ngFor="let item of filteredItems; let i = index">-->
-          <!--<ion-col *ngIf="i % getNumberOfColumns().length === nr">-->
+    <ion-row>
+      <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
+        <ion-row *ngFor="let item of filteredItems; let i = index">
+          <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
-            <!--<ion-card (click)="showItem(item)">-->
+            <ion-card (click)="showItem(item)">
+              <img [src]="item.picture" class="item-image">
+              <ion-card-title>{{item.name}}</ion-card-title>
+              <ion-row>
+                <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
+                <ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>
+              </ion-row>
+            </ion-card>
 
-              <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
-              <!--&lt;!&ndash;<ion-avatar item-start>&ndash;&gt;-->
-              <!--&lt;!&ndash;<img src="https://assets.babycenter.com/ims/2016/10/iStock_43693432_4x3.jpg">&ndash;&gt;-->
-              <!--&lt;!&ndash;</ion-avatar>&ndash;&gt;-->
-              <!--&lt;!&ndash;<h2>James Evianeurope</h2>&ndash;&gt;-->
-              <!--&lt;!&ndash;<p>Aug 2017</p>&ndash;&gt;-->
-              <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
-
-              <!--<img [src]="item.picture" class="item-image">-->
-              <!--<ion-card-title>{{item.name}}</ion-card-title>-->
-              <!--<ion-row>-->
-                <!--<ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>-->
-                <!--<ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>-->
-              <!--</ion-row>-->
-            <!--</ion-card>-->
-
-          <!--</ion-col>-->
-        <!--</ion-row>-->
-      <!--</ion-col>-->
-    <!--</ion-row>-->
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
   <!--<ion-fab bottom right>-->
