@@ -1,5 +1,12 @@
 page-borrowed-items {
 
+  .toolbar-md-light .toolbar-title-md{
+    //text-align: left;
+    //padding: 0 25%;
+    text-align: center;
+    margin-left: - 3rem;
+  }
+
   .mdl-card + .mdl-card {
     margin-top: 40px;
   }
