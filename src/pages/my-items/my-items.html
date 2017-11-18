@@ -3,15 +3,11 @@
     <ion-grid>
       <ion-row>
         <ion-col col-9 col-xl-11>
-          <!--<ion-avatar>-->
-          <!--<img src="../../assets/images/ShareGreen2.gif" width="20%" height="20%">-->
-          <!--</ion-avatar>-->
-
-          <!--<ion-searchbar-->
+          <ion-searchbar>
             <!--[(ngModel)]="searchQuery"-->
             <!--[showCancelButton]="searchQuery.length > 0"-->
             <!--(ngModelChange)="onSearch($event)">-->
-          <!--</ion-searchbar>-->
+          </ion-searchbar>
         </ion-col>
         <ion-col col-1 col-xl-1>
           <button ion-button class="filters-button">Filters</button>
@@ -23,7 +19,7 @@
 
 
 <ion-content padding class="app-background">
-  <!--<ion-grid>-->
+  <ion-grid>
     <!--<ion-row>-->
       <!--<ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">-->
         <!--<ion-row *ngFor="let item of filteredItems; let i = index">-->
@@ -51,10 +47,11 @@
         <!--</ion-row>-->
       <!--</ion-col>-->
     <!--</ion-row>-->
-  <!--</ion-grid>-->
-  <ion-fab bottom right>
-    <button ion-fab (click)="changeToMap()">
-      <ion-icon name="pin"></ion-icon>
-    </button>
-  </ion-fab>
+  </ion-grid>
+
+  <!--<ion-fab bottom right>-->
+    <!--<button ion-fab (click)="changeToMap()">-->
+      <!--<ion-icon name="pin"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
 </ion-content>
