@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import {Item} from "../../models/item";
+import { Database } from "../../providers/database";
 /**
  * Generated class for the MyItemsPage page.
  *
@@ -15,11 +16,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MyItemsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  filteredItems: Item[] = [];
+  items: Item[] = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }
 
   ionViewDidLoad() {
+    this.db.getAllLoggedInItems().then((items) => {
+      this.items = items;
+      this.filteredItems = items;
+    });
     console.log('ionViewDidLoad MyItemsPage');
   }
 
+  getNumberOfColumns() {
+    var nrList = [];
+    for (var i = 0; i < Math.floor(window.innerWidth / 150); i++) {
+      nrList.push(i);
+    }
+    return nrList;
+  }
+
+  getDistanceTill(item) {
+    return "15 miles";
+  }
 }

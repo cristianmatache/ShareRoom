@@ -214,6 +214,33 @@ export class Database {
     return firebase.auth().currentUser != null;
   }
 
+  getAllLoggedInItems(): Promise<Item[]> {
+    return new Promise<Item[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        function (snapshot) {
+          let items = [];
+          snapshot.forEach(function (user) {
+            let user_items = user.val().items;
+
+            // probably need this null check because of how val works
+            if (user_items != null) {
+              for (var index in user_items) {
+                var item = user_items[index];
+                item.id = index;
+                items.push(item);
+              }
+            }
+            return false;
+          });
+          resolve(items);
+        }, () => {
+          reject("Error in fetching users from the database!");
+        });
+    });
+  }
+
+
   getAllItems(): Promise<Item[]> {
     return new Promise<Item[]>((resolve, reject) => {
       firebase.database().ref('users/').once(
