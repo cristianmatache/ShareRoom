@@ -274,28 +274,30 @@ page-profile {
     background-color: #111;
   }
 
-  .rating-0 {
-    margin: auto;
-    @include star-rating(0);
+  $rating-min-value: 0 !default;
+  $rating-max-value: 5 !default;
+  $rating-steps-value: .01 !default;
+
+  @function rating-values() {
+    $rating-values: ();
+    @for $i from $rating-min-value through ($rating-max-value / $rating-steps-value) {
+      $rating-value: abs($i * $rating-steps-value);
+      $rating-values: append($rating-values, $rating-value, 'comma');
+    }
+    @return $rating-values;
   }
-  .rating-1 {
-    margin: auto;
-    @include star-rating(1);
+
+  @mixin average-rating() {
+    @each $rating-value in rating-values() {
+      $rating-value-ceil: round($rating-value);
+      &[data-rating-value="#{$rating-value}"] {
+        margin: auto;
+        @include star-rating($rating-value-ceil);
+      }
+    }
   }
-  .rating-2 {
-    margin: auto;
-    @include star-rating(2);
-  }
-  .rating-3 {
-    margin: auto;
-    @include star-rating(3);
-  }
-  .rating-4 {
-    margin: auto;
-    @include star-rating(4);
-  }
-  .rating-5 {
-    margin: auto;
-    @include star-rating(5);
+
+  .average-rating {
+    @include average-rating();
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Database } from "../../providers/database";
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,10 +16,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  average : number = 0;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }
 
   ionViewDidLoad() {
+    this.db.getAllLoggedInReviews().then((reviews) => {
+      this.average = this.computeAverage(reviews);
+    });
     console.log('ionViewDidLoad ProfilePage');
   }
 
@@ -32,6 +38,15 @@ export class ProfilePage {
 
   getMyItems() {
     this.navCtrl.push('MyItemsPage');
+  }
+
+  private computeAverage(reviews) {
+    var avg = 0;
+    for (var r of reviews) {
+      avg += r.rating;
+    }
+    avg /= reviews.length;
+    return Math.round(avg * 100) / 100
   }
 
 }
