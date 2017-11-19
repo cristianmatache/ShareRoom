@@ -45,7 +45,7 @@
           <ion-row *ngFor="let item of itemsWithRequests; let i = index">
             <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
-              <ion-card class="with-requests"(click)="showItem(item)">
+              <ion-card class="with-requests"(click)="getReceivedRequests(item)">
                 <img [src]="item.picture" class="item-image">
                 <ion-card-title>{{item.name}}</ion-card-title>
                 <ion-row>

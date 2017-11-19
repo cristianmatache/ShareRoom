@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import { Database } from "../../providers/database";
 import {DisplayableBorrowedItem} from "../../models/displayable-borrowed-item";
+
 /**
  * Generated class for the MyItemsPage page.
  *
@@ -51,9 +52,11 @@ export class MyItemsPage {
         console.log("fin " + rawItem.max_borrow_duration);
         console.log(dispItem.percentage_time);
         this.itemsLoggedInUserLent.push(dispItem);
-      };
+      }
     });
 
+    // console.log("*******************");
+    // console.log(this.itemsLoggedInUserLent);
     console.log('ionViewDidLoad MyItemsPage');
   }
 
@@ -71,5 +74,9 @@ export class MyItemsPage {
 
   getNumberOfRequests(item) {
     return String(item.requesters.length) + " requests";
+  }
+
+  getReceivedRequests() {
+    return this.navCtrl.push("ReceivedRequestsPage");
   }
 }
