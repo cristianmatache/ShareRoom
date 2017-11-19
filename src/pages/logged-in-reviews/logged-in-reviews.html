@@ -50,7 +50,7 @@
                       <div class="text-title">
                         {{review.title}}
                       </div>
-                      <div class="c-rating" data-rating-value="5">
+                      <div class="c-rating" [attr.data-rating-value]="review.rating">
                         <button>1</button>
                         <button>2</button>
                         <button>3</button>
