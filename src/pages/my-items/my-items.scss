@@ -1,5 +1,22 @@
 page-my-items {
 
+  .segment-md .segment-button{
+    color: lighten(color($colors, primary), 43%);
+  }
+
+  .segment-ios .segment-button {
+    color: lighten(color($colors, primary), 43%);
+  }
+
+  .toolbar-md {
+    min-height: 0;
+  }
+
+  .toolbar-md-light .toolbar-title-md {
+    text-align: center;
+    margin-left: -3rem;
+  }
+
   .filters-button {
     margin-left: -1.15rem;
   }
@@ -26,6 +43,10 @@ page-my-items {
       border: rgba(0,0,0, 0.2) 1px groove;
       margin: 2%;
       width: 100%;
+    }
+
+    .with-requests {
+      background-color: rgba(darken(color($colors, primary), 6.5%), 0.6);
     }
 
     .card-title{
@@ -68,6 +89,59 @@ page-my-items {
       font-weight: bold;
       padding-bottom: 4px;
       padding-top: 0;
-
     }
+
+
+
+  .container {
+    position: relative;
+    overflow: auto;
+    width: 92%;
+    font-size: 1rem;
+    margin: auto;
+    padding: 10px 10px 10px;
+    margin-top: 20px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
+  }
+
+  .return-button {
+    background-color: color($colors, primary);
+    color: white;
+    border-radius: 6px;
+    float: right;
+    height: 2.5rem;
+    padding: 10px 10px;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+
+  .item1, item2 {
+    width:50%;
+    max-width: 50%;
+    max-height: 80%;
+  }
+
+  .text {
+    padding-left: 40px;
+  }
+
+  .item2 {
+    padding-left: 100px;
+    text-align: left;
+    color: white;
+    font-size: 15px;
+  }
+
+  .item1 {
+    margin-left: -3px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 130px;
+    width: 50%;
+    position: relative;
+    float: left;
+    border-radius: 5px;
+  }
 }

@@ -1,48 +1,77 @@
 <ion-header>
-  <ion-navbar color=light>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-9 col-xl-11>
-          <ion-searchbar>
-            <!--[(ngModel)]="searchQuery"-->
-            <!--[showCancelButton]="searchQuery.length > 0"-->
-            <!--(ngModelChange)="onSearch($event)">-->
-          </ion-searchbar>
-        </ion-col>
-        <ion-col col-1 col-xl-1>
-          <button ion-button class="filters-button">Filters</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <ion-navbar color=light hideBackButton="false">
+    <ion-title color="white">My items</ion-title>
   </ion-navbar>
+  <ion-toolbar color="light">
+    <ion-segment [(ngModel)]="myitems">
+      <ion-segment-button value="manage">Manage</ion-segment-button>
+      <ion-segment-button value="requests">Requests</ion-segment-button>
+      <ion-segment-button value="lent">Lent</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding class="app-background">
-  <ion-grid>
-    <ion-row>
-      <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
-        <ion-row *ngFor="let item of filteredItems; let i = index">
-          <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
-            <ion-card (click)="showItem(item)">
-              <img [src]="item.picture" class="item-image">
-              <ion-card-title>{{item.name}}</ion-card-title>
-              <ion-row>
-                <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
-                <ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>
-              </ion-row>
-            </ion-card>
 
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div [ngSwitch]="myitems">
 
-  <!--<ion-fab bottom right>-->
-    <!--<button ion-fab (click)="changeToMap()">-->
-      <!--<ion-icon name="pin"></ion-icon>-->
-    <!--</button>-->
-  <!--</ion-fab>-->
+    <ion-grid *ngSwitchCase="'manage'">
+      <ion-row>
+        <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
+          <ion-row *ngFor="let item of filteredItems; let i = index">
+            <ion-col *ngIf="i % getNumberOfColumns().length === nr">
+
+              <ion-card (click)="showItem(item)">
+                <img [src]="item.picture" class="item-image">
+                <ion-card-title>{{item.name}}</ion-card-title>
+                <ion-row>
+                  <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
+                  <ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>
+                </ion-row>
+              </ion-card>
+
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'requests'">
+      <ion-row>
+        <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
+          <ion-row *ngFor="let item of filteredItems; let i = index">
+            <ion-col *ngIf="i % getNumberOfColumns().length === nr">
+
+              <ion-card class="with-requests"(click)="showItem(item)">
+                <img [src]="item.picture" class="item-image">
+                <ion-card-title>{{item.name}}</ion-card-title>
+                <ion-row>
+                  <ion-col class="requests"></ion-col>
+                  <ion-badge item-end class=".item-type"> {{this.getNumberOfRequests(item)}} </ion-badge>
+                </ion-row>
+              </ion-card>
+
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div *ngSwitchCase="'lent'">
+      <div class="container">
+        <div class="item1" style="background-image: url('http://www.ikea.com/gb/en/images/products/malm-bed-frame-high-w-4-storage-boxes-brown-stained-ash-veneer-lur%C3%B6y__0416866_pe577783_s5.jpg');"></div>
+        <div class="item2">
+          <div class="text"> <b>Name</b>: <div class="value">Bed</div> <br> </div>
+          <div class="text"> <b>Taken</b>: <div class="value">10.11.2017</div><br> </div>
+          <div class="text"> <b>Due</b>: <div class="value">10.12.2017</div> <br> </div>
+          <div class="text"> <b>Owner</b>: <div class="value">Cristian Matache</div> </div>
+        </div>
+        <button ion-button class="return-button">Received</button>
+      </div>
+    </div>
+
+  </div>
 </ion-content>

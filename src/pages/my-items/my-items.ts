@@ -18,6 +18,7 @@ export class MyItemsPage {
 
   filteredItems: Item[] = [];
   items: Item[] = [];
+  myitems: string = "requests";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }
@@ -40,5 +41,9 @@ export class MyItemsPage {
 
   getDistanceTill(item) {
     return "15 miles";
+  }
+
+  getNumberOfRequests(item) {
+    return "5 requests"
   }
 }

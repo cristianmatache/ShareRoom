@@ -15,11 +15,28 @@
 
 <ion-content padding class="profile_page">
 
+  <!--<ion-grid>-->
+    <!--<ion-row *ngFor="let review of retrievedReviews; let i = index">-->
+            <!--<ion-card (click)="showItem(item)">-->
+              <!--&lt;!&ndash;<img [src]="item.picture" class="item-image">&ndash;&gt;-->
+              <!--<ion-card-title>{{review.review}}</ion-card-title>-->
+              <!--&lt;!&ndash;<ion-row>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>&ndash;&gt;-->
+              <!--&lt;!&ndash;</ion-row>&ndash;&gt;-->
+            <!--</ion-card>-->
+    <!--</ion-row>-->
+  <!--</ion-grid>-->
+
+
   <div class="profile">
     <!--<div class="front">-->
+
+
       <div class="profile_banner"></div>
       <div class="profile_photo"><img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAaVAAAAJGUyNzI1ZGFlLTcyYzAtNDhjNC1hZjk1LTMxYWNkYjQ1NmVhYw.jpg"></div>
       <div class="profile_info">
+
         <div class="display">
           <div class="profile_name">Oana Ciocioman</div>
           <div class="rating-5">   <!--#{number-of-stars}">-->
@@ -35,56 +52,89 @@
         <!--<h2 class="profile_des" style="margin-top:15px">oana.ciocioman@gmail.com</h2>-->
 
         <div class=amazing-reviews>
-          <blockquote>
-            <h1>
-              <div class="am-review-card-title">
-                Good experience
-                <div class="c-rating" data-rating-value="4.51">
-                  <button>1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>5</button>
-                </div>
-              </div>
-              <span>By <em>Cristian Matache</em></span>
-            </h1>
-            <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
-          </blockquote>
 
-          <blockquote>
-            <h1>
-              <div class="am-review-card-title">
-                Good experience
-                <div class="c-rating" data-rating-value="4.51">
-                  <button>1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>5</button>
-                </div>
-              </div>
-              <span>By <em>Cristian Matache</em></span>
-            </h1>
-            <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
-          </blockquote>
 
-          <blockquote>
-            <h1>
-              <div class="am-review-card-title">
-                Good experience
-                <div class="c-rating" data-rating-value="4">
-                  <button>1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>5</button>
-                </div>
-              </div>
-              <span>By <em>Cristian Matache</em></span>
-            </h1>
-            <p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>
-          </blockquote>
+          <ion-grid>
+            <!--<ion-row>-->
+              <!--<ion-col>-->
+                <ion-row *ngFor="let review of retrievedReviews;">
+                  <blockquote>
+                  <h1>
+                    <div class="am-review-card-title">
+                      <div class="text-title">
+                        {{review.title}}
+                      </div>
+                      <div class="c-rating" data-rating-value="5">
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>4</button>
+                        <button>5</button>
+                      </div>
+                    </div>
+                    <span>By <em>{{review.user_id}}</em></span>
+                  </h1>
+                  <p>{{review.review}}</p>
+                  </blockquote>
+
+
+                  <!--</ion-col>-->
+                </ion-row>
+              <!--</ion-col>-->
+            <!--</ion-row>-->
+          </ion-grid>
+
+
+          <!--<blockquote>-->
+            <!--<h1>-->
+              <!--<div class="am-review-card-title">-->
+                <!--Good experience-->
+                <!--<div class="c-rating" data-rating-value="4.51">-->
+                  <!--<button>1</button>-->
+                  <!--<button>2</button>-->
+                  <!--<button>3</button>-->
+                  <!--<button>4</button>-->
+                  <!--<button>5</button>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<span>By <em>Cristian Matache</em></span>-->
+            <!--</h1>-->
+            <!--<p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>-->
+          <!--</blockquote>-->
+
+          <!--<blockquote>-->
+            <!--<h1>-->
+              <!--<div class="am-review-card-title">-->
+                <!--Good experience-->
+                <!--<div class="c-rating" data-rating-value="4.51">-->
+                  <!--<button>1</button>-->
+                  <!--<button>2</button>-->
+                  <!--<button>3</button>-->
+                  <!--<button>4</button>-->
+                  <!--<button>5</button>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<span>By <em>Cristian Matache</em></span>-->
+            <!--</h1>-->
+            <!--<p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>-->
+          <!--</blockquote>-->
+
+          <!--<blockquote>-->
+            <!--<h1>-->
+              <!--<div class="am-review-card-title">-->
+                <!--Good experience-->
+                <!--<div class="c-rating" data-rating-value="4">-->
+                  <!--<button>1</button>-->
+                  <!--<button>2</button>-->
+                  <!--<button>3</button>-->
+                  <!--<button>4</button>-->
+                  <!--<button>5</button>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<span>By <em>Cristian Matache</em></span>-->
+            <!--</h1>-->
+            <!--<p>Oana was very helpful. She warned me about a minor problem the bike I rented has and told me how to repair it.</p>-->
+          <!--</blockquote>-->
 
         </div>
       </div>

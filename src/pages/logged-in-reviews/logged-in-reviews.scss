@@ -226,17 +226,24 @@ page-logged-in-reviews {
 
 
 
+  .text-title {
+    font-size: 14px;
+    padding-right: 10px;
+    display: inline-block;
+  }
 
+  .grid {
+    padding: 0;
+  }
 
 
   .amazing-reviews {
     font-size: 12pt;
-    margin-top: 60px;
   }
+
   .amazing-reviews blockquote {
     font-family: Myriad, Helvetica, 'Lucida Grande', 'DejaVu Sans Condensed', 'Liberation Sans', 'Nimbus Sans L', Tahoma, Geneva, Arial, sans-serif;
     background: rgba(0,0,0, 0.6);
-    margin-top: 25px;
     margin-left: 10px;
     margin-right: 10px;
     border: 1px solid #ddd;
@@ -244,14 +251,10 @@ page-logged-in-reviews {
     padding: 15px 15px 10px 15px;
     position: relative;
     box-shadow: rgba(0,0,0,.025) 0 3px 20px;
-
-    //-webkit-user-select: none;
-    //-moz-user-select: none;
-    //-ms-user-select: none;
-    //-o-user-select: none;
     user-select: none;
     cursor: default;
   }
+
   .amazing-reviews blockquote:before {
     content: '';
     display: block;
@@ -265,10 +268,7 @@ page-logged-in-reviews {
     height: 0;
     opacity: 1;
   }
-  .amazing-reviews blockquote:nth-of-type(even):before {
-    left: auto;
-    right: 20px;
-  }
+
   .amazing-reviews blockquote:after {
     content: '';
     display: block;
@@ -279,13 +279,7 @@ page-logged-in-reviews {
     left: 21px;
     z-index: 500;
   }
-  .amazing-reviews blockquote:nth-of-type(even):after {
-    left: auto;
-    right: 21px;
-  }
-  .amazing-reviews blockquote:last-of-type {
-    margin-bottom: 45px;
-  }
+
   .amazing-reviews blockquote header span i {
     color: white;
     text-shadow: #aaa 1px 0 0, #aaa 0 1px 0, #aaa -1px 0 0, #aaa 0 -1px 0;
@@ -294,58 +288,24 @@ page-logged-in-reviews {
   .amazing-reviews blockquote span em {
     font-style: normal;
     font-weight: bold;
+    font-size: 12px;
     color: color($colors, primary);
     text-decoration: underline;
   }
+
   .amazing-reviews blockquote span:last-of-type {
     color: white;
-    font-size: 10pt;
+    font-size: 12px;
     font-weight: bold;
     display: block;
   }
   .amazing-reviews blockquote p {
+    min-width: 230px;
     font-size: 10pt;
     font-style: normal;
-    margin: 12px 0 0 0;
+    margin: 12px 20px 0 0;
     color: mintcream;
   }
-  .amazing-reviews h2:last-of-type {
-    background: #eee;
-    text-align: center;
-    font-weight: 400;
-    padding: 15px;
-    margin: 0;
-    border: 1px solid #ccc;
-    position: relative;
-  }
-  .amazing-reviews h2 q,
-  .amazing-reviews h2 strong {
-    font-weight: 600;
-  }
-  @media (min-width: 400px) {
-    .amazing-reviews h2:last-of-type {
-      font-size: 24pt;
-    }
-  }
-  @media (min-width: 700px) {
-    .amazing-reviews blockquote {
-      //width: 75%;
-      margin: 30px 15px 0 15px;
-    }
-    //.amazing-reviews blockquote:nth-of-type(even) {
-    //  margin-left: calc(25% - 15px);
-    //}
-    .amazing-reviews h2:last-of-type {
-      font-size: 28pt;
-    }
-  }
-  @media (min-width: 700px) {
-    .amazing-reviews .quote-container {
-      width: 100%;
-      padding: 0 75px;
-    }
-  }
-
 
 
 
@@ -421,6 +381,7 @@ page-logged-in-reviews {
 
   .c-rating {
     @include c-rating(15px, button, representative);
+    margin-top: 1px;
     float: right;
     background-color: mintcream;
     padding: 3px;

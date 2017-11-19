@@ -214,6 +214,32 @@ export class Database {
     return firebase.auth().currentUser != null;
   }
 
+  getAllItems(): Promise<Item[]> {
+    return new Promise<Item[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        function (snapshot) {
+          let items = [];
+          snapshot.forEach(function (user) {
+            let user_items = user.val().items;
+
+            // probably need this null check because of how val works
+            if (user_items != null) {
+              for (var index in user_items) {
+                var item = user_items[index];
+                item.id = index;
+                items.push(item);
+              }
+            }
+            return false;
+          });
+          resolve(items);
+        }, () => {
+          reject("Error in fetching users from the database!");
+        });
+    });
+  }
+
   getAllLoggedInItems(): Promise<Item[]> {
     return new Promise<Item[]>((resolve, reject) => {
       firebase.database().ref('users/').once(
@@ -243,27 +269,28 @@ export class Database {
     });
   }
 
-
-  getAllItems(): Promise<Item[]> {
-    return new Promise<Item[]>((resolve, reject) => {
+  getAllLoggedInReviews(): Promise<Review[]> {
+    return new Promise<Review[]>((resolve, reject) => {
       firebase.database().ref('users/').once(
         'value',
         function (snapshot) {
-          let items = [];
+          let reviews = [];
           snapshot.forEach(function (user) {
-            let user_items = user.val().items;
-
-            // probably need this null check because of how val works
-            if (user_items != null) {
-              for (var index in user_items) {
-                var item = user_items[index];
-                item.id = index;
-                items.push(item);
+            if (firebase.auth().currentUser.uid === user.key) {
+              let user_reviews = user.val().reviews;
+              // probably need this null check because of how val works
+              if (user_reviews != null) {
+                for (var index in user_reviews) {
+                  var review = user_reviews[index];
+                  review.id = index;
+                  reviews.push(review);
+                }
               }
             }
             return false;
           });
-          resolve(items);
+
+          resolve(reviews);
         }, () => {
           reject("Error in fetching users from the database!");
         });

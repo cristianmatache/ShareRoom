@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Database } from "../../providers/database";
+import { Review} from "../../models/review";
 
 /**
  * Generated class for the LoggedInReviewsPage page.
@@ -15,11 +17,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoggedInReviewsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  retrievedReviews : Review[] = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db : Database) {
   }
 
   ionViewDidLoad() {
+    this.db.getAllLoggedInReviews().then((reviews) => { this.retrievedReviews = reviews;});
     console.log('ionViewDidLoad LoggedInReviewsPage');
   }
 
+  getInnerWidth() {
+    return window.innerWidth;
+  }
 }
