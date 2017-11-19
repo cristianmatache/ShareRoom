@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import {Database} from "../../providers/database";
+import {DisplayableBorrowedItem} from "../../models/displayable-borrowed-item";
 
 /**
  * Generated class for the BorrowedItemsPage page.
@@ -19,7 +20,7 @@ export class BorrowedItemsPage {
 
   borrowitems: string = "requests";
   itemsLoggedInUserRequested: Item[] = [];
-  itemsLoggedInUserBorrowed: Item[] = [];
+  itemsLoggedInUserBorrowed: DisplayableBorrowedItem[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }
@@ -33,17 +34,36 @@ export class BorrowedItemsPage {
           return false;
         }
       });
-      console.log("items i requested");
-      for (var i of this.itemsLoggedInUserRequested) {
-        console.log(i.name);
-      }
-      this.itemsLoggedInUserBorrowed = items.filter(item => {
+      // console.log("items i requested");
+      // for (var i of this.itemsLoggedInUserRequested) {
+      //   console.log(i.name);
+      // }
+
+      var rawItems = items.filter(item => {
         if (item.borrower_uid) {
           return item.borrower_uid === this.db.getCurrentUserId();
         } else {
           return false;
         }
       });
+
+      for (var rawItem of rawItems) {
+        var dispItem: DisplayableBorrowedItem = {
+          name : rawItem.name,
+          picture : rawItem.picture,
+          description: rawItem.description,
+          type: rawItem.type,
+          category: rawItem.category,
+
+          owner : rawItem.owner_uid,
+          borrower : rawItem.borrower_uid,
+
+          borrow_time : new Date(rawItem.borrow_time * 1000).toDateString(),
+          max_borrow_duration : new Date(rawItem.max_borrow_duration * 1000).toDateString(),
+          percentage_time : Math.floor(100 * (Date.now() / 1000 - rawItem.borrow_time) / (rawItem.max_borrow_duration - rawItem.borrow_time))
+        };
+        this.itemsLoggedInUserBorrowed.push(dispItem);
+      }
     });
     console.log('ionViewDidLoad BorrowedItemsPage');
   }

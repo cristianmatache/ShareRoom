@@ -66,15 +66,24 @@
       <ion-grid>
         <!--<ion-row>-->
         <!--<ion-col>-->
-        <ion-row *ngFor="let item of itemsLoggedInUserBorrowed;">
+        <ion-row *ngFor="let item of itemsLoggedInUserLent;">
           <div class="container">
-            <div class="item1" style="background-image: url({{item.picture}})"></div>
+            <!--<div class="item1" style="background-image: url({{item.picture}})"></div>-->
+            <!--<div class="item1" [ngStyle]="{ 'background-image': 'url(' + item.picture + ')'}"></div>-->
+            <img src="{{item.picture}}" class="item1">
             <div class="item2">
               <div class="text"> <b>Name</b>: <div class="value">{{item.name}}</div> <br> </div>
               <div class="text"> <b>Taken</b>: <div class="value">{{item.borrow_time}}</div><br> </div>
               <div class="text"> <b>Due</b>: <div class="value">{{item.max_borrow_duration}}</div> <br> </div>
-              <div class="text"> <b>Owner</b>: <div class="value">{{item.owner_uid}}</div> </div>
+              <div class="text"> <b>Borrower</b>: <div class="value">{{item.borrower}}</div> </div>
             </div>
+
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" [attr.data-percentage-value]="item.percentage_time">
+                <span class="title">{{item.percentage_time}}%</span>
+              </div>
+            </div>
+
             <button ion-button class="return-button">Received</button>
           </div>
         </ion-row>

@@ -152,4 +152,68 @@ page-my-items {
     float: left;
     border-radius: 5px;
   }
+
+
+  $rating-min-value: 0 !default;
+  $rating-max-value: 1 !default;
+  $rating-steps-value: .01 !default;
+
+  @function percentage-values() {
+    $rating-values: ();
+    @for $i from $rating-min-value through ($rating-max-value / $rating-steps-value) {
+      $rating-value: abs($i * $rating-steps-value);
+      $rating-values: append($rating-values, $rating-value, 'comma');
+    }
+    @return $rating-values;
+  }
+
+  @mixin progress-percentage() {
+    @each $rating-value in percentage-values() {
+      $perc-value: $rating-value;
+
+      &[data-percentage-value="#{$rating-value*100}"] {
+        //max-width: 10%;
+        max-width: percentage($perc-value);
+      }
+    }
+  }
+
+  .progress {
+    background-color: mintcream;
+    border-radius: 5px;
+  }
+
+  .progress-bar {
+    @include progress-percentage();
+    margin-top: 5px;
+    color: color($colors, light);
+    background-color: lighten(color($colors, primary), 30%);
+    border-radius: 5px;
+    text-align: center;
+
+    width: 0;
+    animation: progress 1.5s ease-in-out forwards;
+
+    .title {
+      opacity: 0;
+      animation: show 0.35s forwards ease-in-out 0.5s;
+    }
+  }
+
+  @keyframes progress {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes show  {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
