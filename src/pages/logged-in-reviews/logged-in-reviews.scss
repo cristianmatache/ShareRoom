@@ -191,31 +191,6 @@ page-logged-in-reviews {
       }
     }
 
-    .rating-0 {
-      margin: auto;
-      @include star-rating(0);
-    }
-    .rating-1 {
-      margin: auto;
-      @include star-rating(1);
-    }
-    .rating-2 {
-      margin: auto;
-      @include star-rating(2);
-    }
-    .rating-3 {
-      margin: auto;
-      @include star-rating(3);
-    }
-    .rating-4 {
-      margin: auto;
-      @include star-rating(4);
-    }
-    .rating-5 {
-      margin: auto;
-      @include star-rating(5);
-    }
-
     .display {
       display: block;
     }
@@ -223,8 +198,6 @@ page-logged-in-reviews {
     body {
       background-color: #111;
     }
-
-
 
   .text-title {
     font-size: 14px;
@@ -357,10 +330,6 @@ page-logged-in-reviews {
       text-indent: -9999px;
       outline: none;
       background: get-icon($rating-color-empty);
-      //@if $interaction-type == clickable {
-      //  cursor: pointer;
-      //  transition: background 0.25s ease;
-      //}
     }
 
     @each $rating-value in rating-values() {
@@ -371,6 +340,21 @@ page-logged-in-reviews {
         }
       }
     }
+  }
+
+
+  @mixin average-rating() {
+    @each $rating-value in rating-values() {
+      $rating-value-ceil: round($rating-value);
+      &[data-rating-value="#{$rating-value}"] {
+        margin: auto;
+        @include star-rating($rating-value-ceil);
+      }
+    }
+  }
+
+  .average-rating {
+    @include average-rating();
   }
 
   .am-review-card-title {

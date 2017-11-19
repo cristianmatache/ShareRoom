@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Database } from "../../providers/database";
 import { Review} from "../../models/review";
+import {User} from "../../models/user";
 
 /**
  * Generated class for the LoggedInReviewsPage page.
@@ -18,16 +19,25 @@ import { Review} from "../../models/review";
 export class LoggedInReviewsPage {
 
   retrievedReviews : Review[] = [];
+  average : number = 0;
+  loggedInUser : User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db : Database) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db : Database) {}
 
   ionViewDidLoad() {
-    this.db.getAllLoggedInReviews().then((reviews) => { this.retrievedReviews = reviews;});
+    this.db.getAllLoggedInReviews().then((reviews) => {
+      this.retrievedReviews = reviews;
+      this.average = this.computeAverage(reviews);
+    });
     console.log('ionViewDidLoad LoggedInReviewsPage');
   }
 
-  getInnerWidth() {
-    return window.innerWidth;
+  private computeAverage(reviews) {
+    var avg = 0;
+    for (var r of reviews) {
+      avg += r.rating;
+    }
+    avg /= reviews.length;
+    return Math.round(avg * 100) / 100
   }
 }

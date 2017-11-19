@@ -72,7 +72,7 @@ export class Database {
     } else {
       return null;
     }
-  }
+  };
 
   getUserInfoById(uid: string): Promise<User> {
 
