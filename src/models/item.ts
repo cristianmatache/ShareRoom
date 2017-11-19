@@ -14,6 +14,7 @@ export interface Item {
   return_time: number;
   max_borrow_duration: number;
   category: string;
+  requesters: Array<string>;
 }
 
 // TODO: I plagiaried categories from shpock, might want to change them.

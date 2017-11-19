@@ -17,7 +17,8 @@ import { Database } from "../../providers/database";
 export class MyItemsPage {
 
   filteredItems: Item[] = [];
-  items: Item[] = [];
+  itemsWithRequests: Item[] = [];
+  itemsLoggedInUserBorrowed: Item[] = [];
   myitems: string = "requests";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
@@ -25,9 +26,20 @@ export class MyItemsPage {
 
   ionViewDidLoad() {
     this.db.getAllLoggedInItems().then((items) => {
-      this.items = items;
       this.filteredItems = items;
+      this.itemsWithRequests = this.filteredItems.filter(item => item.requesters);
     });
+
+    this.db.getAllItems().then(items => {
+      this.itemsLoggedInUserBorrowed = items.filter(item => {
+        if (item.borrower_uid) {
+          return item.borrower_uid === this.db.getCurrentUserId();
+        } else {
+          return false;
+        }
+      });
+    });
+
     console.log('ionViewDidLoad MyItemsPage');
   }
 
@@ -44,6 +56,6 @@ export class MyItemsPage {
   }
 
   getNumberOfRequests(item) {
-    return "5 requests"
+    return String(item.requesters.length) + " requests";
   }
 }
