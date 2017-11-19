@@ -39,6 +39,7 @@
     </ion-grid>
 
     <ion-grid *ngSwitchCase="'requests'">
+      <div class="profile_des">Your items you received requests for</div>
       <ion-row>
         <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
           <ion-row *ngFor="let item of itemsWithRequests; let i = index">
@@ -61,7 +62,7 @@
 
 
     <div *ngSwitchCase="'lent'">
-
+      <div class="profile_des">Your items you already lent</div>
       <ion-grid>
         <!--<ion-row>-->
         <!--<ion-col>-->

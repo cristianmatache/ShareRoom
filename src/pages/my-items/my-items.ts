@@ -28,16 +28,7 @@ export class MyItemsPage {
     this.db.getAllLoggedInItems().then((items) => {
       this.filteredItems = items;
       this.itemsWithRequests = this.filteredItems.filter(item => item.requesters);
-    });
-
-    this.db.getAllItems().then(items => {
-      this.itemsLoggedInUserBorrowed = items.filter(item => {
-        if (item.borrower_uid) {
-          return item.borrower_uid === this.db.getCurrentUserId();
-        } else {
-          return false;
-        }
-      });
+      this.itemsLoggedInUserBorrowed = items.filter(item => item.borrower_uid);
     });
 
     console.log('ionViewDidLoad MyItemsPage');
