@@ -64,12 +64,8 @@
     <div *ngSwitchCase="'lent'">
       <div class="profile_des">Your items you already lent</div>
       <ion-grid>
-        <!--<ion-row>-->
-        <!--<ion-col>-->
         <ion-row *ngFor="let item of itemsLoggedInUserLent;">
           <div class="container">
-            <!--<div class="item1" style="background-image: url({{item.picture}})"></div>-->
-            <!--<div class="item1" [ngStyle]="{ 'background-image': 'url(' + item.picture + ')'}"></div>-->
             <img src="{{item.picture}}" class="item1">
             <div class="item2">
               <div class="text"> <b>Name</b>: <div class="value">{{item.name}}</div> <br> </div>

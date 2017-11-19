@@ -76,7 +76,7 @@ export class MyItemsPage {
     return String(item.requesters.length) + " requests";
   }
 
-  getReceivedRequests() {
-    return this.navCtrl.push("ReceivedRequestsPage");
+  getReceivedRequests(item) {
+    return this.navCtrl.push("ReceivedRequestsPage", {item: item});
   }
 }

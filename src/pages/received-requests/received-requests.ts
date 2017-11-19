@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Item} from "../../models/item";
 
 /**
  * Generated class for the ReceivedRequestsPage page.
@@ -15,7 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ReceivedRequestsPage {
 
+  item: Item;
+  requests: string[] = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.item = navParams.get("item");
+    this.requests = this.item.requesters;//.filter(req => req);
   }
 
   ionViewDidLoad() {

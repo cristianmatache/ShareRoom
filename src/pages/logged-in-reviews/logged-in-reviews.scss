@@ -1,5 +1,23 @@
 page-logged-in-reviews {
 
+  #image-container {
+    width: 100px;
+    height: 100px !important;
+    text-align: center;
+    overflow: hidden;
+
+    max-width: 100px;
+    max-height: 100px;
+    background-color: #eee;
+    margin: 0 auto;
+    border-radius: 100%;
+  }
+
+  #image-container img{
+    width: inherit;
+    height: inherit;
+  }
+
     .profile_page{
       background-color: mintcream;
       margin-top: -13px;

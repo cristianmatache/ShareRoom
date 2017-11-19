@@ -20,15 +20,20 @@ export class LoggedInReviewsPage {
 
   retrievedReviews : Review[] = [];
   average : number = 0;
-  loggedInUser : User;
+  loggedInName : string = "Default User";
+  imagePath : string = "../../assets/images/dark_star.png";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db : Database) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db : Database) {
+    this.loggedInName = navParams.get("loggedInName");
+    this.imagePath = navParams.get("imagePath");
+  }
 
   ionViewDidLoad() {
     this.db.getAllLoggedInReviews().then((reviews) => {
       this.retrievedReviews = reviews;
       this.average = this.computeAverage(reviews);
     });
+    console.log("gimme gimme" + this.loggedInName);
     console.log('ionViewDidLoad LoggedInReviewsPage');
   }
 

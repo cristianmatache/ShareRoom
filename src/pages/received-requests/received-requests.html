@@ -1,18 +1,33 @@
-<!--
-  Generated template for the ReceivedRequestsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>ReceivedRequests</ion-title>
+  <ion-navbar color=light hideBackButton="false">
+    <ion-title color="white">Request for {{item.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="received-requests-page">
+
+  <ion-grid>
+    <ion-row *ngFor="let request of requests;">
+      <ion-card class="container">
+
+        <div>
+          {{request}}
+        </div>
+
+        <!--<div class="progress">-->
+          <!--<div class="progress-bar" role="progressbar" [attr.data-percentage-value]="item.percentage_time">-->
+            <!--<span class="title">{{item.percentage_time}}%</span>-->
+          <!--</div>-->
+        <!--</div>-->
+        <button ion-button class="accept-button">Accept</button>
+        <button ion-button class="decline-button">Decline</button>
+        <button ion-button class="chat-button">Chat</button>
+
+      </ion-card>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

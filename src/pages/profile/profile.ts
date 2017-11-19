@@ -17,11 +17,21 @@ import { Database } from "../../providers/database";
 export class ProfilePage {
 
   average : number = 0;
+  loggedInName : string = "Default User";
+  imagePath : string = "../../assets/images/dark_star.png";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }
 
   ionViewDidLoad() {
+    this.db.getUserInfoById(this.db.getCurrentUserId())
+      .then((user) => {
+        this.loggedInName = user.display_name;
+        this.imagePath = user.profile_picture;
+        //console.log(this.loggedInName);
+      })
+      .catch(console.error);
+
     this.db.getAllLoggedInReviews().then((reviews) => {
       this.average = this.computeAverage(reviews);
     });
@@ -29,7 +39,7 @@ export class ProfilePage {
   }
 
   getReviews() {
-    this.navCtrl.push('LoggedInReviewsPage');
+    this.navCtrl.push('LoggedInReviewsPage', {loggedInName: this.loggedInName, imagePath: this.imagePath});
   }
 
   getBorrowed() {

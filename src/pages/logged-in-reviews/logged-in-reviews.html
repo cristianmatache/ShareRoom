@@ -1,9 +1,3 @@
-<!--
-  Generated template for the LoggedInReviewsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar color=light hideBackButton="false">
@@ -17,14 +11,11 @@
 
   <div class="profile">
     <!--<div class="front">-->
-
-
       <div class="profile_banner"></div>
-      <div class="profile_photo"><img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAaVAAAAJGUyNzI1ZGFlLTcyYzAtNDhjNC1hZjk1LTMxYWNkYjQ1NmVhYw.jpg"></div>
+      <div class="profile_photo" id="image-container"><img src={{imagePath}}></div>
       <div class="profile_info">
-
         <div class="display">
-          <div class="profile_name">Oana Ciocioman</div>
+          <div class="profile_name">{{loggedInName}}</div>
           <div class="average-rating" [attr.data-rating-value]="average">
             <label for="r1"></label>
             <label for="r2"></label>
@@ -35,10 +26,7 @@
         </div>
 
 
-        <!--<h2 class="profile_des" style="margin-top:15px">oana.ciocioman@gmail.com</h2>-->
-
         <div class=amazing-reviews>
-
 
           <ion-grid>
                 <ion-row *ngFor="let review of retrievedReviews;">

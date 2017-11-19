@@ -1,5 +1,23 @@
 page-profile {
 
+  #image-container {
+    width: 100px;
+    height: 100px !important;
+    text-align: center;
+    overflow: hidden;
+
+    max-width: 100px;
+    max-height: 100px;
+    background-color: #eee;
+    margin: 0 auto;
+    border-radius: 100%;
+  }
+
+  #image-container img{
+    width: inherit;
+    height: inherit;
+  }
+
   .profile_page{
     background-color: mintcream;
     background-position: center;
@@ -51,12 +69,17 @@ page-profile {
     background-repeat: no-repeat;
   }
   .profile_photo{
-    width: 100px;
-    height: 90px;
+    max-width: 100px;
+    max-height: 90px;
     background-color: #eee;
     margin: 0px auto;
     border-radius: 100%;
     border-size: cover;
+  }
+
+  .profile_photo .img {
+    width: inherit;
+    height: inherit;
   }
 
   .profile_photo img{ width: 100%; border-radius: 100%; opacity: 0.9;}
