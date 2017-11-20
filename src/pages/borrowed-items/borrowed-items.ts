@@ -62,6 +62,14 @@ export class BorrowedItemsPage {
           max_borrow_duration : new Date(rawItem.max_borrow_duration * 1000).toDateString(),
           percentage_time : Math.floor(100 * (Date.now() / 1000 - rawItem.borrow_time) / (rawItem.max_borrow_duration - rawItem.borrow_time))
         };
+
+        this.db.getUserInfoById(rawItem.borrower_uid)
+          .then((user) => {
+            dispItem.borrower = user.display_name;
+            //this.imagePath = user.profile_picture;
+          })
+          .catch(console.error);
+
         this.itemsLoggedInUserBorrowed.push(dispItem);
       }
     });

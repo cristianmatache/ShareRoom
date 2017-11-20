@@ -18,6 +18,7 @@ export class HomePage {
   items: Item[] = [];
   filteredItems: Item[] = [];
   searchQuery: string = "";
+  addItems: string[] = ["addItemCard"];
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public app: App, private db: Database) {}
 
@@ -25,6 +26,23 @@ export class HomePage {
     this.db.getAllItems().then((items) => {
       this.items = items;
       this.filteredItems = items;
+
+      this.filteredItems.unshift({
+        id: "default0",
+        name: "Add item",
+        location: [],
+        owner_uid: "",
+        picture: "../../assets/images/add-item-dark.png",
+        description: "",
+        date_posted: -123,
+        type: "New",
+        borrower_uid : "",
+        borrow_time: -123,
+        return_time: 0,
+        max_borrow_duration: 0,
+        category: "",
+        requesters: [""],
+      });
     });
   }
 
@@ -52,6 +70,10 @@ export class HomePage {
 
   getDistanceTill(item) {
     return "15miles";
+  }
+
+  getPostItemPage() {
+    return this.navCtrl.push("PostItemPage");
   }
 
   // not really working for web app

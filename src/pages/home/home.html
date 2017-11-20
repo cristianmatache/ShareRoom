@@ -20,24 +20,31 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding class="app-background">
   <ion-grid>
     <ion-row>
       <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
+
         <ion-row *ngFor="let item of filteredItems; let i = index">
           <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
-            <ion-card (click)="showItem(item)">
+            <ion-card *ngIf="i === 0 && item.borrow_time < 0 && item.date_posted < 0; else display_normal" (click)="getPostItemPage()">
+              <img [src]="item.picture" class="add-item-image">
+              <ion-card-title>{{item.name}}</ion-card-title>
+            </ion-card>
 
-              <!--<ion-item>-->
-               <!--<ion-avatar item-start>-->
-                <!--<img src="https://assets.babycenter.com/ims/2016/10/iStock_43693432_4x3.jpg">-->
-               <!--</ion-avatar>-->
-               <!--<h2>James Evianeurope</h2>-->
-               <!--<p>Aug 2017</p>-->
-              <!--</ion-item>-->
+            <ng-template #display_normal>
+              <ion-card *ngIf="i===0" (click)="showItem()">
+                <img [src]="item.picture" class="item-image">
+                <ion-card-title>{{item.name}}</ion-card-title>
+                <ion-row>
+                  <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
+                  <ion-badge item-end class=".item-type"> {{item.type}} </ion-badge>
+                </ion-row>
+              </ion-card>
+            </ng-template>
 
+            <ion-card *ngIf="i > 0" (click)="showItem(item)">
               <img [src]="item.picture" class="item-image">
               <ion-card-title>{{item.name}}</ion-card-title>
               <ion-row>

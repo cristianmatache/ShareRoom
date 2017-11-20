@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Database } from "../../providers/database";
 import { Review} from "../../models/review";
-import {User} from "../../models/user";
 
 /**
  * Generated class for the LoggedInReviewsPage page.
