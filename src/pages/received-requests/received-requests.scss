@@ -1,8 +1,6 @@
 page-received-requests {
 
   .toolbar-md-light .toolbar-title-md{
-    //text-align: left;
-    //padding: 0 20%;
     text-align: center;
     margin-left: -3rem;
   }
@@ -11,4 +9,114 @@ page-received-requests {
     background-color: mintcream;
     margin-top: -13px;
   }
+
+  .request-card {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border: rgba(0, 0, 0, 0.2) 1px groove;
+    border-radius:5px;
+    padding: 10px;
+    position: relative;
+    //z-index: -3;
+  }
+
+  .request-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    //display: inline-block;
+
+    //float: right;
+    //width:50%;
+    margin-top: 10px;
+  }
+
+  .request-dates {
+    font-size: 1.6rem;
+    color: white;
+    //display: inline-block;
+
+    //float: right;
+    //width:10%;
+    //  margin-top: 10px;
+  }
+
+  .requester-avatar {
+    border-radius: 100%;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+  }
+
+
+  .progress {
+    position: relative;
+    height: 13px;
+    margin-bottom: 0;
+    overflow: hidden;
+    margin-left: 3px;
+    border-radius: 50px;
+  }
+
+  $rating-min-value: 0 !default;
+  $rating-max-value: 1 !default;
+  $rating-steps-value: .01 !default;
+
+  @function percentage-values() {
+    $rating-values: ();
+    @for $i from $rating-min-value through ($rating-max-value / $rating-steps-value) {
+      $rating-value: abs($i * $rating-steps-value);
+      $rating-values: append($rating-values, $rating-value, 'comma');
+    }
+    @return $rating-values;
+  }
+
+  @mixin progress-percentage1() {
+    @each $rating-value in percentage-values() {
+      $perc-value: $rating-value;
+
+      &[data-percentage-value="#{$rating-value*100}"] {
+        width: percentage($perc-value);
+      }
+    }
+  }
+
+  .progress-bar-none {
+    @include progress-percentage1();
+    position: absolute;
+    padding: 13px;
+    background-color: mintcream !important;
+    display: inline-block;
+  }
+
+  @mixin progress-percentage2() {
+    @each $rating-value in percentage-values() {
+      $perc-value: $rating-value;
+
+      &[data-percentage-value="#{$rating-value*100}"] {
+        max-width: percentage($perc-value);
+      }
+    }
+  }
+
+  .progress-bar-danger {
+    @include progress-percentage2();
+    position:absolute;
+    margin-left: -3px;
+    padding: 13px;
+    background-color: lighten(color($colors, primary), 20%) !important;
+    display: inline-block;
+    animation: progress 1.5s ease-in-out forwards;
+  }
+
+  @keyframes progress {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
 }

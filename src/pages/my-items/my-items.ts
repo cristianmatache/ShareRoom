@@ -29,7 +29,7 @@ export class MyItemsPage {
   ionViewDidLoad() {
     this.db.getAllLoggedInItems().then((items) => {
       this.filteredItems = items;
-      this.itemsWithRequests = this.filteredItems.filter(item => item.requesters);
+      this.itemsWithRequests = this.filteredItems.filter(item => item.requests);
       for (var rawItem of items.filter(item => item.borrower_uid)) {
         var dispItem: DisplayableBorrowedItem = {
           name : rawItem.name,
@@ -53,18 +53,15 @@ export class MyItemsPage {
           })
           .catch(console.error);
 
-        console.log("---------------");
-        console.log(dispItem.name);
-        console.log("now " + Date.now());
-        console.log("sta " + rawItem.borrow_time);
-        console.log("fin " + rawItem.max_borrow_duration);
-        console.log(dispItem.percentage_time);
+        // console.log(dispItem.name);
+        // console.log("now " + Date.now());
+        // console.log("sta " + rawItem.borrow_time);
+        // console.log("fin " + rawItem.max_borrow_duration);
+        // console.log(dispItem.percentage_time);
+        // console.log("--------------- done with lent item ");
         this.itemsLoggedInUserLent.push(dispItem);
       }
     });
-
-    // console.log("*******************");
-    // console.log(this.itemsLoggedInUserLent);
     console.log('ionViewDidLoad MyItemsPage');
   }
 
@@ -81,10 +78,11 @@ export class MyItemsPage {
   }
 
   getNumberOfRequests(item) {
-    return String(item.requesters.length) + " requests";
+    return String(item.requests.length) + " requests";
   }
 
   getReceivedRequests(item) {
+    console.log("ENTERED RECEIVED REQUESTS ------------------");
     return this.navCtrl.push("ReceivedRequestsPage", {item: item});
   }
 }

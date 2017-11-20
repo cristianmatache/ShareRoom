@@ -21,18 +21,23 @@ export class BorrowedItemsPage {
   borrowitems: string = "requests";
   itemsLoggedInUserRequested: Item[] = [];
   itemsLoggedInUserBorrowed: DisplayableBorrowedItem[] = [];
+  currentUserId: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+    this.currentUserId = this.db.getCurrentUserId();
   }
 
   ionViewDidLoad() {
     this.db.getAllItems().then((items) => {
       this.itemsLoggedInUserRequested = items.filter(item => {
-        if (item.requesters) {
-          return item.requesters.indexOf(this.db.getCurrentUserId()) > -1;
-        } else {
-          return false;
+        if (item.requests) {
+          for (let request of item.requests) {
+            if (request.requester_uid === this.currentUserId) {
+              return true;
+            }
+          }
         }
+        return false;
       });
       // console.log("items i requested");
       // for (var i of this.itemsLoggedInUserRequested) {
@@ -89,7 +94,7 @@ export class BorrowedItemsPage {
   }
 
   getNumberOfRequests(item) {
-    return String(item.requesters.length) + " requests";
+    return String(item.requests.length) + " requests";
   }
 
 }

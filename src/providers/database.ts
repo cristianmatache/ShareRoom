@@ -82,18 +82,18 @@ export class Database {
       firebase.database().ref('/users/' + uid).once('value',
         function (snapshot) {
           var db_user = snapshot.val();
-          let user: User = {
-            uid: db_user.uid,
-            email: db_user.email,
-            password: null,
-            profile_picture: db_user.profile_picture,
-            display_name: db_user.display_name,
-            emailVerified: db_user.email_verified,
-            phoneNumber: db_user.phone_number,
-            items: db_user.items,
-            reviews: db_user.reviews
-          };
-          resolve(user);
+            let user: User = {
+              uid: db_user.uid,
+              email: db_user.email,
+              password: null,
+              profile_picture: db_user.profile_picture,
+              display_name: db_user.display_name,
+              emailVerified: db_user.email_verified,
+              phoneNumber: db_user.phone_number,
+              items: db_user.items,
+              reviews: db_user.reviews
+            };
+            resolve(user);
         }, function (errorObject) {
           reject("Error on returning: " + errorObject.code);
         });

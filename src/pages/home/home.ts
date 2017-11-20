@@ -41,7 +41,7 @@ export class HomePage {
         return_time: 0,
         max_borrow_duration: 0,
         category: "",
-        requesters: [""],
+        requests: [],
       });
     });
   }

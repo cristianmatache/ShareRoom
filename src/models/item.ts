@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {Request} from "./request";
 
 export interface Item {
   id: string;
@@ -14,7 +15,7 @@ export interface Item {
   return_time: number;
   max_borrow_duration: number;
   category: string;
-  requesters: Array<string>;
+  requests: Array<Request>;
 }
 
 // TODO: I plagiaried categories from shpock, might want to change them.

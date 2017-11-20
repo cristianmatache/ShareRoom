@@ -187,7 +187,7 @@ page-my-items {
     @include progress-percentage();
     margin-top: 5px;
     color: color($colors, light);
-    background-color: lighten(color($colors, primary), 30%);
+    background-color: lighten(color($colors, primary), 20%);
     border-radius: 5px;
     text-align: center;
 

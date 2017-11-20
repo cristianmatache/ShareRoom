@@ -11,20 +11,41 @@
 
   <ion-grid>
     <ion-row *ngFor="let request of requests;">
-      <ion-card class="container">
-
+      <ion-card class="request-card">
         <div>
-          {{request}}
+          <div style="display: inline-block; float:left;">
+            <ion-avatar item-start>
+              <img [src]="request.requester_picture" class="requester-avatar">
+            </ion-avatar>
+          </div>
+          <div style="display: inline-block; margin-left: 9px;">
+              <div class="request-title">
+                  {{request.requester_name}}
+              </div>
+              <div class="request-dates">
+                From: Sun Apr 30 2017<!--{{request.borrow_time}}-->
+                <br>
+                To: Mon Jan 01 2018 <!--{{request.max_borrow_duration}}-->
+              </div>
+          </div>
         </div>
 
-        <!--<div class="progress">-->
-          <!--<div class="progress-bar" role="progressbar" [attr.data-percentage-value]="item.percentage_time">-->
-            <!--<span class="title">{{item.percentage_time}}%</span>-->
-          <!--</div>-->
-        <!--</div>-->
-        <button ion-button class="accept-button">Accept</button>
-        <button ion-button class="decline-button">Decline</button>
-        <button ion-button class="chat-button">Chat</button>
+        <div>
+          <br>
+          <div style="padding: 10px">
+            <div class="progress">
+              <div class="progress-bar progress-bar-none" [attr.data-percentage-value]="10" style="z-index:3"></div>
+              <div class="progress-bar progress-bar-danger" [attr.data-percentage-value]="50" style="z-index:2"></div>
+              <div class="progress-bar progress-bar-none" style="width:100%; z-index: 1"></div>
+            </div>
+          </div>
+
+          <div>
+            <button ion-button class="accept-button">Accept</button>
+            <button ion-button class="decline-button" style="background-color: darkred; margin-left: 6px">Decline</button>
+            <button ion-button class="chat-button" style="background-color: darkblue; float: right;">Chat</button>
+          </div>
+        </div>
 
       </ion-card>
     </ion-row>
