@@ -9,5 +9,8 @@ import {PostItemPage} from './post-item';
   imports: [
     IonicPageModule.forChild(PostItemPage),
   ],
+  exports: [
+    PostItemPage,
+  ]
 })
 export class PostItemPageModule {}
