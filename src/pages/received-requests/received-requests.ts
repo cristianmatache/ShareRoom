@@ -21,65 +21,54 @@ export class ReceivedRequestsPage {
   item: Item;
   requests: Request[] = [];
 
+  maxDate:number = 0;
+  minDate:number = 8640000000000;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
     this.item = navParams.get("item");
+    this.maxDate = 0;
+    this.minDate = 8640000000000;
+    for (var r of this.item.requests) {
+      if (r.borrow_time < this.minDate) {
+        this.minDate = r.borrow_time;
+      }
+      if (r.max_borrow_duration > this.maxDate) {
+        this.maxDate = r.max_borrow_duration;
+      }
+    }
+    this.requests = this.item.requests;
   }
 
   ionViewDidLoad() {
-    // console.log("************** B REQUESTS");
-    // console.log(this.item.requests);
-    // console.log("**************");
-    for (var request of this.item.requests) {
-      //req.owner_uid = this.item.owner_uid;
+    console.log("ReceivedRequests did load");
+    //console.log(this.requests);
+    //console.log("START MAP -----------------");
+    console.log(this.someFunction(this.requests));
+  }
 
-      this.db.getUserInfoById(request.requester_uid).then(
+  someFunction = (myArray) => {
+    const promises = myArray.map(async (myValue) => {
+      this.db.getUserInfoById(myValue.requester_uid).then(
         (user) => {
-
-          var req: Request = {
-            requester_uid: request.requester_uid,
-            requester_name: "requester default name",
-            requester_picture: "",
-            borrow_time: request.borrow_time,
-            max_borrow_duration: request.max_borrow_duration,
-            owner_uid: request.owner_uid,
-            owner_picture: "",
-            type: request.type,
-          };
-
-
-          //console.log("Found name " + user.display_name);
-          req.requester_name = user.display_name;
-          req.requester_picture = user.profile_picture;
-          //console.log("Pushing name " + req.requester_name);
-          this.requests.push(req);
+          myValue.requester_name = user.display_name;
+          myValue.requester_picture = user.profile_picture;
+          return myValue;
         }
       ).catch(console.error);
-    }
+    });
+    return Promise.all(promises);
+  };
 
-    // for (var request of this.item.requests) {
-    //   console.log("no me ames 2");
-    //   console.log(request);
-    // //   request.owner_uid = this.item.owner_uid;
-    // //   this.db.getUserInfoById(request.requester_uid)
-    // //     .then((user) => {
-    // //       request.requester_name = user.display_name;
-    // //       request.requester_picture  = user.profile_picture;
-    // //     })
-    // //     .catch(console.error);
-    // //   this.requests.push(request);
-    // }
-    console.log("***************");
-    console.log(this.requests);
-    console.log('ionViewDidLoad ReceivedRequestsPage');
+
+  getTakePerc (reqTakeTime, name, t) {
+    return Math.ceil(100 * ((reqTakeTime - this.minDate) / (this.maxDate - this.minDate)));
+  }
+
+  getRetPerc (reqRetTime, name, t) {
+    return Math.ceil(100 * ((reqRetTime - this.minDate) / (this.maxDate - this.minDate)));
+  }
+
+  getDateFromTimestamp(timestamp) {
+    return (new Date(timestamp * 1000)).toDateString();
   }
 }
-
-// var req: Request = {
-//   requester_uid: request.requester_uid,
-//   requester_name: "requester default name",
-//   borrow_time: request.borrow_time,
-//   max_borrow_duration: request.max_borrow_duration,
-//   owner_uid: request.owner_uid,
-//   picture: request.picture,
-//   type: request.type,
-// };

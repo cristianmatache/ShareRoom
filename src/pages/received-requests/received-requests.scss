@@ -85,7 +85,8 @@ page-received-requests {
   .progress-bar-none {
     @include progress-percentage1();
     position: absolute;
-    padding: 13px;
+    padding-bottom: 13px;
+    padding-top: 13px;
     background-color: mintcream !important;
     display: inline-block;
   }
@@ -104,7 +105,9 @@ page-received-requests {
     @include progress-percentage2();
     position:absolute;
     margin-left: -3px;
-    padding: 13px;
+    //padding: 13px;
+    padding-bottom: 13px;
+    padding-top: 13px;
     background-color: lighten(color($colors, primary), 20%) !important;
     display: inline-block;
     animation: progress 1.5s ease-in-out forwards;

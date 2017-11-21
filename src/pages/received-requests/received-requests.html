@@ -23,9 +23,9 @@
                   {{request.requester_name}}
               </div>
               <div class="request-dates">
-                From: Sun Apr 30 2017<!--{{request.borrow_time}}-->
+                From: {{getDateFromTimestamp(request.borrow_time)}}
                 <br>
-                To: Mon Jan 01 2018 <!--{{request.max_borrow_duration}}-->
+                To: {{getDateFromTimestamp(request.max_borrow_duration)}}
               </div>
           </div>
         </div>
@@ -34,8 +34,8 @@
           <br>
           <div style="padding: 10px">
             <div class="progress">
-              <div class="progress-bar progress-bar-none" [attr.data-percentage-value]="10" style="z-index:3"></div>
-              <div class="progress-bar progress-bar-danger" [attr.data-percentage-value]="50" style="z-index:2"></div>
+              <div class="progress-bar progress-bar-none" [attr.data-percentage-value]="getTakePerc(request.borrow_time)" style="z-index:3; margin-left: 0;"></div>
+              <div class="progress-bar progress-bar-danger" [attr.data-percentage-value]="getRetPerc(request.max_borrow_duration)" style="z-index:2; margin-left:0;"></div>
               <div class="progress-bar progress-bar-none" style="width:100%; z-index: 1"></div>
             </div>
           </div>
