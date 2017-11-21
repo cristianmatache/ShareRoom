@@ -224,6 +224,22 @@ export class Database {
     }
   }
 
+
+  addBorrow(owner_uid: string, requester_uid: string, item_id: string, borrow_time: string, max_borrow_duration: string) {
+    console.log("////ADDING BORROW");
+    console.log(owner_uid);
+    console.log(requester_uid);
+    console.log(item_id);
+    console.log(borrow_time);
+    console.log(max_borrow_duration);
+    console.log("/////////////////");
+
+    firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrow_time').set(borrow_time);
+    firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/max_borrow_duration').set(max_borrow_duration);
+    firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_uid').set(requester_uid);
+  }
+
+
   requestItem(item_id: string, owner_uid: string, borrow_time: number, max_borrow_duration: number) {
     // THIS BRINGS RACE CONDITIONS -------------> WE ASSUME NO 2 PEOPLE WILL REQUEST AN ITEM AT THE SAME TIME :)
     // IF WE WANT TO AVOID THIS WE CHANGED THE IMPLEMENTATION FROM [{}] TO {{}}
@@ -235,6 +251,7 @@ export class Database {
         borrow_time: borrow_time,
         item_id: item_id,
         requester_uid: this.getCurrentUserId(),
+        owner_uid: owner_uid,
       };
 
       firebase.database().ref('users/' + owner_uid + '/items/' + item_id).once(

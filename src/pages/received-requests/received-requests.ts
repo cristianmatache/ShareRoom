@@ -78,6 +78,7 @@ export class ReceivedRequestsPage {
   }
 
   moveToLent(request) {
+    this.db.addBorrow(request.owner_uid, request.requester_uid, request.item_id, request.borrow_time, request.max_borrow_duration);
     this.removeThisRequest(request.requester_uid, request.item_id);
     //this.navCtrl.push("ProfilePage"); // should be lent page;
   }
