@@ -16,6 +16,13 @@ export interface Item {
   max_borrow_duration: number;
   category: string;
   requests: Array<Request>;
+
+  owner: string;
+  borrower : string;
+
+  borrow_readable_time: string;
+  max_borrow_duration_readable_time: string;
+  percentage_time: number;
 }
 
 // TODO: I plagiaried categories from shpock, might want to change them.

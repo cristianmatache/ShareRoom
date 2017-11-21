@@ -60,11 +60,11 @@ export class ReceivedRequestsPage {
   };
 
 
-  getTakePerc (reqTakeTime, name, t) {
+  getTakePerc (reqTakeTime) {
     return Math.ceil(100 * ((reqTakeTime - this.minDate) / (this.maxDate - this.minDate)));
   }
 
-  getRetPerc (reqRetTime, name, t) {
+  getRetPerc (reqRetTime) {
     return Math.ceil(100 * ((reqRetTime - this.minDate) / (this.maxDate - this.minDate)));
   }
 

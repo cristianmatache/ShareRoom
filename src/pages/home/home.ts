@@ -42,6 +42,11 @@ export class HomePage {
         max_borrow_duration: 0,
         category: "",
         requests: [],
+        borrow_readable_time: "",
+        max_borrow_duration_readable_time: "",
+        percentage_time: 0,
+        owner: "",
+        borrower : "",
       });
     });
   }
