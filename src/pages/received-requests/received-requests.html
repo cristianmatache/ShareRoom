@@ -41,8 +41,8 @@
           </div>
 
           <div>
-            <button ion-button class="accept-button">Accept</button>
-            <button ion-button class="decline-button" style="background-color: darkred; margin-left: 6px">Decline</button>
+            <button ion-button class="accept-button" (click)="moveToLent(request)">Accept</button>
+            <button ion-button class="decline-button" (click)="removeThisRequest(request.requester_uid, request.item_id)" style="background-color: darkred; margin-left: 6px">Decline</button>
             <button ion-button class="chat-button" style="background-color: darkblue; float: right;">Chat</button>
           </div>
         </div>

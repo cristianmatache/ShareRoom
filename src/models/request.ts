@@ -9,4 +9,6 @@ export interface Request {
   borrow_time: number;
   max_borrow_duration: number;
   type: string;
+
+  item_id: string;
 }

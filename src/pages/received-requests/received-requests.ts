@@ -59,7 +59,6 @@ export class ReceivedRequestsPage {
     return Promise.all(promises);
   };
 
-
   getTakePerc (reqTakeTime) {
     return Math.ceil(100 * ((reqTakeTime - this.minDate) / (this.maxDate - this.minDate)));
   }
@@ -70,5 +69,16 @@ export class ReceivedRequestsPage {
 
   getDateFromTimestamp(timestamp) {
     return (new Date(timestamp * 1000)).toDateString();
+  }
+
+  moveToLent(request) {
+    this.removeThisRequest(request.requester_uid, request.item_id);
+    //this.navCtrl.push("ProfilePage"); // should be lent page;
+  }
+
+  removeThisRequest(requester_uid, request_item_id) {
+    console.log("REMOVING ELEMENT with requester id " + requester_uid + " " + request_item_id);
+    console.log(this.db.removeItemRequestsFrom(requester_uid, this.db.getCurrentUserId(), request_item_id));
+    //this.navCtrl.push("ProfilePage");
   }
 }

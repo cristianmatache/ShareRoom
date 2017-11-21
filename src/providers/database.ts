@@ -7,6 +7,7 @@ import {Item} from "../models/item";
 import { Geolocation } from '@ionic-native/geolocation';
 import {Review} from "../models/review";
 import {Injectable} from "@angular/core";
+import {Request} from "../models/request";
 
 
 @Injectable()
@@ -182,6 +183,31 @@ export class Database {
 
   removeItem(id: string, owner_uid: string) {
     firebase.database().ref().child('users/' + owner_uid + '/items/' + id).remove();
+  }
+
+  removeItemRequestsFrom(requester_uid: string, owner_uid: string, item_id: string) : Promise<string[]> {
+    return new Promise<string[]>( (resolve, reject) => {
+      firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests').once(
+        'value',
+        (snapshot) => {
+          let reqs_keys = [];
+          snapshot.forEach( (request) => {
+            console.log("in remove item requests from, req.val.borrower_uid -> requester_uid param");
+            console.log(request.val().requester_uid + " -> " + requester_uid);
+            console.log(request.val());
+            console.log(request.val().requester_uid);
+            console.log();
+            if (request.val().requester_uid === requester_uid) {
+              reqs_keys.push(request.key);
+              firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id +'/requests/' + request.key).remove();
+            }
+            return false;
+          });
+          resolve(reqs_keys);
+        },
+        (x) => {reject("Error finding requester in the requests list of this item")}
+      )
+    })
   }
 
   borrowItem(id: string, owner_uid: string, max_borrow_time: number) {
