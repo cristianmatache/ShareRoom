@@ -160,7 +160,7 @@ export class PostItemPage {
       case "five_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 5; break;
       case "one_week": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 7; break;
       case "two_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 14; break;
-      case "four_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break
+      case "four_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break;
       // TODO: we shouldn't allow user to submit item without checking for valid borrow duration.
       // So temporarily one day is the default.
       default: this.item.max_borrow_duration = this.ONE_DAY_AS_MS;

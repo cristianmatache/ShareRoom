@@ -224,6 +224,36 @@ export class Database {
     }
   }
 
+  requestItem(item_id: string, owner_uid: string, borrow_time: number, max_borrow_duration: number) {
+    // THIS BRINGS RACE CONDITIONS -------------> WE ASSUME NO 2 PEOPLE WILL REQUEST AN ITEM AT THE SAME TIME :)
+    // IF WE WANT TO AVOID THIS WE CHANGED THE IMPLEMENTATION FROM [{}] TO {{}}
+    // TODO
+    if (this.getCurrentUserId()) {
+
+      let req = {
+        max_borrow_duration: max_borrow_duration,
+        borrow_time: borrow_time,
+        item_id: item_id,
+        requester_uid: this.getCurrentUserId(),
+      };
+
+      firebase.database().ref('users/' + owner_uid + '/items/' + item_id).once(
+        'value',
+        function (snapshot) {
+          if (snapshot.hasChild("requests")) {
+            console.log("---- REQUESTS already exists so print requests in SNAPSHOT -----");
+            let reqs = snapshot.val().requests;
+            reqs.push(req);
+            firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set(reqs);
+          } else {
+            firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set([req]);
+            console.log("* Pushed NEW:");
+            console.log([req]);
+          }
+        }, () => {});
+    }
+  }
+
   returnItem(id: string, owner_uid: string) {
     if (this.getCurrentUserId()) {
       firebase.database().ref().child('users/' + owner_uid + '/' + id + 'borrower_uid').set(null);

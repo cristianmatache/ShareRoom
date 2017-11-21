@@ -37,8 +37,8 @@ export class ItemPage {
     return this.item.picture ? this.item.picture : "";
   }
 
-  borrowItem() {
-    this.database.borrowItem(this.item.id, this.item.owner_uid, this.item.max_borrow_duration);
+  requestItem() {
+    this.database.requestItem(this.item.id, this.item.owner_uid, 1511269416, 1514937600);
   }
 
   startChat() {

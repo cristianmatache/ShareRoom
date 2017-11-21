@@ -44,4 +44,8 @@ export class ItemByUserPage {
   editItem() {
     this.navCtrl.push(EditItemPage, {item: this.item});
   }
+
+  requestItem() {
+    this.database.requestItem(this.item.id, this.item.owner_uid, 1511269416, 1514937600);
+  }
 }

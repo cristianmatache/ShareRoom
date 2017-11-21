@@ -30,15 +30,28 @@ export class BorrowedItemsPage {
   ionViewDidLoad() {
     this.db.getAllItems().then((items) => {
       this.itemsLoggedInUserRequested = items.filter(item => {
+        // console.log("--------");
+        // console.log(item.name);
+        // console.log(item.requests);
+        // console.log("--------");
         if (item.requests) {
+          console.log("***" + item.name);
+          console.log(item.requests);
           for (let request of item.requests) {
             if (request.requester_uid === this.currentUserId) {
+              // console.log("----------- item requested by current user");
+              console.log(" ** " + request.item_id + " by " + request.requester_uid);
+              // console.log("-----------");
               return true;
             }
           }
         }
         return false;
       });
+      // console.log("logged in user requested items");
+      // console.log(this.itemsLoggedInUserRequested);
+
+
       // console.log("items i requested");
       // for (var i of this.itemsLoggedInUserRequested) {
       //   console.log(i.name);
