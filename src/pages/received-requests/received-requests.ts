@@ -36,7 +36,9 @@ export class ReceivedRequestsPage {
         this.maxDate = r.max_borrow_duration;
       }
     }
+    //console.log("IT'S RAINING MEN ------ initial requests");
     this.requests = this.item.requests;
+    console.log(this.requests);
   }
 
   ionViewDidLoad() {
@@ -48,6 +50,10 @@ export class ReceivedRequestsPage {
 
   someFunction = (myArray) => {
     const promises = myArray.map(async (myValue) => {
+      console.log("------------- in someFunc");
+      console.log(myValue);
+      console.log(myValue.requester_uid);
+
       this.db.getUserInfoById(myValue.requester_uid).then(
         (user) => {
           myValue.requester_name = user.display_name;
