@@ -44,7 +44,7 @@
                         <button>5</button>
                       </div>
                     </div>
-                    <span>By <em>{{review.reviewer_name}}</em></span>
+                    <span>By <em class="link-to-user" (click)="goToOtherUsersPage(review.user_id)">{{review.reviewer_name}}</em></span>
                   </h1>
                   <p>{{review.review}}</p>
                   </blockquote>

@@ -33,6 +33,10 @@ page-my-items {
     margin-left: -1rem;
   }
 
+  .link-to-user {
+    color: lighten(color($colors, primary), 20%);
+  }
+
     .app-background{
       background-color: #f0faf5;
       background-position: center;

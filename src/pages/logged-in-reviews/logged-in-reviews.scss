@@ -18,6 +18,14 @@ page-logged-in-reviews {
     height: inherit;
   }
 
+  .link-to-user {
+    color: lighten(color($colors, primary), 20%);
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    text-decoration: underline;
+  }
+
     .profile_page{
       background-color: mintcream;
       margin-top: -13px;
@@ -274,13 +282,13 @@ page-logged-in-reviews {
     text-shadow: #aaa 1px 0 0, #aaa 0 1px 0, #aaa -1px 0 0, #aaa 0 -1px 0;
   }
 
-  .amazing-reviews blockquote span em {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 12px;
-    color: color($colors, primary);
-    text-decoration: underline;
-  }
+  //.amazing-reviews blockquote span em {
+  //  font-style: normal;
+  //  font-weight: bold;
+  //  font-size: 12px;
+  //  color: color($colors, primary);
+  //  text-decoration: underline;
+  //}
 
   .amazing-reviews blockquote span:last-of-type {
     color: white;

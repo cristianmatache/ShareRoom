@@ -82,7 +82,7 @@
                   <br>
                   To: {{getDateFromTimestamp(item.max_borrow_duration)}}
                   <br>
-                  Borrower: {{item.borrower_uid}}
+                  Borrower: <u class="link-to-user" (click)="goToOtherUsersPage(item)"> {{item.borrower}}</u>
                 </div>
               </div>
             </div>

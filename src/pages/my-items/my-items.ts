@@ -26,15 +26,15 @@ export class MyItemsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }
 
-  someFunction = (myArray) => {
-    const promises = myArray.map(async (myValue) => {
-      this.db.getUserInfoById(myValue.borrower_uid).then(
+  someFunction = (items) => {
+    const promises = items.map(async (eachItem) => {
+      this.db.getUserInfoById(eachItem.borrower_uid).then(
         (user) => {
-          myValue.borrower = user.display_name;
-          myValue.borrow_readable_time = new Date(myValue.borrow_time * 1000).toDateString();
-          myValue.max_borrow_duration_readable_time = new Date(myValue.max_borrow_duration * 1000).toDateString();
-          myValue.percentage_time = Math.floor(100 * (Date.now() / 1000 - myValue.borrow_time) / (myValue.max_borrow_duration - myValue.borrow_time));
-          return myValue;
+          eachItem.borrower = user.display_name;
+          eachItem.borrow_readable_time = new Date(eachItem.borrow_time * 1000).toDateString();
+          eachItem.max_borrow_duration_readable_time = new Date(eachItem.max_borrow_duration * 1000).toDateString();
+          eachItem.percentage_time = Math.floor(100 * (Date.now() / 1000 - eachItem.borrow_time) / (eachItem.max_borrow_duration - eachItem.borrow_time));
+          return eachItem;
         }
       ).catch(console.error);
     });
@@ -86,6 +86,11 @@ export class MyItemsPage {
 
   reviewOwner(item) {
     this.navCtrl.push("AddReviewsPage", {"userToReviewUID":item.borrower_uid});
+  }
+
+  goToOtherUsersPage(item) {
+    // TO DO: change to users reviews page not add reviews page
+    this.reviewOwner(item);
   }
 
   // ionViewDidLoad() {

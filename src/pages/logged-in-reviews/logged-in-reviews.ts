@@ -58,4 +58,9 @@ export class LoggedInReviewsPage {
     avg /= reviews.length;
     return Math.round(avg * 100) / 100
   }
+
+  goToOtherUsersPage(reviewer_id) {
+    // TO DO: change to users reviews page not add reviews page
+    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":reviewer_id});
+  }
 }
