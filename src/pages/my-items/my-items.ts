@@ -73,6 +73,16 @@ export class MyItemsPage {
     return this.navCtrl.push("ReceivedRequestsPage", {item: item});
   }
 
+  getDateFromTimestamp(timestamp) {
+    return (new Date(timestamp * 1000)).toDateString();
+  }
+
+  receivedItemBack(item) {
+    // console.log("STARTED TO REMOVE AN ITEM the item is ");
+    // console.log(item);
+    this.db.removeBorrower(item.owner_uid, item.id);
+  }
+
   // ionViewDidLoad() {
   //   this.db.getAllLoggedInItems().then((items) => {
   //     this.filteredItems = items;

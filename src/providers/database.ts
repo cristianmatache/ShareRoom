@@ -239,6 +239,11 @@ export class Database {
     firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_uid').set(requester_uid);
   }
 
+  removeBorrower(owner_uid: string, item_id:string) {
+    // console.log("---------------------------------");
+    // console.log("Remove item " + item_id + " from owner " + owner_uid);
+    firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_uid').remove();
+  }
 
   requestItem(item_id: string, owner_uid: string, borrow_time: number, max_borrow_duration: number) {
     // THIS BRINGS RACE CONDITIONS -------------> WE ASSUME NO 2 PEOPLE WILL REQUEST AN ITEM AT THE SAME TIME :)

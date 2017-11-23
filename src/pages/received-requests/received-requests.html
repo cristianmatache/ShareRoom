@@ -11,6 +11,7 @@
 
   <ion-grid>
     <ion-row *ngFor="let request of requests;">
+
       <ion-card class="request-card">
         <div>
           <div style="display: inline-block; float:left;">
@@ -42,7 +43,7 @@
 
           <div>
             <button ion-button class="accept-button" (click)="moveToLent(request)">Accept</button>
-            <button ion-button class="decline-button" (click)="removeThisRequest(request.requester_uid, request.item_id)" style="background-color: darkred; margin-left: 6px">Decline</button>
+            <button ion-button (click)="removeThisRequest(request.requester_uid, request.item_id)" style="background-color: darkred; margin-left: 6px">Decline</button>
             <button ion-button class="chat-button" style="background-color: darkblue; float: right;">Chat</button>
           </div>
         </div>

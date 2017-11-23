@@ -216,4 +216,43 @@ page-my-items {
       opacity: 1;
     }
   }
+
+  .request-card {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border: rgba(0, 0, 0, 0.2) 1px groove;
+    border-radius:5px;
+    padding: 10px;
+    position: relative;
+    //z-index: -3;
+  }
+
+  .requester-avatar {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+  }
+
+  .request-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    //display: inline-block;
+
+    //float: right;
+    //width:50%;
+    margin-top: 10px;
+  }
+
+  .request-dates {
+    font-size: 1.6rem;
+    color: white;
+    //display: inline-block;
+
+    //float: right;
+    //width:10%;
+    //  margin-top: 10px;
+  }
 }

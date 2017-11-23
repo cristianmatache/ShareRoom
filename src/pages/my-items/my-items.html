@@ -65,24 +65,44 @@
       <div class="profile_des">Your items you already lent</div>
       <ion-grid>
         <ion-row *ngFor="let item of itemsLoggedInUserLent;">
-          <div class="container">
-            <img src="{{item.picture}}" class="item1">
-            <div class="item2">
-              <div class="text"> <b style="font-size: 1.8rem">{{item.name}}</b> <div class="value"></div> <br> </div>
-              <div class="text"> <b>Taken</b>: <div class="value">{{item.borrow_time}}</div><br> </div>
-              <div class="text"> <b>Due</b>: <div class="value">{{item.max_borrow_duration}}</div> <br> </div>
-              <div class="text"> <b>Borrower</b>: <div class="value">{{item.borrower}}</div> </div>
-            </div>
 
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" [attr.data-percentage-value]="item.percentage_time">
-                <span class="title">{{item.percentage_time}}%</span>
+          <ion-card class="request-card">
+            <div>
+              <div style="display: inline-block; float:left;">
+                <ion-avatar item-start>
+                  <img [src]="item.picture" class="requester-avatar">
+                </ion-avatar>
+              </div>
+              <div style="display: inline-block; margin-left: 9px;">
+                <div class="request-title">
+                  {{item.name}}
+                </div>
+                <div class="request-dates">
+                  From: {{getDateFromTimestamp(item.borrow_time)}}
+                  <br>
+                  To: {{getDateFromTimestamp(item.max_borrow_duration)}}
+                </div>
+              </div>
+            </div>
+            <div>
+              <br>
+              <div style="padding: 10px">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [attr.data-percentage-value]="item.percentage_time">
+                    <span class="title">{{item.percentage_time}}%</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button ion-button class="accept-button" (click)="receivedItemBack(item)">Received</button>
+                <button ion-button class="decline-button" (click)="reviewUser()" style="background-color: darkblue; margin-left: 2px">Review★</button>
+                <button ion-button class="chat-button" style="background-color: darkblue; float: right;">Chat</button>
               </div>
             </div>
 
-            <button ion-button class="return-button">Received</button>
-          </div>
+          </ion-card>
         </ion-row>
+
       </ion-grid>
     </div>
 
