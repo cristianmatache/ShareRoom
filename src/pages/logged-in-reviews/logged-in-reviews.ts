@@ -31,10 +31,24 @@ export class LoggedInReviewsPage {
     this.db.getAllLoggedInReviews().then((reviews) => {
       this.retrievedReviews = reviews;
       this.average = this.computeAverage(reviews);
+      this.someFunction(this.retrievedReviews);
     });
     console.log("gimme gimme" + this.loggedInName);
     console.log('ionViewDidLoad LoggedInReviewsPage');
   }
+
+  someFunction = (myArray) => {
+    const promises = myArray.map(async (review) => {
+      this.db.getUserInfoById(review.user_id).then(
+        (user) => {
+          review.reviewer_name = user.display_name;
+          // console.log("IN SOME FUNCTION LOGGED IN REVIEWS: " + user.display_name);
+          return review;
+        }
+      ).catch(console.error);
+    });
+    return Promise.all(promises);
+  };
 
   private computeAverage(reviews) {
     var avg = 0;
