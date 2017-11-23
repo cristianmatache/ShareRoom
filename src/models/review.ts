@@ -3,4 +3,6 @@ export interface Review {
   rating: number;
   review: string;
   title: string;
+
+  reviewer_name: string;
 }
