@@ -46,6 +46,6 @@ export class ItemByUserPage {
   }
 
   requestItem() {
-    this.database.requestItem(this.item.id, this.item.owner_uid, 1511269416, 1514937600);
+    this.database.requestItemInNameOfUserId("PhMUkbbHHRXFy9XqmeYxHN3GYx13",this.item.id, this.item.owner_uid, 1511269416, 1514937600);
   }
 }

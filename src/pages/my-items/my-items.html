@@ -81,6 +81,8 @@
                   From: {{getDateFromTimestamp(item.borrow_time)}}
                   <br>
                   To: {{getDateFromTimestamp(item.max_borrow_duration)}}
+                  <br>
+                  Borrower: {{item.borrower_uid}}
                 </div>
               </div>
             </div>
@@ -95,7 +97,7 @@
               </div>
               <div>
                 <button ion-button class="accept-button" (click)="receivedItemBack(item)">Received</button>
-                <button ion-button class="decline-button" (click)="reviewUser()" style="background-color: darkblue; margin-left: 2px">Review★</button>
+                <button ion-button class="decline-button" (click)="reviewOwner(item)" style="background-color: darkgoldenrod; margin-left: 2px">Review★</button>
                 <button ion-button class="chat-button" style="background-color: darkblue; float: right;">Chat</button>
               </div>
             </div>

@@ -81,6 +81,11 @@ export class MyItemsPage {
     // console.log("STARTED TO REMOVE AN ITEM the item is ");
     // console.log(item);
     this.db.removeBorrower(item.owner_uid, item.id);
+    this.navCtrl.push("MyItemsPage");
+  }
+
+  reviewOwner(item) {
+    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":item.borrower_uid});
   }
 
   // ionViewDidLoad() {

@@ -18,10 +18,10 @@
   <div class="profile">
     <!--<div class="front">-->
     <div class="profile_banner"></div>
-    <div class="profile_photo"><img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAaVAAAAJGUyNzI1ZGFlLTcyYzAtNDhjNC1hZjk1LTMxYWNkYjQ1NmVhYw.jpg"></div>
+    <div class="profile_photo" id="image-container"><img [src]="userToReviewPicture"></div>
     <div class="profile_info">
       <div class="display">
-        <div class="profile_name">Oana Ciocioman</div>
+        <div class="profile_name">{{userToReviewName}}</div>
         <div class="average-rating" [attr.data-rating-value]="average">   <!--#{number-of-stars}">-->
           <label for="r1"></label>
           <label for="r2"></label>

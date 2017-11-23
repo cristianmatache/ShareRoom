@@ -276,6 +276,37 @@ export class Database {
     }
   }
 
+
+  requestItemInNameOfUserId(requester_uid:string, item_id: string, owner_uid: string, borrow_time: number, max_borrow_duration: number) {
+    // THIS BRINGS RACE CONDITIONS -------------> WE ASSUME NO 2 PEOPLE WILL REQUEST AN ITEM AT THE SAME TIME :)
+    // IF WE WANT TO AVOID THIS WE CHANGED THE IMPLEMENTATION FROM [{}] TO {{}}
+    // TODO
+    if (this.getCurrentUserId()) {
+      let req = {
+        max_borrow_duration: max_borrow_duration,
+        borrow_time: borrow_time,
+        item_id: item_id,
+        requester_uid: requester_uid,
+        owner_uid: owner_uid,
+      };
+
+      firebase.database().ref('users/' + owner_uid + '/items/' + item_id).once(
+        'value',
+        function (snapshot) {
+          if (snapshot.hasChild("requests")) {
+            console.log("---- REQUESTS already exists so print requests in SNAPSHOT -----");
+            let reqs = snapshot.val().requests;
+            reqs.push(req);
+            firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set(reqs);
+          } else {
+            firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set([req]);
+            console.log("* Pushed NEW:");
+            console.log([req]);
+          }
+        }, () => {});
+    }
+  }
+
   returnItem(id: string, owner_uid: string) {
     if (this.getCurrentUserId()) {
       firebase.database().ref().child('users/' + owner_uid + '/' + id + 'borrower_uid').set(null);
@@ -348,6 +379,7 @@ export class Database {
   }
 
   getAllLoggedInReviews(): Promise<Review[]> {
+    //return this.getAllReviewsOfUID(firebase.auth().currentUser.uid);
     return new Promise<Review[]>((resolve, reject) => {
       firebase.database().ref('users/').once(
         'value',
@@ -355,6 +387,34 @@ export class Database {
           let reviews = [];
           snapshot.forEach(function (user) {
             if (firebase.auth().currentUser.uid === user.key) {
+              let user_reviews = user.val().reviews;
+              // probably need this null check because of how val works
+              if (user_reviews != null) {
+                for (var index in user_reviews) {
+                  var review = user_reviews[index];
+                  review.id = index;
+                  reviews.push(review);
+                }
+              }
+            }
+            return false;
+          });
+
+          resolve(reviews);
+        }, () => {
+          reject("Error in fetching users from the database!");
+        });
+    });
+  }
+
+  getAllReviewsOfUID(user_id: string): Promise<Review[]> {
+    return new Promise<Review[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        function (snapshot) {
+          let reviews = [];
+          snapshot.forEach(function (user) {
+            if (user_id === user.key) {
               let user_reviews = user.val().reviews;
               // probably need this null check because of how val works
               if (user_reviews != null) {
