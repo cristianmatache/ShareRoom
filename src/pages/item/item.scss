@@ -26,4 +26,10 @@ page-item {
     dispaly: block;
     width: 100%;
   }
+
+  .item-picture{
+    max-height: 50vh;
+    background-size: cover;
+    border-radius: 20px;
+  }
 }
