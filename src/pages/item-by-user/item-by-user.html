@@ -4,6 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
 <ion-header>
   <ion-navbar color="light">
     <ion-title>{{item.name}}</ion-title>
@@ -32,6 +33,24 @@
     </ion-item>
   </ion-list>
 
+  <!--For test purpose-->
+  <ion-content>
+    <ion-list>
+  <ion-item>
+    <div item-start>
+      <h2>From:</h2>
+    </div>
+    <ion-datetime style="margin-left: -5px;" displayFormat="DD-MM-YYYY" [min]="today" [max]="maxSelectableDate" [(ngModel)]="fromDate"></ion-datetime> <br>
+  </ion-item>
+  <ion-item>
+    <div item-start>
+      <h2>Until:</h2>
+    </div>
+    <ion-datetime displayFormat="DD-MM-YYYY" [min]="fromDate" [max]="maxSelectableDate" [(ngModel)]="toDate"></ion-datetime>
+  </ion-item>
+    </ion-list>
+  </ion-content>
+  <!--For test purpose-->
 
   <!-- TO BE REMOVED - THIS IS FOR TESTING PURPOSES ONLY - WHEN YOU SEE THIS PLEASE REMOVE IT -->
   <ion-fab bottom right>
