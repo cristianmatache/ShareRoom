@@ -24,10 +24,18 @@ export class AddReviewsPage {
   userToReview: User;
   userToReviewName: string;
   userToReviewPicture: string;
+  highlight: string;
+  comment: string;
+  textareaString: string;
+  stars: number;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
     this.userToReviewUID = navParams.get("userToReviewUID");
+    this.highlight = "";
+    this.comment = "";
+    this.textareaString = "";
+    this.stars = 1;
   }
 
   someFunction = (myArray) => {
@@ -67,10 +75,25 @@ export class AddReviewsPage {
     return Math.round(avg * 100) / 100
   }
 
-  goToOtherUsersPage(reviewer_id) {
+  setStars(numberOfStars) {
+    this.stars = numberOfStars;
+  }
+
+  // public addReview(reviewer_id: string, rating: number, review: string, title: string, uid: string)
+
+  submitReview() {
+    console.log(this.highlight);
+    console.log(this.comment);
+    console.log(this.stars);
+    console.log("USER TO REVIEW UID: " + this.userToReviewUID);
+    this.db.addReview(this.db.getCurrentUserId(), this.stars, this.comment, this.highlight, this.userToReviewUID);
+    this.goToOtherUsersPage(this.userToReviewUID);
+  }
+
+  goToOtherUsersPage(reviewee_uid) {
     // TO DO: change to users reviews page not add reviews page
-    if (reviewer_id != this.db.getCurrentUserId()) {
-      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewer_id});
+    if (reviewee_uid != this.db.getCurrentUserId()) {
+      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewee_uid});
     }
   }
 }
