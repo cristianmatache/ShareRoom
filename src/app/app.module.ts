@@ -29,6 +29,7 @@ import {ProfilePage} from "../pages/profile/profile";
 //import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
 import {ItemByUserPage} from "../pages/item-by-user/item-by-user";
 import {EditItemPage} from "../pages/edit-item/edit-item";
+import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {EditItemPage} from "../pages/edit-item/edit-item";
     //LoggedInReviewsPage,
     ItemByUserPage,
     EditItemPage,
+    ShoutsHomePage,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,7 @@ import {EditItemPage} from "../pages/edit-item/edit-item";
     //LoggedInReviewsPage,
     ItemByUserPage,
     EditItemPage,
+    ShoutsHomePage,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

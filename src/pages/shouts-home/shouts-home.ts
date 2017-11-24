@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {HomePage} from "../home/home";
-import {ProfilePage} from "../profile/profile";
-import {ShoutsHomePage} from "../shouts-home/shouts-home";
 
 /**
- * Generated class for the TabsPage page.
+ * Generated class for the ShoutsHomePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,16 +10,16 @@ import {ShoutsHomePage} from "../shouts-home/shouts-home";
 
 @IonicPage()
 @Component({
-  selector: 'page-tabs',
-  templateUrl: 'tabs.html',
+  selector: 'page-shouts-home',
+  templateUrl: 'shouts-home.html',
 })
-export class TabsPage {
-
-  tab1Root = HomePage;
-  tab2Root = ShoutsHomePage;
-  tab3Root = ProfilePage;
+export class ShoutsHomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ShoutsHomePage');
   }
 
 }
