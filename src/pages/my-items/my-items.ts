@@ -85,7 +85,9 @@ export class MyItemsPage {
   }
 
   reviewOwner(item) {
-    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":item.borrower_uid});
+    if (item.borrower_uid != this.db.getCurrentUserId()) {
+      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": item.borrower_uid});
+    }
   }
 
   goToOtherUsersPage(item) {

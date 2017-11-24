@@ -60,6 +60,8 @@ export class LoggedInReviewsPage {
 
   goToOtherUsersPage(reviewer_id) {
     // TO DO: change to users reviews page not add reviews page
-    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":reviewer_id});
+    if (reviewer_id != this.db.getCurrentUserId()) {
+      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewer_id});
+    }
   }
 }
