@@ -30,17 +30,29 @@ export class AddReviewsPage {
     this.userToReviewUID = navParams.get("userToReviewUID");
   }
 
+  someFunction = (myArray) => {
+    const promises = myArray.map(async (review) => {
+      this.db.getUserInfoById(review.user_id).then(
+        (user) => {
+          review.reviewer_name = user.display_name;
+          // console.log("IN SOME FUNCTION LOGGED IN REVIEWS: " + user.display_name);
+          return review;
+        }
+      ).catch(console.error);
+    });
+    return Promise.all(promises);
+  };
+
   ionViewDidLoad() {
     this.db.getUserInfoById(this.userToReviewUID).then((user) => {
       this.userToReview = user;
-      console.log("RETRIEVED USER FOR USER ID " + this.userToReviewUID);
-      console.log(user);
       this.userToReviewName = user.display_name;
       this.userToReviewPicture = user.profile_picture;
 
       this.db.getAllReviewsOfUID(this.userToReviewUID).then((reviews) => {
         this.retrievedReviews = reviews;
         this.average = this.computeAverage(reviews);
+        this.someFunction(this.retrievedReviews);
       });
     });
     console.log('ionViewDidLoad AddReviewsPage');
@@ -55,4 +67,8 @@ export class AddReviewsPage {
     return Math.round(avg * 100) / 100
   }
 
+  goToOtherUsersPage(reviewer_id) {
+    // TO DO: change to users reviews page not add reviews page
+    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":reviewer_id});
+  }
 }

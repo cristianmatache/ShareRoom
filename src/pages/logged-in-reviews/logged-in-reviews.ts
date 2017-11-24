@@ -33,7 +33,6 @@ export class LoggedInReviewsPage {
       this.average = this.computeAverage(reviews);
       this.someFunction(this.retrievedReviews);
     });
-    console.log("gimme gimme" + this.loggedInName);
     console.log('ionViewDidLoad LoggedInReviewsPage');
   }
 
