@@ -125,9 +125,6 @@ export class Database {
           type : string,
           max_borrow_duration: number,
           category: string) {
-    console.log("current user");
-    console.log(this.getCurrentUserId());
-    console.log("----------- UPLOAD ITEM -------------");
     this.geolocation.getCurrentPosition().then((resp) =>
     {
       if (!picture) {
@@ -148,7 +145,6 @@ export class Database {
         category: category
       };
       firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
-      console.log("AFTER PUSH");
     });
   }
 
@@ -169,16 +165,7 @@ export class Database {
         returnTime: 0,
       };
       firebase.database().ref().child('users/' + item.owner_uid + '/items/' + id + '/').set(item);
-      console.log("AFTER  EDIT");
     });
-
-    // this.uploadImage(picture, "/pic", () => {
-    //   console.log("IT IS DONE---------------------------");
-    // }, (percent) => {
-    //   console.log(percent + " --------------------------------");
-    // }, (err) => {
-    //   console.log("-----------------------___ERRORRRR" + err);
-    // });
   }
 
   removeItem(id: string, owner_uid: string) {
@@ -192,11 +179,6 @@ export class Database {
         (snapshot) => {
           let reqs_keys = [];
           snapshot.forEach( (request) => {
-            console.log("in remove item requests from, req.val.borrower_uid -> requester_uid param");
-            console.log(request.val().requester_uid + " -> " + requester_uid);
-            console.log(request.val());
-            console.log(request.val().requester_uid);
-            console.log();
             if (request.val().requester_uid === requester_uid) {
               reqs_keys.push(request.key);
               firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id +'/requests/' + request.key).remove();
@@ -226,22 +208,12 @@ export class Database {
 
 
   addBorrow(owner_uid: string, requester_uid: string, item_id: string, borrow_time: string, max_borrow_duration: string) {
-    console.log("////ADDING BORROW");
-    console.log(owner_uid);
-    console.log(requester_uid);
-    console.log(item_id);
-    console.log(borrow_time);
-    console.log(max_borrow_duration);
-    console.log("/////////////////");
-
     firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrow_time').set(borrow_time);
     firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/max_borrow_duration').set(max_borrow_duration);
     firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_uid').set(requester_uid);
   }
 
   removeBorrower(owner_uid: string, item_id:string) {
-    // console.log("---------------------------------");
-    // console.log("Remove item " + item_id + " from owner " + owner_uid);
     firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_uid').remove();
   }
 
@@ -263,14 +235,11 @@ export class Database {
         'value',
         function (snapshot) {
           if (snapshot.hasChild("requests")) {
-            console.log("---- REQUESTS already exists so print requests in SNAPSHOT -----");
             let reqs = snapshot.val().requests;
             reqs.push(req);
             firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set(reqs);
           } else {
             firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set([req]);
-            console.log("* Pushed NEW:");
-            console.log([req]);
           }
         }, () => {});
     }
@@ -294,14 +263,11 @@ export class Database {
         'value',
         function (snapshot) {
           if (snapshot.hasChild("requests")) {
-            console.log("---- REQUESTS already exists so print requests in SNAPSHOT -----");
             let reqs = snapshot.val().requests;
             reqs.push(req);
             firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set(reqs);
           } else {
             firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests/').set([req]);
-            console.log("* Pushed NEW:");
-            console.log([req]);
           }
         }, () => {});
     }

@@ -10,6 +10,10 @@ page-received-requests {
     margin-top: -13px;
   }
 
+  .link-to-user {
+    color: lighten(color($colors, primary), 20%);
+  }
+
   .request-card {
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     background: rgba(0, 0, 0, 0.5);

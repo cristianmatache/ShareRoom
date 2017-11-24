@@ -20,76 +20,55 @@ export class BorrowedItemsPage {
 
   borrowitems: string = "requests";
   itemsLoggedInUserRequested: Item[] = [];
-  itemsLoggedInUserBorrowed: DisplayableBorrowedItem[] = [];
+  itemsLoggedInUserBorrowed: Item[] = [];
   currentUserId: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
     this.currentUserId = this.db.getCurrentUserId();
   }
 
+  someFunction = (items) => {
+    const promises = items.map(async (eachItem) => {
+      console.log("someFunctioning*");
+      this.db.getUserInfoById(eachItem.owner_uid).then(
+        (user) => {
+          eachItem.owner = user.display_name;
+          eachItem.borrow_readable_time = new Date(eachItem.borrow_time * 1000).toDateString();
+          eachItem.max_borrow_duration_readable_time = new Date(eachItem.max_borrow_duration * 1000).toDateString();
+          eachItem.percentage_time = Math.floor(100 * (Date.now() / 1000 - eachItem.borrow_time) / (eachItem.max_borrow_duration - eachItem.borrow_time));
+          return eachItem;
+        }
+      ).catch(console.error);
+    });
+    return Promise.all(promises);
+  };
+
   ionViewDidLoad() {
     this.db.getAllItems().then((items) => {
       this.itemsLoggedInUserRequested = items.filter(item => {
-        // console.log("--------");
-        // console.log(item.name);
-        // console.log(item.requests);
-        // console.log("--------");
         if (item.requests) {
-          console.log("***" + item.name);
-          console.log(item.requests);
           for (let request of item.requests) {
             if (request.requester_uid === this.currentUserId) {
-              // console.log("----------- item requested by current user");
-              console.log(" ** " + request.item_id + " by " + request.requester_uid);
-              // console.log("-----------");
               return true;
             }
           }
         }
         return false;
       });
-      // console.log("logged in user requested items");
-      // console.log(this.itemsLoggedInUserRequested);
 
-
-      // console.log("items i requested");
-      // for (var i of this.itemsLoggedInUserRequested) {
-      //   console.log(i.name);
-      // }
-
-      var rawItems = items.filter(item => {
+      this.itemsLoggedInUserBorrowed = items.filter(item => {
+        console.log("FILTERING");
         if (item.borrower_uid) {
-          return item.borrower_uid === this.db.getCurrentUserId();
+          return item.borrower_uid === this.currentUserId;
         } else {
           return false;
         }
       });
+      console.log("BEFORE ADDING THE OWNER ITEMS LIU BORROWED");
+      //console.log(this.itemsLoggedInUserBorrowed);
 
-      for (var rawItem of rawItems) {
-        var dispItem: DisplayableBorrowedItem = {
-          name : rawItem.name,
-          picture : rawItem.picture,
-          description: rawItem.description,
-          type: rawItem.type,
-          category: rawItem.category,
-
-          owner : rawItem.owner_uid,
-          borrower : rawItem.borrower_uid,
-
-          borrow_time : new Date(rawItem.borrow_time * 1000).toDateString(),
-          max_borrow_duration : new Date(rawItem.max_borrow_duration * 1000).toDateString(),
-          percentage_time : Math.floor(100 * (Date.now() / 1000 - rawItem.borrow_time) / (rawItem.max_borrow_duration - rawItem.borrow_time))
-        };
-
-        this.db.getUserInfoById(rawItem.borrower_uid)
-          .then((user) => {
-            dispItem.borrower = user.display_name;
-            //this.imagePath = user.profile_picture;
-          })
-          .catch(console.error);
-
-        this.itemsLoggedInUserBorrowed.push(dispItem);
-      }
+      this.someFunction(this.itemsLoggedInUserBorrowed);
+      console.log(this.itemsLoggedInUserBorrowed);
     });
     console.log('ionViewDidLoad BorrowedItemsPage');
   }
@@ -110,4 +89,48 @@ export class BorrowedItemsPage {
     return String(item.requests.length) + " requests";
   }
 
+  getDateFromTimestamp(timestamp) {
+    return (new Date(timestamp * 1000)).toDateString();
+  }
+
+  returnedItemToOwner(item) {
+    this.db.removeBorrower(item.owner_uid, item.id);
+    this.navCtrl.push("BorrowedItemsPage");
+  }
+
+  reviewOwner(item) {
+    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":item.owner_uid});
+  }
+
+  goToOtherUsersPage(item) {
+    // TO DO: change to users reviews page not add reviews page
+    this.reviewOwner(item);
+  }
 }
+
+
+// for (var rawItem of rawItems) {
+//   var dispItem: DisplayableBorrowedItem = {
+//     name : rawItem.name,
+//     picture : rawItem.picture,
+//     description: rawItem.description,
+//     type: rawItem.type,
+//     category: rawItem.category,
+//
+//     owner : rawItem.owner_uid,
+//     borrower : rawItem.borrower_uid,
+//
+//     borrow_time : new Date(rawItem.borrow_time * 1000).toDateString(),
+//     max_borrow_duration : new Date(rawItem.max_borrow_duration * 1000).toDateString(),
+//     percentage_time : Math.floor(100 * (Date.now() / 1000 - rawItem.borrow_time) / (rawItem.max_borrow_duration - rawItem.borrow_time))
+//   };
+//
+//   this.db.getUserInfoById(rawItem.borrower_uid)
+//     .then((user) => {
+//       dispItem.borrower = user.display_name;
+//       //this.imagePath = user.profile_picture;
+//     })
+//     .catch(console.error);
+//
+//   this.itemsLoggedInUserBorrowed.push(dispItem);
+// }

@@ -90,4 +90,9 @@ export class ReceivedRequestsPage {
     this.navCtrl.push("MyItemsPage");
     //this.navCtrl.push("ProfilePage");
   }
+
+  goToOtherUsersPage(reviewer_id) {
+    // TO DO: change to users reviews page not add reviews page
+    this.navCtrl.push("AddReviewsPage", {"userToReviewUID":reviewer_id});
+  }
 }

@@ -21,7 +21,7 @@
           </div>
           <div style="display: inline-block; margin-left: 9px;">
               <div class="request-title">
-                  {{request.requester_name}}
+                <u class="link-to-user" (click)="goToOtherUsersPage(request.requester_uid)"> {{request.requester_name}} </u>
               </div>
               <div class="request-dates">
                 From: {{getDateFromTimestamp(request.borrow_time)}}
