@@ -47,6 +47,7 @@ export class HomePage {
         percentage_time: 0,
         owner: "",
         borrower : "",
+        shout: null,
       });
     });
   }

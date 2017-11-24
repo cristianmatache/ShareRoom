@@ -49,10 +49,10 @@ page-my-items {
 
     .card{
       border-radius : 5px;
-      box-shadow: 0 3px 3px rgba(0,0,0, 0.2);
+      //box-shadow: 0 3px 3px rgba(0,0,0, 0.2);
       //background: rgba(83,202,144, 0.3);
       background: rgba(0,0,0, 0.5);
-      border: rgba(0,0,0, 0.2) 1px groove;
+      //border: rgba(0,0,0, 0.2) 1px groove;
       margin: 2%;
       width: 100%;
     }
@@ -222,9 +222,9 @@ page-my-items {
   }
 
   .request-card {
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    //box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     background: rgba(0, 0, 0, 0.5);
-    border: rgba(0, 0, 0, 0.2) 1px groove;
+    //border: rgba(0, 0, 0, 0.2) 1px groove;
     border-radius:5px;
     padding: 10px;
     position: relative;
