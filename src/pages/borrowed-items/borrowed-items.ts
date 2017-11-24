@@ -117,6 +117,12 @@ export class BorrowedItemsPage {
     // TO DO: change to users reviews page not add reviews page
     this.reviewOwner(item);
   }
+
+  removeThisRequest(owner_uid, request_item_id) {
+    this.db.removeItemRequestsFrom(this.db.getCurrentUserId(), owner_uid, request_item_id);
+    this.navCtrl.push("BorrowedItemsPage");
+    //this.navCtrl.push("ProfilePage");
+  }
 }
 
 

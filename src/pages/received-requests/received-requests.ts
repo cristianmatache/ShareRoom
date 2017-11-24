@@ -85,7 +85,6 @@ export class ReceivedRequestsPage {
   }
 
   removeThisRequest(requester_uid, request_item_id) {
-    console.log("REMOVING ELEMENT with requester id " + requester_uid + " " + request_item_id);
     console.log(this.db.removeItemRequestsFrom(requester_uid, this.db.getCurrentUserId(), request_item_id));
     this.navCtrl.push("MyItemsPage");
     //this.navCtrl.push("ProfilePage");
