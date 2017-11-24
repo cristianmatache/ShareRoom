@@ -29,16 +29,18 @@
                   </div>
                 </div>
                 <div style="display: inline-block; margin-left: 9px; max-width: 57%;" class="request-title">
-                  {{item.name}}
-                  <br>
-                  <div style="font-size:12px;">
-                    By <u class="link-to-user" (click)="goToOtherUsersPage(item)"> {{item.owner}} </u>
+                  <div style="font-size:1.6rem">{{item.name}}</div>
+                  <!--<br>-->
+                  <div style="font-size:1.4rem;">
+                    By <u class="link-to-user" (click)="goToOtherUsersPage(item)"> {{item.owner}} </u> <br>
+                    From: {{getDateFromTimestamp(item.borrow_time)}} <br>
+                    To: {{getDateFromTimestamp(item.max_borrow_duration)}}
                   </div>
                 </div>
               </div>
               <div>
-                <div style="margin-top:37px;">
-                  <button ion-button (click)="removeThisRequest(item.owner_uid, item.id)" style="background-color: darkred; display: inline-block;">Cancel</button>
+                <div style="margin-top:3px;">
+                  <button ion-button (click)="removeThisRequest(item.owner_uid, item.id)" style="background-color: #d90707ad; display: inline-block;">Cancel</button>
                   <button ion-button class="chat-button" style="background-color: darkblue; float: right; display: inline-block;">Chat</button>
                 </div>
               </div>
