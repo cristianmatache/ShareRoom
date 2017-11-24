@@ -23,8 +23,18 @@ export class ItemPage {
   item: Item = {} as Item;
   user: User = {} as User;
 
+  today: string;
+  fromDate: string;
+  toDate: string;
+  maxSelectableDate: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private database: Database) {
     this.item = navParams.get("item");
+
+    this.today = new Date().toISOString();
+    this.fromDate = new Date().toISOString();
+    this.toDate = new Date().toISOString();
+    this.maxSelectableDate = new Date(2018,11,30).toISOString();
 
     this.database.getUserInfoById(this.item.owner_uid)
       .then((user) => {
@@ -38,7 +48,7 @@ export class ItemPage {
   }
 
   requestItem() {
-    this.database.requestItem(this.item.id, this.item.owner_uid, 1511269416, 1514937600);
+    this.database.requestItem(this.item.id, this.item.owner_uid, Date.parse(this.fromDate)/1000, Date.parse(this.toDate)/1000);
   }
 
   startChat() {

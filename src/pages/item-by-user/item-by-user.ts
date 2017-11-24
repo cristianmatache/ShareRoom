@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Item} from "../../models/item";
 import {User} from "../../models/user";
 import {Database} from "../../providers/database";
@@ -23,8 +23,22 @@ export class ItemByUserPage {
   item: Item = {} as Item;
   user: User = {} as User;
 
+  /* For test purpose */
+  today: string;
+  fromDate: string;
+  toDate: string;
+  maxSelectableDate: string;
+  /* For test purpose */
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private database: Database) {
     this.item = navParams.get("item");
+
+    /* For test purpose */
+    this.today = new Date().toISOString();
+    this.fromDate = new Date().toISOString();
+    this.toDate = new Date().toISOString();
+    this.maxSelectableDate = new Date(2018,11,30).toISOString();
+    /* For test purpose */
 
     this.database.getUserInfoById(this.item.owner_uid)
       .then((user) => {
@@ -46,7 +60,9 @@ export class ItemByUserPage {
   }
 
   requestItem() {
+    console.log("fromDate timestamp " + Date.parse(this.fromDate));
+    console.log("toDate timestamp " + Date.parse(this.toDate));
     //this.database.requestItem(this.item.id, this.item.owner_uid, 1511269416, 1514937600);
-    this.database.requestItemInNameOfUserId("PhMUkbbHHRXFy9XqmeYxHN3GYx13",this.item.id, this.item.owner_uid, 1511269416, 1514937600);
+    this.database.requestItemInNameOfUserId("PhMUkbbHHRXFy9XqmeYxHN3GYx13",this.item.id, this.item.owner_uid, Date.parse(this.fromDate)/1000, Date.parse(this.toDate)/1000);
   }
 }

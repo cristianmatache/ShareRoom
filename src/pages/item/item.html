@@ -30,6 +30,18 @@
       </h1>
       <p>{{item.description}}</p>
     </ion-item>
+    <ion-item>
+      <div item-start>
+        <h2>From:</h2>
+      </div>
+      <ion-datetime style="margin-left: -5px;" displayFormat="DD-MM-YYYY" [min]="today" [max]="maxSelectableDate" [(ngModel)]="fromDate"></ion-datetime> <br>
+    </ion-item>
+    <ion-item>
+      <div item-start>
+        <h2>Until:</h2>
+      </div>
+      <ion-datetime displayFormat="DD-MM-YYYY" [min]="fromDate" [max]="maxSelectableDate" [(ngModel)]="toDate"></ion-datetime>
+    </ion-item>
   </ion-list>
 </ion-content>
 
