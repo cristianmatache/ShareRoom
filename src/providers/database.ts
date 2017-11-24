@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {Review} from "../models/review";
 import {Injectable} from "@angular/core";
 import {Request} from "../models/request";
+import {Shout} from "../models/Shout";
 
 
 @Injectable()
@@ -312,6 +313,27 @@ export class Database {
         }, () => {
           reject("Error in fetching users from the database!");
         });
+    });
+  }
+
+  getAllShouts(): Promise<Shout[]> {
+    return new Promise<Shout[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        (snapshot) => {
+          let shouts = [];
+          snapshot.forEach((user) => {
+            let newShout = user.val().shout;
+            if (newShout) {
+              newShout.shouter_uid = user.key;
+              shouts.push(newShout);
+            }
+            return false;
+          });
+          resolve(shouts);
+        },
+        () => {reject("Error in fetching users in shouts from the database!");}
+      );
     });
   }
 

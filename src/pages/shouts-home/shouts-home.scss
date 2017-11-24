@@ -1,3 +1,66 @@
 page-shouts-home {
+  .app-background{
+    background-color: #f0faf5;
+    background-position: center;
+    background-size: cover;
+  }
 
+  .card{
+    border-radius : 5px;
+    box-shadow: 0 3px 3px rgba(0,0,0, 0.2);
+    //background: rgba(83,202,144, 0.3);
+    background: rgba(161,167,166, 0.5);
+    //border: rgba(0,0,0, 0.2) 1px groove;
+    margin: 2%;
+    width: 100%;
+  }
+
+  .card-title{
+    margin-top: -4px;
+    margin-left: 4px;
+    font-size: 120%;
+    font-weight: bold;
+    color: darken(color($colors, primary), 15%);
+  }
+
+  .filters-button{
+    background-color: color($colors, primary);
+    color: white;
+    border-radius: 6px;
+  }
+
+  .add-item-image{
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topleft: 10px;
+    padding: 25px 25px 25px 25px;
+  }
+
+  .item-image{
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-bottom: rgba(0,0,0, 0.4) 1px groove;
+  }
+
+  .item-type{
+    padding: 1000px;
+    margin-right: -100%;
+  }
+
+  .badge {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    float: right;
+    background-color: #00A86B;
+    color: white;
+    border-radius: 20px;
+  }
+
+  .distance {
+    color: color($colors, light);
+    font-size: 80%;
+    font-weight: bold;
+    padding-bottom: 4px;
+    padding-top: 0;
+
+  }
 }

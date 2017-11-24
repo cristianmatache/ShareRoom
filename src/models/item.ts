@@ -1,5 +1,5 @@
-import {User} from "./user";
 import {Request} from "./request";
+import {Shout} from "./shout";
 
 export interface Item {
   id: string;
@@ -23,6 +23,8 @@ export interface Item {
   borrow_readable_time: string;
   max_borrow_duration_readable_time: string;
   percentage_time: number;
+
+  shout: Shout;
 }
 
 // TODO: I plagiaried categories from shpock, might want to change them.
