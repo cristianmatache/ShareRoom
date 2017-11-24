@@ -218,6 +218,7 @@ page-borrowed-items {
 
   .link-to-user {
     color: lighten(color($colors, primary), 20%);
+    font-size: 11px;
   }
 
   .request-card {
@@ -227,6 +228,7 @@ page-borrowed-items {
     border-radius:5px;
     padding: 10px;
     position: relative;
+    margin-bottom:10px;
     //z-index: -3;
   }
 

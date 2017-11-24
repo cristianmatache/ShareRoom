@@ -29,13 +29,24 @@ export class BorrowedItemsPage {
 
   someFunction = (items) => {
     const promises = items.map(async (eachItem) => {
-      console.log("someFunctioning*");
       this.db.getUserInfoById(eachItem.owner_uid).then(
         (user) => {
           eachItem.owner = user.display_name;
           eachItem.borrow_readable_time = new Date(eachItem.borrow_time * 1000).toDateString();
           eachItem.max_borrow_duration_readable_time = new Date(eachItem.max_borrow_duration * 1000).toDateString();
           eachItem.percentage_time = Math.floor(100 * (Date.now() / 1000 - eachItem.borrow_time) / (eachItem.max_borrow_duration - eachItem.borrow_time));
+          return eachItem;
+        }
+      ).catch(console.error);
+    });
+    return Promise.all(promises);
+  };
+
+  someFunction2 = (items) => {
+    const promises = items.map(async (eachItem) => {
+      this.db.getUserInfoById(eachItem.owner_uid).then(
+        (user) => {
+          eachItem.owner = user.display_name;
           return eachItem;
         }
       ).catch(console.error);
@@ -64,13 +75,11 @@ export class BorrowedItemsPage {
           return false;
         }
       });
-      console.log("BEFORE ADDING THE OWNER ITEMS LIU BORROWED");
-      //console.log(this.itemsLoggedInUserBorrowed);
 
       this.someFunction(this.itemsLoggedInUserBorrowed);
+      this.someFunction2(this.itemsLoggedInUserRequested);
       console.log(this.itemsLoggedInUserBorrowed);
     });
-    console.log('ionViewDidLoad BorrowedItemsPage');
   }
 
   getNumberOfColumns() {
