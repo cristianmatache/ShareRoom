@@ -32,7 +32,7 @@ export class HomePage {
         name: "Add item",
         location: [],
         owner_uid: "",
-        picture: "../../assets/images/add-item-dark.png",
+        picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
         description: "",
         date_posted: -123,
         type: "New",

@@ -311,8 +311,8 @@ page-add-reviews {
   }
 
   $enabled-disabled-stars: (
-    enabled: '../../assets/images/light_star.png',
-    disabled: '../../assets/images/dark_star.png'
+    enabled: 'https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/light_star.png?raw=true',
+    disabled: 'https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/dark_star.png?raw=true'
   );
 
   @function get-icon($color) {
