@@ -90,10 +90,16 @@ export class ReceivedRequestsPage {
     //this.navCtrl.push("ProfilePage");
   }
 
-  goToOtherUsersPage(reviewer_id) {
-    // TO DO: change to users reviews page not add reviews page
-    if (reviewer_id != this.db.getCurrentUserId()) {
-      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewer_id});
+  goToOtherUsersPage(userId) {
+    if (userId != this.db.getCurrentUserId()) {
+      this.navCtrl.push("UserProfilePage", {"userId": userId});
     }
   }
+
+  // goToOtherUsersPage(reviewer_id) {
+  //   // TO DO: change to users reviews page not add reviews page
+  //   if (reviewer_id != this.db.getCurrentUserId()) {
+  //     this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewer_id});
+  //   }
+  // }
 }

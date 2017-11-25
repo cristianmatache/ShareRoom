@@ -9,6 +9,11 @@ page-chat {
     clear: both;
   }
 
+  .toolbar-md-light .toolbar-title-md{
+    text-align: center;
+    margin-left: -3rem;
+  }
+
   .chat-bubble-me {
     background-color: lightgrey;
     float: right;
@@ -18,6 +23,7 @@ page-chat {
     background-color: cornflowerblue;
     float: left;
     color: white;
+    margin-left: -3rem;
   }
 
   ul {

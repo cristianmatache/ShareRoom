@@ -1,0 +1,473 @@
+page-user-reviews {
+
+  .profile_page{
+    background-color: mintcream;
+    margin-top: -13px;
+  }
+
+  .toolbar-md-light .toolbar-title-md{
+    //text-align: left;
+    //padding: 0 20%;
+    text-align: center;
+    margin-left: -3rem;
+  }
+
+  .profile{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 97%;
+    width: 95%;
+    margin-top: 10px;
+  }
+
+  .profile .front {
+    position: relative;
+    padding: 1px;
+    top: 0;
+    transform: translate(-50%, -50%);
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    transition: all .4s ease-in-out;
+    background: rgba(0, 0, 0, 0); //0.65
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  }
+
+  .profile .front:hover{
+    box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+  }
+
+  /*  Front Style
+  ----------------------*/
+  .profile_banner{
+    width: 100%;
+    height: auto;
+    padding: 40px 0px;
+    background-color: #ddd;
+    border-radius: 10px 10px 0px 0px;
+    margin-bottom: -50px;
+    background-image: url(https://www.airbnbcitizen.com/wp-content/uploads/2017/04/Future-of-Sharing-Cover.png);
+    background-position: center;
+    background-size: 500px auto;
+    background-repeat: no-repeat;
+  }
+
+  .profile_photo{
+    width: 100px;
+    height: 90px;
+    background-color: #eee;
+    margin: 0px auto;
+    border-radius: 100%;
+  }
+
+  .profile_photo img{ width: 100%; border-radius: 100%; opacity: 0.9;}
+
+  #image-container {
+    width: 100px;
+    height: 100px !important;
+    text-align: center;
+    overflow: hidden;
+
+    max-width: 100px;
+    max-height: 100px;
+    background-color: #eee;
+    margin: 0 auto;
+    border-radius: 100%;
+  }
+
+  #image-container img{
+    width: inherit;
+    height: inherit;
+  }
+
+  .profile_name{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    font-size: 30px;
+    font-weight: 400;
+    color: color($colors, light);
+  }
+  .profile_des{
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 40px;
+    color: #9e9e9e;
+  }
+
+  .button-custom {
+    width: 100px !important;
+    height: 100px !important;
+    line-height: 30px !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    color: white !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    text-align: center;
+    padding: 5px 10px;
+    background-color: #abb6c5;
+    text-decoration: none;
+    margin:0 auto;
+  }
+
+  .text-pos {
+    margin-top: 90px;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .profile_social{
+    width: 100%;
+    margin: 0px auto;
+    //border-top: 1px solid #eee;
+    //background-color: #fafafa;
+    border-radius: 0px 0px 10px 10px;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .profile_link{
+    width: 85%;
+    list-style: none;
+    margin: 0px auto;
+    padding: 0px;
+  }
+  .profile_link li{
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+  }
+
+  .profile_link li a{
+    color: #999;
+  }
+  .profile_link li a:hover{
+    color: #abb6c5;
+  }
+
+
+
+
+  //empty-color was #957223
+  @mixin star-rating($number-of-stars, $filled-color: #F9BF3B, $empty-color: color($colors, light), $size: 35px, $width: 135px) {
+    $star--filled: ★;
+    $star--empty: ☆;
+    width: $width;
+    > * {
+      float: right;
+    }
+    // optional initial pulse of stars
+    @at-root {
+      @keyframes pulse {
+        50% {
+          color: lighten($empty-color, 10%);
+          text-shadow: 0 0 15px lighten($empty-color, 20%);
+        }
+      }
+    }
+
+    label {
+      height: 40px;
+      width: 20%;
+      display: block;
+      position: relative;
+      cursor: pointer;
+      @for $i from 5 through (6-$number-of-stars) {
+        &:nth-of-type(#{$i}):after {
+          content: '#{$star--filled}';
+          color: #F9BF3B;
+          text-shadow: 0 0 20px $filled-color;
+          $animation-delay: $i * .05s;
+          animation-delay: $animation-delay;
+        }
+      }
+      &:after {
+        transition: all 0.4s ease-out;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        content: '#{$star--empty}';
+        color: $empty-color;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: $size;
+        animation: 1s pulse ease;
+      }
+    }
+    input {
+      display: none;
+    }
+  }
+
+  .display {
+    display: block;
+  }
+
+  body {
+    background-color: #111;
+  }
+
+
+
+
+
+
+  .amazing-reviews {
+    font-size: 12pt;
+    margin-top: 60px;
+  }
+
+  .amazing-reviews blockquote {
+    font-family: Myriad, Helvetica, 'Lucida Grande', 'DejaVu Sans Condensed', 'Liberation Sans', 'Nimbus Sans L', Tahoma, Geneva, Arial, sans-serif;
+    background: rgba(0,0,0, 0.6);
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px 15px 10px 15px;
+    position: relative;
+    box-shadow: rgba(0,0,0,.025) 0 3px 20px;
+    user-select: none;
+    cursor: default;
+  }
+
+  .amazing-reviews blockquote:before {
+    content: '';
+    display: block;
+    border: 20px solid transparent;
+    border-top-color: #ccc;
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    z-index: 250;
+    background: transparent;
+    height: 0;
+    opacity: 1;
+  }
+
+  .amazing-reviews blockquote:after {
+    content: '';
+    display: block;
+    border: 19px solid transparent;
+    border-top-color: rgba(0,0,0, 0.5);
+    position: absolute;
+    top: 100%;
+    left: 21px;
+    z-index: 500;
+  }
+
+  .amazing-reviews blockquote header span i {
+    color: white;
+    text-shadow: #aaa 1px 0 0, #aaa 0 1px 0, #aaa -1px 0 0, #aaa 0 -1px 0;
+  }
+
+  .amazing-reviews blockquote span:last-of-type {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+  }
+  .amazing-reviews blockquote p {
+    min-width: 230px;
+    font-size: 10pt;
+    font-style: normal;
+    margin: 12px 20px 0 0;
+    color: mintcream;
+  }
+
+
+
+
+
+
+  /// Star Rating
+
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400');
+
+  $rating-min-value: 0 !default;
+  $rating-max-value: 5 !default;
+  $rating-steps-value: .01 !default;
+  $rating-color-empty: #584216 !default;
+  $rating-color-full: lighten(#F9BF3B, 5%) !default;
+
+  @function rating-values() {
+    $rating-values: ();
+    @for $i from $rating-min-value through ($rating-max-value / $rating-steps-value) {
+      $rating-value: abs($i * $rating-steps-value);
+      $rating-values: append($rating-values, $rating-value, 'comma');
+    }
+    @return $rating-values;
+  }
+
+  $enabled-disabled-stars: (
+    enabled: '../../assets/images/light_star.png',
+    disabled: '../../assets/images/dark_star.png'
+  );
+
+  @function get-icon($color) {
+    @if $color==$rating-color-full {
+      @return url(map-get($enabled-disabled-stars, enabled)) center / cover no-repeat;
+    } @else {
+      @return url(map-get($enabled-disabled-stars, disabled)) center / cover no-repeat;
+    }
+  }
+
+  @mixin c-rating($star-size: 20px, $star-element: button, $interaction-type: representative) {
+    @if not index(clickable representative, $interaction-type) {
+      @error "Interaction type must be either `clickable` or `representative`.";
+    }
+
+    #{$star-element} {
+      display: inline-block;
+      float: left;
+      width: $star-size;
+      height: $star-size;
+      border: 0;
+      text-indent: -9999px;
+      outline: none;
+      background: get-icon($rating-color-empty);
+    }
+
+    @each $rating-value in rating-values() {
+      $rating-value-ceil: round($rating-value);
+      &[data-rating-value="#{$rating-value}"] {
+        #{$star-element}:nth-child(-n+#{$rating-value-ceil}) {
+          background: get-icon($rating-color-full);
+        }
+      }
+    }
+  }
+
+  .am-review-card-title {
+    font-size: 60%;
+    font-weight: bold;
+    color: white;
+  }
+
+  .title-form {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom-color: color($colors, primary);
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+
+  .details-form {
+    color: white;
+    font-size: 10pt;
+    text-align: left;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #bbbbbb;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+
+  .c-rating {
+    @include c-rating(15px, button, representative);
+    float: right;
+    background-color: mintcream;
+    padding: 3px;
+    border-radius:8px;
+  }
+
+  .c-rating-form {
+    @include c-rating(15px, button, clickable);
+    float: right;
+    background-color: mintcream;
+    padding: 3px;
+    border-radius:8px;
+    margin-top: 5px;
+  }
+
+  @mixin average-rating() {
+    @each $rating-value in rating-values() {
+      $rating-value-ceil: round($rating-value);
+      &[data-rating-value="#{$rating-value}"] {
+        margin: auto;
+        @include star-rating($rating-value-ceil);
+      }
+    }
+  }
+
+  .average-rating {
+    @include average-rating();
+  }
+
+  .submit-button {
+    background-color: color($colors, primary);
+    color: white;
+    border-radius: 6px;
+    float:right;
+    padding: 10px 10px;
+  }
+
+  ::-webkit-input-placeholder {
+    color: white;
+  }
+
+
+
+
+  .rating {
+    background-color: mintcream;
+    float: right;
+    padding: 1px 4px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  .star-gen{
+    margin-top: -4px;
+    font-size: 2.5rem;
+    display: inline-block;
+  }
+
+  input[type="radio"] {
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    right: 100%;
+  }
+
+  label {
+    font-size: 1.5em;
+    //padding: 0.1em;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  input[type="radio"]:checked ~ input + label {
+    background: none;
+    text-shadow: 0 0 10px lighten(color($colors, light), 30%);
+    color: #aaa;
+  }
+
+  input + label {
+    background: mintcream;
+    color: lighten(#F9BF3B, 5%);
+    text-shadow: 0 0 20px lighten(#F9BF3B, 5%);
+    margin: 0 0 0.1em 0;
+  }
+
+  .link-to-user {
+    color: lighten(color($colors, primary), 20%);
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    text-decoration: underline;
+  }
+}

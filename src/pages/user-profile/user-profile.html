@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar color=light hideBackButton="false">
+    <ion-title color="white">User profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="profile_page">
+
+  <div class="profile">
+    <!--<div class="front">-->
+    <div class="profile_banner"></div>
+    <div class="profile_photo" id="image-container"><img src={{imagePath}}></div>
+    <div class="profile_info">
+      <div class="display">
+        <div class="profile_name">{{userName}}</div>
+        <div class="average-rating" [attr.data-rating-value]="average">
+          <label for="r1"></label>
+          <label for="r2"></label>
+          <label for="r3"></label>
+          <label for="r4"></label>
+          <label for="r5"></label>
+        </div>
+      </div>
+
+
+      <!--<h2 class="profile_des" style="margin-top:15px">oana.ciocioman@gmail.com</h2>-->
+
+      <section class="btn-space">
+        <section class="btn-align">
+          <button style="background-image: url('../../assets/images/package2.png'); margin:auto; background-size: cover; background-repeat: no-repeat" (click)="getUserItems()" class="button-custom">
+            <section class="text-pos">Items</section>
+          </button>
+
+          <button style="background-image: url('../../assets/images/chat.png'); margin:auto; background-size: cover; background-repeat: no-repeat" (click)="getChat()" class="button-custom">
+            <section class="text-pos">Chat</section>
+          </button>
+        </section>
+      </section>
+
+
+      <button style="background-image: url('../../assets/images/review2.png'); margin:auto; background-size: cover; background-repeat: no-repeat" (click)="getUserReviews()" class="btn button-custom">
+        <section class="text-pos">Reviews</section>
+      </button>
+    </div>
+  </div>
+  <!--</div>-->
+
+</ion-content>

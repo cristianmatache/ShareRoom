@@ -472,14 +472,14 @@ export class Database {
     });
   }
 
-  public addReview(user_id: string, rating: number, review: string) {
+  public addReview(reviewer_id: string, rating: number, review: string, title: string, uid: string) {
     let newReview = {
-      user_id: user_id,
+      user_id: reviewer_id,
       review: review,
-      rating: rating
+      rating: rating,
+      title: title
     } as Review;
 
-    let uid : string = this.getCurrentUserId();
     firebase.database().ref('/users/' + uid + '/reviews').push(newReview);
   }
 

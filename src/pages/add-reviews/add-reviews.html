@@ -38,19 +38,19 @@
         <div class="profile_des">ADD YOUR REVIEW HERE</div>
         <blockquote style="padding: 10px 10px 50px 10px">
           <h1>
-            <form class="am-review-card-title" accept-charset="UTF-8" method="post" id="form1">
-              <input type="text" name="title" placeholder="Your highlight" class="title-form">
+            <form name="dataForm" class="am-review-card-title" accept-charset="UTF-8" method="post" id="form1">
+              <input type="text" name="title" placeholder="Your highlight" [(ngModel)]="highlight" class="title-form">
 
               <div class="rating">
-                <input type="radio" name="test" id="one" checked />
+                <input type="radio" name="test" id="one" (click)="setStars(1)" checked />
                 <label for="one"><div class="star-gen">★</div></label>
-                <input type="radio" name="test" id="two" />
+                <input type="radio" name="test" (click)="setStars(2)" id="two" />
                 <label for="two"><div class="star-gen">★</div></label>
-                <input type="radio" name="test" id="three" />
+                <input type="radio" name="test" (click)="setStars(3)" id="three" />
                 <label for="three"><div class="star-gen">★</div></label>
-                <input type="radio" name="test" id="four" />
+                <input type="radio" name="test" (click)="setStars(4)" id="four" />
                 <label for="four"><div class="star-gen">★</div></label>
-                <input type="radio" name="test" id="five" />
+                <input type="radio" name="test" (click)="setStars(5)" id="five" />
                 <label for="five"><div class="star-gen">★</div></label>
               </div>
 
@@ -59,9 +59,9 @@
               <span>By <em class="link-to-user">Me</em></span>
             </div>
           </h1>
-          <textarea rows="4" cols="50" class="details-form" form="form1" placeholder="Any details?"></textarea>
+          <textarea input id="commID" rows="4" cols="50" class="details-form" form="form1" [(ngModel)]="comment" placeholder="Any details?"></textarea>
           <div>
-            <button ion-button class="submit-button">Submit</button>
+            <button ion-button class="submit-button" (click)="submitReview()">Submit</button>
           </div>
         </blockquote>
 
