@@ -189,6 +189,11 @@ export class Database {
     firebase.database().ref().child('users/' + owner_uid + '/items/' + id).remove();
   }
 
+  removeLoggedInUserShout() {
+    console.log("REMOVING --- " + 'users/' + this.getCurrentUserId() + '/shout/');
+    firebase.database().ref().child('users/' + this.getCurrentUserId() + '/shout/').remove()
+  }
+
   removeItemRequestsFrom(requester_uid: string, owner_uid: string, item_id: string) : Promise<string[]> {
     return new Promise<string[]>( (resolve, reject) => {
       firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/requests').once(

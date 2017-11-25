@@ -19,7 +19,7 @@ import {Shout} from "../../models/shout";
 export class ShoutsHomePage {
 
   shouts: Shout[] = [];
-  myShout: Shout;
+  myShout: Shout = null;
   filteredShouts: Shout[] = [];
   searchQuery: string = "";
 
@@ -27,8 +27,6 @@ export class ShoutsHomePage {
     this.db.getAllShouts().then((shouts) => {
       this.shouts = shouts;
       this.someFunction(this.shouts).then(() => {
-        // console.log("SHOUTS AFTER somefunction ----");
-        // console.log(this.shouts);
         this.shouts = this.shouts.filter((shout) => {
           if (shout.shouter_uid == this.db.getCurrentUserId()) {
             this.myShout = shout;
@@ -36,7 +34,10 @@ export class ShoutsHomePage {
           }
           return true;
         });
-        this.shouts.unshift(this.myShout);
+        if (this.myShout != null) {
+          this.shouts.unshift(this.myShout);
+        }
+
         this.shouts.unshift({
           name: "Add your shout",
           picture: "../../assets/images/add-item-dark.png",
@@ -48,6 +49,9 @@ export class ShoutsHomePage {
           max_borrow_duration: 0,
         });
         this.filteredShouts = this.shouts;
+
+        console.log("ALL SHOUTS *******");
+        console.log(this.shouts);
       });
     });
   }
@@ -63,6 +67,11 @@ export class ShoutsHomePage {
     });
     return Promise.all(promises);
   };
+
+  removeMyShout() {
+    this.db.removeLoggedInUserShout();
+    this.navCtrl.setRoot(ShoutsHomePage);
+  }
 
   onSearch(event) {
     this.filteredShouts = this.shouts.filter((item) => {
