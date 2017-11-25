@@ -19,20 +19,54 @@ import {Shout} from "../../models/shout";
 export class ShoutsHomePage {
 
   shouts: Shout[] = [];
+  myShout: Shout;
+  filteredShouts: Shout[] = [];
+  searchQuery: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
     this.db.getAllShouts().then((shouts) => {
       this.shouts = shouts;
-      this.shouts.unshift({
-        name: "Add your shout",
-        picture: "../../assets/images/add-item-dark.png",
-        type: "New",
-        location: [],
-        shouter_uid: "",
-        shouter: "",
-        borrow_time: -123,
-        max_borrow_duration: 0,
+      this.someFunction(this.shouts).then(() => {
+        // console.log("SHOUTS AFTER somefunction ----");
+        // console.log(this.shouts);
+        this.shouts = this.shouts.filter((shout) => {
+          if (shout.shouter_uid == this.db.getCurrentUserId()) {
+            this.myShout = shout;
+            return false;
+          }
+          return true;
+        });
+        this.shouts.unshift(this.myShout);
+        this.shouts.unshift({
+          name: "Add your shout",
+          picture: "../../assets/images/add-item-dark.png",
+          type: "New",
+          location: [],
+          shouter_uid: "",
+          shouter: "",
+          borrow_time: -123,
+          max_borrow_duration: 0,
+        });
+        this.filteredShouts = this.shouts;
       });
+    });
+  }
+
+  someFunction = (myArray) => {
+    const promises = myArray.map(async (shout) => {
+      this.db.getUserInfoById(shout.shouter_uid).then(
+        (user) => {
+          shout.shouter = user.display_name;
+          return shout;
+        }
+      ).catch(console.error);
+    });
+    return Promise.all(promises);
+  };
+
+  onSearch(event) {
+    this.filteredShouts = this.shouts.filter((item) => {
+      return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
     });
   }
 
@@ -53,7 +87,18 @@ export class ShoutsHomePage {
     return nrList;
   }
 
-  getPostItemPage() {
-    return this.navCtrl.push("PostItemPage");
+  getAddShoutPage() {
+    return this.navCtrl.push("AddShoutPage");
+  }
+
+  goToOtherUsersPage(user_uid) {
+    // TO DO: change to users reviews page not add reviews page
+    if (user_uid != this.db.getCurrentUserId()) {
+      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": user_uid});
+    }
+  }
+
+  shoutBelongsToLoggedInUser(shout) {
+    return shout.shouter_uid === this.db.getCurrentUserId();
   }
 }

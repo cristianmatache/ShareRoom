@@ -1,43 +1,80 @@
+<!--<ion-header>-->
+
+  <!--<ion-navbar color=light hideBackButton="false">-->
+    <!--<ion-title color="white">Shouts</ion-title>-->
+  <!--</ion-navbar>-->
+
+<!--</ion-header>-->
+
 <ion-header>
-
-  <ion-navbar color=light hideBackButton="false">
-    <ion-title color="white">Shouts</ion-title>
+  <ion-navbar color=light>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9 col-xl-11>
+          <!--<ion-avatar>-->
+          <!--<img src="../../assets/images/ShareGreen2.gif" width="20%" height="20%">-->
+          <!--</ion-avatar>-->
+          <ion-searchbar
+            [(ngModel)]="searchQuery"
+            [showCancelButton]="searchQuery.length > 0"
+            (ngModelChange)="onSearch($event)">
+          </ion-searchbar>
+        </ion-col>
+        <ion-col col-1 col-xl-1>
+          <button ion-button class="filters-button">Filters</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding class="app-background">
   <ion-grid>
     <ion-row>
       <ion-col col-xl-3 col-6 *ngFor="let nr of getNumberOfColumns()">
 
-        <ion-row *ngFor="let shout of shouts; let i = index">
+        <ion-row *ngFor="let shout of filteredShouts; let i = index">
           <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
-            <ion-card *ngIf="i === 0 && shout.borrow_time < 0; else display_normal" (click)="getPostItemPage()">
+            <ion-card *ngIf="i === 0 && shout.borrow_time < 0; else display_normal" (click)="getAddShoutPage()">
               <img [src]="shout.picture" class="add-item-image">
               <ion-card-title>{{shout.name}}</ion-card-title>
             </ion-card>
 
             <ng-template #display_normal>
-              <ion-card *ngIf="i===0" (click)="showItem()">
+              <ion-card *ngIf="i===0">
                 <img [src]="shout.picture" class="item-image">
                 <ion-card-title>{{shout.name}}</ion-card-title>
-                <ion-row>
-                  <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
-                  <ion-badge item-end class=".item-type"> {{shout.type}} </ion-badge>
-                </ion-row>
+                <div class="distance">
+                  By: <em class="link-to-user" (click)="goToOtherUsersPage(shout.shouter_uid)"> {{shout.shouter}}</em><br>
+                  {{this.getDistanceTill(item)}}
+                </div>
+                <div *ngIf="shoutBelongsToLoggedInUser(shout)">
+                  <button ion-button (click)="removeMyShout()" style="background-color: #d90707ad; margin-left: 6px; display: inline-block;">Cancel</button>
+                  <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
+                </div>
+                <div *ngIf="!shoutBelongsToLoggedInUser(shout)">
+                  <button ion-button (click)="chatWithUser()" style="background-color: darkblue; margin-left: 6px; display: inline-block;">Chat</button>
+                  <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
+                </div>
               </ion-card>
             </ng-template>
 
-            <ion-card *ngIf="i > 0" (click)="showItem(item)">
+            <ion-card *ngIf="i > 0">
               <img [src]="shout.picture" class="item-image">
               <ion-card-title>{{shout.name}}</ion-card-title>
-              <ion-row>
-                <ion-col class="distance">{{this.getDistanceTill(item)}}</ion-col>
-                <ion-badge item-end> {{shout.type}} </ion-badge>
-              </ion-row>
+              <div class="distance">
+                By: <em class="link-to-user" (click)="goToOtherUsersPage(shout.shouter_uid)"> {{shout.shouter}}</em><br>
+                {{this.getDistanceTill(item)}}
+              </div>
+              <div *ngIf="shoutBelongsToLoggedInUser(shout)">
+                <button ion-button (click)="removeMyShout()" style="background-color: #d90707ad; margin-left: 6px; display: inline-block;">Cancel</button>
+                <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
+              </div>
+              <div *ngIf="!shoutBelongsToLoggedInUser(shout)">
+                <button ion-button (click)="chatWithUser()" style="background-color: darkblue; margin-left: 6px; display: inline-block;">Chat</button>
+                <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
+              </div>
             </ion-card>
 
           </ion-col>
@@ -45,10 +82,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-fab bottom right>
-    <button ion-fab (click)="changeToMap()">
-      <ion-icon name="pin"></ion-icon>
-    </button>
-  </ion-fab>
+  <!--<ion-fab bottom right>-->
+    <!--<button ion-fab (click)="changeToMap()">-->
+      <!--<ion-icon name="pin"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
 </ion-content>
 
