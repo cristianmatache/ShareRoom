@@ -163,7 +163,7 @@ page-logged-in-reviews {
 
 
     //empty-color was #957223
-    @mixin star-rating($number-of-stars, $filled-color: #F9BF3B, $empty-color: color($colors, light), $size: 35px, $width: 135px) {
+    @mixin star-rating($number-of-stars, $filled-color: #F9BF3B, $empty-color: #957223, $size: 35px, $width: 135px) {
       $star--filled: ★;
       $star--empty: ☆;
       width: $width;
