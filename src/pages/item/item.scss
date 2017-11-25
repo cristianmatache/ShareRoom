@@ -1,17 +1,15 @@
 page-item {
-  //div {
-  //  padding: 0px !important;
-  //}
-
   .toolbar-md-light .toolbar-title-md {
-    //text-align: left;
-    //padding: 0 25%;
     text-align: center;
-    margin-left: - 3rem;
+    margin-left: -3rem;
   }
 
   .item{
     background-color: mintcream;
+  }
+
+  .label-md {
+    margin: 0;
   }
 
   .item-block .item-inner{
@@ -27,8 +25,17 @@ page-item {
     width: 100%;
   }
 
+  .input-wrapper {
+    margin-bottom: -10px;
+  }
+
+  .item-md h1 {
+    margin: 0;
+  }
+
   .item-picture{
-    max-height: 45vh;
+    margin-top: 7px;
+    max-height: 46vh;
     background-size: cover;
     border-radius:20px;
   }

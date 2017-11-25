@@ -1,19 +1,27 @@
 page-item-by-user {
-  //
-  //.toolbar-md-light .toolbar-title-md {
-  //  text-align: left;
-  //  padding: 0 25%;
-  //}
-  //
-  //.item{
-  //  background-color: blue;
-  //}
-  //
-  //.item-block .item-inner{
-  //  background-color: blue;
-  //}
-  //
-  //.scroll-content {
-  //  background-color: blue;
-  //}
+
+  .toolbar-md-light .toolbar-title-md {
+    text-align: center;
+    margin-left: -3rem;
+  }
+
+  page-item-by-user .scroll-content{
+    margin-bottom: 0;
+  }
+
+  .item-by-user-page {
+    background-color: mintcream;
+  }
+
+  .item{
+    background-color: mintcream;
+  }
+
+  .item-block .item-inner{
+    background-color: mintcream;
+  }
+
+  .scroll-content {
+    background-color: mintcream;
+  }
 }

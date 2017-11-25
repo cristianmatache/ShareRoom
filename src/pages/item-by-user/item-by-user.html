@@ -12,14 +12,14 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="item-by-user-page">
   <ion-list>
     <ion-item>
       <img [src]="getPicture()" style="border-radius:20px">
     </ion-item>
     <ion-item>
       <ion-avatar item-start>
-        <img [src]="user?.picture">
+        <img [src]="user?.profile_picture">
       </ion-avatar>
       <h2>{{user?.display_name}}</h2>
     </ion-item>
@@ -33,47 +33,58 @@
     </ion-item>
   </ion-list>
 
-  <!--For test purpose-->
-  <ion-content>
-    <ion-list>
-  <ion-item>
-    <div item-start>
-      <h2>From:</h2>
-    </div>
-    <ion-datetime style="margin-left: -5px;" displayFormat="DD-MM-YYYY" [min]="today" [max]="maxSelectableDate" [(ngModel)]="fromDate"></ion-datetime> <br>
-  </ion-item>
-  <ion-item>
-    <div item-start>
-      <h2>Until:</h2>
-    </div>
-    <ion-datetime displayFormat="DD-MM-YYYY" [min]="fromDate" [max]="maxSelectableDate" [(ngModel)]="toDate"></ion-datetime>
-  </ion-item>
-    </ion-list>
-  </ion-content>
-  <!--For test purpose-->
+  <!--&lt;!&ndash;For test purpose&ndash;&gt;-->
+    <!--<ion-list>-->
+  <!--<ion-item>-->
+    <!--<div item-start>-->
+      <!--<h2>From:</h2>-->
+    <!--</div>-->
+    <!--<ion-datetime style="margin-left: -5px;" displayFormat="DD-MM-YYYY" [min]="today" [max]="maxSelectableDate" [(ngModel)]="fromDate"></ion-datetime> <br>-->
+  <!--</ion-item>-->
+  <!--<ion-item>-->
+    <!--<div item-start>-->
+      <!--<h2>Until:</h2>-->
+    <!--</div>-->
+    <!--<ion-datetime displayFormat="DD-MM-YYYY" [min]="fromDate" [max]="maxSelectableDate" [(ngModel)]="toDate"></ion-datetime>-->
+  <!--</ion-item>-->
+    <!--</ion-list>-->
+  <!--&lt;!&ndash;For test purpose&ndash;&gt;-->
 
-  <!-- TO BE REMOVED - THIS IS FOR TESTING PURPOSES ONLY - WHEN YOU SEE THIS PLEASE REMOVE IT -->
-  <ion-fab bottom right>
-    <button ion-fab (click)="requestItem()">
-      TESTREQ
-    </button>
-  </ion-fab>
-  <!--GOTCHA, YOU READ THIS AND YOU DID NOT DELETE THE ION-FAB-->
+  <!--&lt;!&ndash; TO BE REMOVED - THIS IS FOR TESTING PURPOSES ONLY - WHEN YOU SEE THIS PLEASE REMOVE IT &ndash;&gt;-->
+  <!--<ion-fab bottom right>-->
+    <!--<button ion-fab (click)="requestItem()">-->
+      <!--TESTREQ-->
+    <!--</button>-->
+  <!--</ion-fab>-->
+  <!--&lt;!&ndash;GOTCHA, YOU READ THIS AND YOU DID NOT DELETE THE ION-FAB&ndash;&gt;-->
 
-</ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons left>
-      <button ion-button color="primary" (click)="removeItem()">
-        Remove Item
+  <div style="margin-bottom:5px">
+    <ion-buttons left style="display:inline-block; margin-left: 5px;">
+      <button ion-button style="background-color: #d90707ad;" (click)="removeItem()">
+        Remove
       </button>
     </ion-buttons>
 
-    <ion-buttons right>
-      <button ion-button color="primary" (click)="editItem()">
+    <ion-buttons style="display:inline-block; float: right; margin-right: 5px;">
+      <button ion-button (click)="editItem()">
         Edit
       </button>
     </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+  </div>
+
+</ion-content>
+
+
+  <!--<ion-toolbar>-->
+    <!--<ion-buttons left>-->
+      <!--<button ion-button color="primary" (click)="removeItem()">-->
+        <!--Remove Item-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
+
+    <!--<ion-buttons right>-->
+      <!--<button ion-button color="primary" (click)="editItem()">-->
+        <!--Edit-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
+  <!--</ion-toolbar>-->
