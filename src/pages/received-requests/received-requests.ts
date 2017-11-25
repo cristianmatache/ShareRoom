@@ -90,6 +90,10 @@ export class ReceivedRequestsPage {
     //this.navCtrl.push("ProfilePage");
   }
 
+  chatWith(requester_uid) {
+    this.navCtrl.push("ChatPage", {"friendId": requester_uid});
+  }
+
   goToOtherUsersPage(userId) {
     if (userId != this.db.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": userId});

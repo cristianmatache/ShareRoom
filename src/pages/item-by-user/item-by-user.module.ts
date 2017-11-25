@@ -9,5 +9,8 @@ import { ItemByUserPage } from './item-by-user';
   imports: [
     IonicPageModule.forChild(ItemByUserPage),
   ],
+  exports: [
+    ItemByUserPage,
+  ]
 })
 export class ItemByUserPageModule {}

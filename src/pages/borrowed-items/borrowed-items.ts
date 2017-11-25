@@ -119,6 +119,10 @@ export class BorrowedItemsPage {
     }
   }
 
+  chatWithOwner(ownerId) {
+    this.navCtrl.push("ChatPage", {"friendId": ownerId});
+  }
+
   // goToOtherUsersPage(item) {
   //   // TO DO: change to users reviews page not add reviews page
   //   this.reviewOwner(item);

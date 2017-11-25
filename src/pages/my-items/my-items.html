@@ -23,7 +23,7 @@
           <ion-row *ngFor="let item of filteredItems; let i = index">
             <ion-col *ngIf="i % getNumberOfColumns().length === nr">
 
-              <ion-card (click)="showItem(item)">
+              <ion-card (click)="redirectToEditItem(item)">
                 <img [src]="item.picture" class="item-image">
                 <ion-card-title>{{item.name}}</ion-card-title>
                 <ion-row>
@@ -98,7 +98,7 @@
               <div>
                 <button ion-button class="accept-button" (click)="receivedItemBack(item)">Received</button>
                 <button ion-button class="decline-button" (click)="reviewOwner(item)" style="background-color: darkgoldenrod; margin-left: 2px">Review★</button>
-                <button ion-button class="chat-button" style="background-color: darkblue; float: right;">Chat</button>
+                <button ion-button class="chat-button" (click)="chatWith(item)" style="background-color: darkblue; float: right;">Chat</button>
               </div>
             </div>
 

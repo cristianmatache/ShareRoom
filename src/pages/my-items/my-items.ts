@@ -90,6 +90,14 @@ export class MyItemsPage {
     }
   }
 
+  chatWith(item) {
+    this.navCtrl.push("ChatPage", {"friendId": item.borrower_uid});
+  }
+
+  redirectToEditItem(item) {
+    this.navCtrl.push("ItemByUserPage", {"item": item});
+  }
+
   goToOtherUsersPage(item) {
     if (item.borrower_uid != this.db.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": item.borrower_uid});

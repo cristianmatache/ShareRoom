@@ -107,6 +107,10 @@ export class ShoutsHomePage {
     }
   }
 
+  chatWithUser(userId) {
+    this.navCtrl.push("ChatPage", {"friendId": userId});
+  }
+
   shoutBelongsToLoggedInUser(shout) {
     return shout.shouter_uid === this.db.getCurrentUserId();
   }
