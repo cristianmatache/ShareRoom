@@ -120,6 +120,22 @@ export class Database {
     }
   }*/
 
+  addShout(name: string, type: string, picture: string) {
+    firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/name').set(name);
+
+    firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/type').set(type);
+    firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/picture').set(picture);
+
+    this.geolocation.getCurrentPosition().then(
+      (resp) => {
+        firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/location').set([resp.coords.longitude, resp.coords.latitude]);
+      },
+      () => {
+        firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/location').set([0, 0]);
+      }
+    )
+  }
+
   addItem(name : string,
           description : string,
           picture: string,
@@ -171,6 +187,11 @@ export class Database {
 
   removeItem(id: string, owner_uid: string) {
     firebase.database().ref().child('users/' + owner_uid + '/items/' + id).remove();
+  }
+
+  removeLoggedInUserShout() {
+    console.log("REMOVING --- " + 'users/' + this.getCurrentUserId() + '/shout/');
+    firebase.database().ref().child('users/' + this.getCurrentUserId() + '/shout/').remove()
   }
 
   removeItemRequestsFrom(requester_uid: string, owner_uid: string, item_id: string) : Promise<string[]> {
