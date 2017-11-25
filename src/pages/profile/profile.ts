@@ -18,7 +18,7 @@ export class ProfilePage {
 
   average : number = 0;
   loggedInName : string = "Default User";
-  imagePath : string = "../../assets/images/dark_star.png";
+  imagePath : string = "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/dark_star.png?raw=true";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
   }

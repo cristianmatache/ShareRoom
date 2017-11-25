@@ -40,7 +40,7 @@ export class ShoutsHomePage {
 
         this.shouts.unshift({
           name: "Add your shout",
-          picture: "../../assets/images/add-item-dark.png",
+          picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
           type: "New",
           location: [],
           shouter_uid: "",
