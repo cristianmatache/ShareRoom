@@ -43,26 +43,18 @@
       <ion-datetime displayFormat="DD-MM-YYYY" [min]="fromDate" [max]="maxSelectableDate" [(ngModel)]="toDate"></ion-datetime>
     </ion-item>
   </ion-list>
-</ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons left>
-      <button ion-button color="primary" (click)="reviewOwner()">
-        Review owner
-      </button>
-    </ion-buttons>
-
-    <ion-buttons center>
-      <button ion-button color="primary" (click)="requestItem()">
+  <div style="margin-bottom:5px">
+    <ion-buttons left style="display:inline-block; margin-left: 5px;">
+      <button ion-button (click)="requestItem()">
         Request
       </button>
     </ion-buttons>
 
-    <ion-buttons right>
-      <button ion-button color="primary" (click)="startChat()">
+    <ion-buttons style="display:inline-block; float: right; margin-right: 5px;">
+      <button ion-button style="background-color: #00008bb0" (click)="startChat()">
         Chat
       </button>
     </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+  </div>
+</ion-content>
