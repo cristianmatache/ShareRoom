@@ -90,10 +90,16 @@ export class AddReviewsPage {
     this.goToOtherUsersPage(this.userToReviewUID);
   }
 
-  goToOtherUsersPage(reviewee_uid) {
-    // TO DO: change to users reviews page not add reviews page
-    if (reviewee_uid != this.db.getCurrentUserId()) {
-      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewee_uid});
+  goToOtherUsersPage(userId) {
+    if (userId != this.db.getCurrentUserId()) {
+      this.navCtrl.push("UserReviewsPage", {"userId": userId, "userName": "", "imagePath": ""});
     }
   }
+
+  // goToOtherUsersPage(reviewee_uid) {
+  //   // TO DO: change to users reviews page not add reviews page
+  //   if (reviewee_uid != this.db.getCurrentUserId()) {
+  //     this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewee_uid});
+  //   }
+  // }
 }

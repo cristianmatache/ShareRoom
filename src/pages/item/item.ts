@@ -57,6 +57,12 @@ export class ItemPage {
     })
   }
 
+  goToOtherUsersPage(userId) {
+    if (userId != this.database.getCurrentUserId()) {
+      this.navCtrl.push("UserProfilePage", {"userId": userId});
+    }
+  }
+
   reviewOwner() {
     this.navCtrl.push("AddReviewsPage");
   }

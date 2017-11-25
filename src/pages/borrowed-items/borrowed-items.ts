@@ -114,9 +114,15 @@ export class BorrowedItemsPage {
   }
 
   goToOtherUsersPage(item) {
-    // TO DO: change to users reviews page not add reviews page
-    this.reviewOwner(item);
+    if (item.owner_uid != this.db.getCurrentUserId()) {
+      this.navCtrl.push("UserProfilePage", {"userId": item.owner_uid});
+    }
   }
+
+  // goToOtherUsersPage(item) {
+  //   // TO DO: change to users reviews page not add reviews page
+  //   this.reviewOwner(item);
+  // }
 
   removeThisRequest(owner_uid, request_item_id) {
     this.db.removeItemRequestsFrom(this.db.getCurrentUserId(), owner_uid, request_item_id);

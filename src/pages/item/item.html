@@ -20,7 +20,7 @@
       <ion-avatar item-start>
           <img [src]="user?.profile_picture">
       </ion-avatar>
-      <h2>{{user?.display_name}}</h2>
+      <h2 (click)="goToOtherUsersPage(item.owner_uid)">{{user?.display_name}}</h2>
     </ion-item>
     <ion-item>
       <h1>{{item.name}}

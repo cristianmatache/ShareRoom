@@ -58,10 +58,10 @@ export class LoggedInReviewsPage {
     return Math.round(avg * 100) / 100
   }
 
-  goToOtherUsersPage(reviewer_id) {
+  goToOtherUsersPage(userId) {
     // TO DO: change to users reviews page not add reviews page
-    if (reviewer_id != this.db.getCurrentUserId()) {
-      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": reviewer_id});
+    if (userId != this.db.getCurrentUserId()) {
+      this.navCtrl.push("UserProfilePage", {"userId": userId});
     }
   }
 }

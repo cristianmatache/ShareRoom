@@ -91,9 +91,15 @@ export class MyItemsPage {
   }
 
   goToOtherUsersPage(item) {
-    // TO DO: change to users reviews page not add reviews page
-    this.reviewOwner(item);
+    if (item.borrower_uid != this.db.getCurrentUserId()) {
+      this.navCtrl.push("UserProfilePage", {"userId": item.borrower_uid});
+    }
   }
+
+  // goToOtherUsersPage(item) {
+  //   // TO DO: change to users reviews page not add reviews page
+  //   this.reviewOwner(item);
+  // }
 
   // ionViewDidLoad() {
   //   this.db.getAllLoggedInItems().then((items) => {
