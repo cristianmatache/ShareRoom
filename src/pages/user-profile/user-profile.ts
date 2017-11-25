@@ -24,7 +24,7 @@ export class UserProfilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
     this.userId = navParams.get("userId");
 
-    this.db.getAllLoggedInReviews().then((reviews) => {
+    this.db.getAllReviewsOfUID(this.userId).then((reviews) => {
       this.average = this.computeAverage(reviews);
     });
   }
