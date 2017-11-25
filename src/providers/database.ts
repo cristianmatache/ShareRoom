@@ -366,6 +366,35 @@ export class Database {
     });
   }
 
+  getItemsForUser(userId : string): Promise<Item[]> {
+    return new Promise<Item[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        function (snapshot) {
+          let items = [];
+
+          snapshot.forEach(function (user) {
+            if (userId === user.key) {
+              let user_items = user.val().items;
+              // probably need this null check because of how val works
+              if (user_items != null) {
+                for (var index in user_items) {
+                  var item = user_items[index];
+                  item.id = index;
+                  items.push(item);
+                }
+              }
+            }
+            return false;
+          });
+
+          resolve(items);
+        }, () => {
+          reject("Error in fetching users from the database!");
+        });
+    });
+  }
+
   getAllLoggedInReviews(): Promise<Review[]> {
     //return this.getAllReviewsOfUID(firebase.auth().currentUser.uid);
     return new Promise<Review[]>((resolve, reject) => {

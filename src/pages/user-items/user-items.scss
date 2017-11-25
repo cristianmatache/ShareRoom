@@ -1,3 +1,262 @@
 page-user-items {
 
+  .profile_des{
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    //margin-top: 10px;
+    color: #9e9e9e;
+  }
+
+  .segment-md .segment-button{
+    color: lighten(color($colors, primary), 43%);
+  }
+
+  .segment-ios .segment-button {
+    color: lighten(color($colors, primary), 43%);
+  }
+
+  .toolbar-md {
+    min-height: 0;
+  }
+
+  .toolbar-md-light .toolbar-title-md {
+    text-align: center;
+    margin-left: -3rem;
+  }
+
+  .filters-button {
+    margin-left: -1.15rem;
+  }
+
+  .searchbar-md {
+    margin-left: -1rem;
+  }
+
+  .link-to-user {
+    color: lighten(color($colors, primary), 20%);
+  }
+
+  .app-background{
+    background-color: #f0faf5;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .searchbar-input{
+    background-color: mintcream;
+  }
+
+  .card{
+    border-radius : 5px;
+    //box-shadow: 0 3px 3px rgba(0,0,0, 0.2);
+    //background: rgba(83,202,144, 0.3);
+    background: rgba(0,0,0, 0.5);
+    //border: rgba(0,0,0, 0.2) 1px groove;
+    margin: 2%;
+    width: 100%;
+  }
+
+  .with-requests {
+    background-color: rgba(darken(color($colors, primary), 6.5%), 0.6);
+  }
+
+  .card-title{
+    margin-top: -4px;
+    margin-left: 4px;
+    font-size: 120%;
+    font-weight: bold;
+    color: white;
+  }
+
+  .filters-button{
+    background-color: color($colors, primary);
+    color: white;
+    border-radius: 6px;
+  }
+
+  .item-image{
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-bottom: rgba(0,0,0, 0.4) 1px groove;
+  }
+
+  .item-type{
+    padding: 1000px;
+    margin-right: -100%;
+  }
+
+  .badge {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    float: right;
+    background-color: white;
+    color: #00A86B;
+    border-radius: 20px;
+  }
+
+  .distance {
+    color: white;
+    font-size: 80%;
+    font-weight: bold;
+    padding-bottom: 4px;
+    padding-top: 0;
+  }
+
+
+
+  .container {
+    position: relative;
+    overflow: auto;
+    width: 92%;
+    font-size: 1rem;
+    margin: auto;
+    padding: 10px 10px 10px;
+    margin-top: 20px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
+  }
+
+  .return-button {
+    background-color: color($colors, primary);
+    color: white;
+    border-radius: 6px;
+    float: right;
+    height: 2.5rem;
+    padding: 10px 10px;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+
+  .item1, item2 {
+    width:50%;
+    max-width: 50%;
+    max-height: 80%;
+  }
+
+  .text {
+    padding-left: 40px;
+  }
+
+  .item2 {
+    padding-left: 100px;
+    text-align: left;
+    color: white;
+    font-size: 15px;
+  }
+
+  .item1 {
+    margin-left: -3px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 130px;
+    width: 50%;
+    position: relative;
+    float: left;
+    border-radius: 5px;
+  }
+
+
+  $rating-min-value: 0 !default;
+  $rating-max-value: 1 !default;
+  $rating-steps-value: .01 !default;
+
+  @function percentage-values() {
+    $rating-values: ();
+    @for $i from $rating-min-value through ($rating-max-value / $rating-steps-value) {
+      $rating-value: abs($i * $rating-steps-value);
+      $rating-values: append($rating-values, $rating-value, 'comma');
+    }
+    @return $rating-values;
+  }
+
+  @mixin progress-percentage() {
+    @each $rating-value in percentage-values() {
+      $perc-value: $rating-value;
+
+      &[data-percentage-value="#{$rating-value*100}"] {
+        //max-width: 10%;
+        max-width: percentage($perc-value);
+      }
+    }
+  }
+
+  .progress {
+    background-color: mintcream;
+    border-radius: 5px;
+  }
+
+  .progress-bar {
+    @include progress-percentage();
+    margin-top: 5px;
+    color: color($colors, light);
+    background-color: lighten(color($colors, primary), 20%);
+    border-radius: 5px;
+    text-align: center;
+
+    width: 0;
+    animation: progress 1.5s ease-in-out forwards;
+
+    .title {
+      opacity: 0;
+      animation: show 0.35s forwards ease-in-out 0.5s;
+    }
+  }
+
+  @keyframes progress {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes show  {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .request-card {
+    //box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    //border: rgba(0, 0, 0, 0.2) 1px groove;
+    border-radius:5px;
+    padding: 10px;
+    position: relative;
+    //z-index: -3;
+  }
+
+  .requester-avatar {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+  }
+
+  .request-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    //display: inline-block;
+
+    //float: right;
+    //width:50%;
+    margin-top: 10px;
+  }
+
+  .request-dates {
+    font-size: 1.6rem;
+    color: white;
+    //display: inline-block;
+
+    //float: right;
+    //width:10%;
+    //  margin-top: 10px;
+  }
 }

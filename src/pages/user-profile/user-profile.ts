@@ -49,7 +49,7 @@ export class UserProfilePage {
   }
 
   getUserItems() {
-    this.navCtrl.push('UserItemsPage');
+    this.navCtrl.push('UserItemsPage', {userId: this.userId});
   }
 
   private computeAverage(reviews) {

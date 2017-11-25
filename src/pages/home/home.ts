@@ -68,9 +68,9 @@ export class HomePage {
 
   showItem(item) {
     if (item.owner_uid == this.db.getCurrentUserId()) {
-      this.app.getRootNav().push(ItemByUserPage, {item: item});
+      this.navCtrl.push("ItemByUserPage", {item: item});
     } else {
-      this.app.getRootNav().push(ItemPage, {item: item});
+      this.navCtrl.push("ItemPage", {item: item});
     }
   }
 

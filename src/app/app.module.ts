@@ -18,13 +18,12 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { Facebook } from '@ionic-native/facebook';
 import { Database } from '../providers/database';
-import { ChatPage } from "../pages/chat/chat";
+// import { ChatPage } from "../pages/chat/chat";
 import { Chat } from "../providers/chat";
 import { Geolocation } from '@ionic-native/geolocation';
 import {MapPage} from "../pages/map/map";
 import {PostItemPage} from "../pages/post-item/post-item";
 import {TabsPage} from "../pages/tabs/tabs";
-import {ItemPage} from "../pages/item/item";
 import {ProfilePage} from "../pages/profile/profile";
 //import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
 import {ItemByUserPage} from "../pages/item-by-user/item-by-user";
@@ -36,11 +35,9 @@ import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
     ShareRoom,
     HomePage,
     LoginPage,
-    ChatPage,
     MapPage,
     //PostItemPage,
     TabsPage,
-    ItemPage,
     ProfilePage,
     //LoggedInReviewsPage,
     ItemByUserPage,
@@ -59,11 +56,9 @@ import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
     ShareRoom,
     HomePage,
     LoginPage,
-    ChatPage,
     MapPage,
     //PostItemPage,
     TabsPage,
-    ItemPage,
     ProfilePage,
     //LoggedInReviewsPage,
     ItemByUserPage,
