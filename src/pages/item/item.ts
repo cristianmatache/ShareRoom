@@ -49,6 +49,7 @@ export class ItemPage {
 
   requestItem() {
     this.database.requestItem(this.item.id, this.item.owner_uid, Date.parse(this.fromDate)/1000, Date.parse(this.toDate)/1000);
+    this.navCtrl.push("BorrowedItemsPage");
   }
 
   startChat() {
