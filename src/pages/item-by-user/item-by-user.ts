@@ -5,6 +5,7 @@ import {User} from "../../models/user";
 import {Database} from "../../providers/database";
 import {ChatPage} from "../chat/chat";
 import {EditItemPage} from "../edit-item/edit-item";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the ItemPage page.
@@ -53,6 +54,7 @@ export class ItemByUserPage {
 
   removeItem() {
     this.database.removeItem(this.item.id, this.database.getCurrentUserId());
+    this.navCtrl.setRoot(HomePage);
   }
 
   editItem() {
