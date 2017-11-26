@@ -23,6 +23,10 @@ export class Database {
     return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
   }
 
+  logout(): Promise<any> {
+    return this.afAuth.auth.signOut()
+  }
+
   registerEmail(user: User): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
   }

@@ -9,10 +9,10 @@
     <form>
 
       <div class="form_heading button-rounded-share"></div>
-      <input type="email" placeholder="Enter Email"><br />
-      <input type="password" placeholder="Enter Password"><br />
+      <input type="email" placeholder="Enter Email" name="email" [(ngModel)]="user.email"><br />
+      <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="user.password"><br />
       <section>
-        <button class="form_button" value="Login"><br />Login</button>
+        <button class="form_button" value="Login" (click)="this.login()"><br />Login</button>
         <button class="form_button" (click)="this.register()" value="Register"><br />Register</button>
       </section>
       <a class="font_20">Forgot your Password?</a><br /><br />

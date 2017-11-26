@@ -59,4 +59,8 @@ export class ProfilePage {
     return Math.round(avg * 100) / 100
   }
 
+  logout() {
+    this.db.logout()
+  }
+
 }
