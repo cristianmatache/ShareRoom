@@ -23,55 +23,67 @@
   <button ion-button full (click)="changePhoto()">Add Picture</button>
 
   <ion-list>
+    <form [formGroup]="authForm" (ngSubmit)="addItem(authForm.value)">
+      <ion-item [ngClass]="{'error-border':!authForm.controls.name.valid && authForm.controls.name.touched}">
+        <ion-label floating>Item Name</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="authForm.controls.name.hasError('required') && authForm.controls.name.touched">
+        <p>Sorry, field Item name is required!</p>
+      </ion-item>
 
-    <ion-item class="general-ion-item">
-      <ion-label stacked>Item Name</ion-label>
-      <ion-input type="text" [(ngModel)]="item.name"></ion-input>
-    </ion-item>
+      <ion-item [ngClass]="{'error-border':!authForm.controls.description.valid && authForm.controls.description.touched}">
+        <ion-label floating>Description</ion-label>
+        <ion-textarea formControlName="description" type="text"></ion-textarea>
+      </ion-item>
+      <ion-item *ngIf="authForm.controls.description.hasError('required') && authForm.controls.description.touched">
+        <p>Sorry, field description is required!</p>
+      </ion-item>
+      <ion-item *ngIf="authForm.controls.description.hasError('minlength') && authForm.controls.description.touched">
+        <p>Sorry, minimum description length is 20!</p>
+      </ion-item>
 
-    <ion-item class="general-ion-item">
-      <ion-label stacked>Description</ion-label>
-      <ion-textarea type="text" [(ngModel)]="item.description"></ion-textarea>
-    </ion-item>
+      <!--TODO: add rest of options.-->
+      <ion-item class="general-ion-item">
+        <ion-label>Choose Category</ion-label>
+        <ion-select formControlName="category" interface="popover">
+          <ion-option value="Other">Other</ion-option>
+          <ion-option value="Baby and child">Baby and child</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <!--TODO: add rest of options.-->
-    <ion-item class="general-ion-item">
-      <ion-label>Choose Category</ion-label>
-      <ion-select [(ngModel)]="item.category" interface="popover">
-        <ion-option value="Other">Other</ion-option>
-        <ion-option value="Baby and child">Baby and child</ion-option>
-      </ion-select>
-    </ion-item>
+      <ion-item class="general-ion-item">
+        <ion-label>Type</ion-label>
+        <ion-select formControlName="type" interface="popover">
+          <ion-option value="Swap">Swap</ion-option>
+          <ion-option value="Free">Free</ion-option>
+          <ion-option value="Loan">Loan</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item class="general-ion-item">
-      <ion-label>Type</ion-label>
-      <ion-select [(ngModel)]="item.type" interface="popover">
-        <ion-option value="Swap">Swap</ion-option>
-        <ion-option value="Free">Free</ion-option>
-        <ion-option value="Loan">Loan</ion-option>
-      </ion-select>
-    </ion-item>
+      <!--Only want borrowing time if item is for loan-->
+      <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
+      <ion-item *ngIf="item.type == 'Loan'" interface="popover" class="general-ion-item">
+        <ion-label stacked>
+          Maxloan
+        </ion-label>
+        <ion-select [(ngModel)]="borrow_duration" >
+          <ion-option value="one_day">1 day</ion-option>
+          <ion-option value="two_days">2 days</ion-option>
+          <ion-option value="three_days">3 days</ion-option>
+          <ion-option value="five_days">5 days</ion-option>
+          <ion-option value="one_week">1 week</ion-option>
+          <ion-option value="two_weeks">2 weeks</ion-option>
+          <ion-option value="four_weeks">4 weeks</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <!--Only want borrowing time if item is for loan-->
-    <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
-    <ion-item *ngIf="item.type == 'Loan'" interface="popover" class="general-ion-item">
-      <ion-label stacked>
-        Maxloan
-      </ion-label>
-      <ion-select [(ngModel)]="borrow_duration" >
-        <ion-option value="one_day">1 day</ion-option>
-        <ion-option value="two_days">2 days</ion-option>
-        <ion-option value="three_days">3 days</ion-option>
-        <ion-option value="five_days">5 days</ion-option>
-        <ion-option value="one_week">1 week</ion-option>
-        <ion-option value="two_weeks">2 weeks</ion-option>
-        <ion-option value="four_weeks">4 weeks</ion-option>
-      </ion-select>
-    </ion-item>
+      <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">Post</button>
+    </form>
+
+
+
 
   </ion-list>
-
-
-  <button ion-button full (click)="addItem()">Submit</button>
 
 </ion-content>

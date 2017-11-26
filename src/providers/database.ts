@@ -162,7 +162,7 @@ export class Database {
         category: category
       };
       firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
-    });
+    }).catch((error) => console.log(error));
   }
 
   editItem(id: string, name : string, description : string, picture: string, type : string) {

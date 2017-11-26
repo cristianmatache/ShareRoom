@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { Camera, CameraOptions} from '@ionic-native/camera';
 import { ActionSheetController, ToastController, Platform } from 'ionic-angular';
-
-import { File } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
-import { Item } from '../../models/item'
 import { Database } from "../../providers/database";
 import { HomePage } from "../home/home";
 import {default as firebase, storage} from "firebase";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 /**
  * Generated class for the AddItemPage page.
@@ -26,20 +22,27 @@ import {default as firebase, storage} from "firebase";
 })
 export class PostItemPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
-              private transfer: Transfer, private file: File, private filePath: FilePath,
-              public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
-              public platform: Platform, public loadingCtrl: LoadingController,
-              public database: Database) {
-
-  }
-
-  lastImage = "src/assets/image/bed.jpg";
+  name: AbstractControl;
+  description: AbstractControl;
+  postForm: FormGroup;
   ONE_DAY_AS_MS : number = 86400000;
   borrow_duration: string;
 
-  item = {} as Item;
   private isActiveToast: boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
+              public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
+              public platform: Platform, private formBuilder: FormBuilder,
+              public database: Database) {
+    this.postForm = this.formBuilder.group({
+      name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.maxLength(30)])],
+      description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
+      category: ['Other', Validators.compose([Validators.required])],
+      type: ['', Validators.compose([Validators.required])],
+      picture: ['', Validators.compose([Validators.required])],
+      max_borrow_duration: ['', Validators.compose([Validators.required])],
+    });
+  }
 
   options: CameraOptions = {
     quality: 100,
@@ -94,12 +97,17 @@ export class PostItemPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-
     };
     try {
       const result = await this.camera.getPicture(options);
       const image = 'data:image/jpeg;base64,' + result;
-      const pictures = storage().ref('pictures');
+      const pictures = storage().ref('pictures/' + this.database.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
+      await pictures.putString(image, 'data_url');
+      pictures.getDownloadURL().then((downloadURL) =>
+      {
+        this.postForm.value.picture = downloadURL;
+        (document.getElementById('picture') as HTMLImageElement).src = this.postForm.value.picture;
+      });
     } catch (e) {
       console.log(e);
     }
@@ -111,19 +119,16 @@ export class PostItemPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-
     };
     try {
-      console.log("BEFORE GET PICTURE");
       const result = await this.camera.getPicture(options);
-      console.log("AFTER GET PICTURE");
       const image = 'data:image/jpeg;base64,' + result;
       const pictures = storage().ref('pictures/' + this.database.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
       await pictures.putString(image, 'data_url');
       pictures.getDownloadURL().then((downloadURL) =>
       {
-        this.item.picture = downloadURL;
-        (document.getElementById('picture') as HTMLImageElement).src = this.item.picture;
+        this.postForm.value.picture = downloadURL;
+        (document.getElementById('picture') as HTMLImageElement).src = this.postForm.value.picture;
       });
 
     } catch (e) {
@@ -131,39 +136,42 @@ export class PostItemPage {
     }
   }
 
-  // TODO: why not simply have addItem(Item item) in the db?
-  addItem() {
-    this.findMaxBorrowDuration();
+  addItem(form) {
+    this.findMaxBorrowDuration(form);
+
+    console.log("BEFORE ITEM UPLOADS");
 
     this.database.addItem(
-      this.item.name,
-      this.item.description,
-      this.item.picture,
-      this.item.type,
-      this.item.max_borrow_duration,
-      this.item.category);
+      form.name,
+      form.description,
+      form.picture,
+      form.type,
+      form.max_borrow_duration,
+      form.category);
+
+    console.log("ITEM UPLOADED");
 
     this.navCtrl.setRoot(HomePage);
   }
 
-  private findMaxBorrowDuration() {
+  private findMaxBorrowDuration(form) {
 
-    if (this.item.type != "Loan") {
-      this.item.max_borrow_duration = null;
+    if (form.type != "Loan") {
+      form.max_borrow_duration = null;
       return;
     }
 
     switch(this.borrow_duration) {
-      case "one_day": this.item.max_borrow_duration = this.ONE_DAY_AS_MS; break;
-      case "two_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 2; break;
-      case "three_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 3; break;
-      case "five_days": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 5; break;
-      case "one_week": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 7; break;
-      case "two_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 14; break;
-      case "four_weeks": this.item.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break;
+      case "one_day": form.max_borrow_duration = this.ONE_DAY_AS_MS; break;
+      case "two_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 2; break;
+      case "three_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 3; break;
+      case "five_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 5; break;
+      case "one_week": form.max_borrow_duration = this.ONE_DAY_AS_MS * 7; break;
+      case "two_weeks": form.max_borrow_duration = this.ONE_DAY_AS_MS * 14; break;
+      case "four_weeks": form.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break;
       // TODO: we shouldn't allow user to submit item without checking for valid borrow duration.
       // So temporarily one day is the default.
-      default: this.item.max_borrow_duration = this.ONE_DAY_AS_MS;
+      default: form.max_borrow_duration = this.ONE_DAY_AS_MS;
     }
   }
 
