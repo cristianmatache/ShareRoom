@@ -26,7 +26,6 @@ export class PostItemPage {
   description: AbstractControl;
   postForm: FormGroup;
   ONE_DAY_AS_MS : number = 86400000;
-  borrow_duration: string;
 
   private isActiveToast: boolean = false;
 
@@ -40,7 +39,7 @@ export class PostItemPage {
       category: ['Other', Validators.compose([Validators.required])],
       type: ['', Validators.compose([Validators.required])],
       picture: ['', Validators.compose([Validators.required])],
-      max_borrow_duration: ['', Validators.compose([Validators.required])],
+      borrow_duration: ['', Validators.compose([Validators.required])],
     });
   }
 
@@ -156,19 +155,19 @@ export class PostItemPage {
       form.max_borrow_duration = null;
       return;
     }
-
-    switch(this.borrow_duration) {
-      case "one_day": form.max_borrow_duration = this.ONE_DAY_AS_MS; break;
-      case "two_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 2; break;
-      case "three_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 3; break;
-      case "five_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 5; break;
-      case "one_week": form.max_borrow_duration = this.ONE_DAY_AS_MS * 7; break;
-      case "two_weeks": form.max_borrow_duration = this.ONE_DAY_AS_MS * 14; break;
-      case "four_weeks": form.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break;
-      // TODO: we shouldn't allow user to submit item without checking for valid borrow duration.
-      // So temporarily one day is the default.
-      default: form.max_borrow_duration = this.ONE_DAY_AS_MS;
-    }
+    form.max_borrow_duration = this.ONE_DAY_AS_MS;
+    // switch(this.borrow_duration) {
+    //   case "one_day": form.max_borrow_duration = this.ONE_DAY_AS_MS; break;
+    //   case "two_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 2; break;
+    //   case "three_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 3; break;
+    //   case "five_days": form.max_borrow_duration = this.ONE_DAY_AS_MS * 5; break;
+    //   case "one_week": form.max_borrow_duration = this.ONE_DAY_AS_MS * 7; break;
+    //   case "two_weeks": form.max_borrow_duration = this.ONE_DAY_AS_MS * 14; break;
+    //   case "four_weeks": form.max_borrow_duration = this.ONE_DAY_AS_MS * 28; break;
+    //   // TODO: we shouldn't allow user to submit item without checking for valid borrow duration.
+    //   // So temporarily one day is the default.
+    //   default: form.max_borrow_duration = this.ONE_DAY_AS_MS;
+    // }
   }
 
 }

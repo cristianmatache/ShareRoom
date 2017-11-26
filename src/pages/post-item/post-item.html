@@ -63,11 +63,11 @@
 
       <!--Only want borrowing time if item is for loan-->
       <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
-      <ion-item *ngIf="postForm.value.type == 'Loan'" interface="popover" class="general-ion-item">
+      <ion-item *ngIf="postForm.controls.type.value == 'Loan'" interface="popover" class="general-ion-item">
         <ion-label stacked>
           Maxloan
         </ion-label>
-        <ion-select [(ngModel)]="borrow_duration" >
+        <ion-select formControlName="borrow_duration" >
           <ion-option value="one_day">1 day</ion-option>
           <ion-option value="two_days">2 days</ion-option>
           <ion-option value="three_days">3 days</ion-option>
