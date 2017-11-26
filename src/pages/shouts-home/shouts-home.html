@@ -50,11 +50,11 @@
                   {{this.getDistanceTill(item)}}
                 </div>
                 <div *ngIf="shoutBelongsToLoggedInUser(shout)">
-                  <button ion-button (click)="removeMyShout()" style="background-color: #d90707ad; margin-left: 6px; display: inline-block;">Cancel</button>
+                  <button ion-button (click)="removeMyShout()" style="background-color: darkred; margin-left: 6px; display: inline-block;">Cancel</button>
                   <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
                 </div>
                 <div *ngIf="!shoutBelongsToLoggedInUser(shout)">
-                  <button ion-button (click)="chatWithUser()" style="background-color: #00008bb0; margin-left: 6px; display: inline-block;">Chat</button>
+                  <button ion-button (click)="chatWithUser()" style="background-color: darkblue; margin-left: 6px; display: inline-block;">Chat</button>
                   <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
                 </div>
               </ion-card>
@@ -68,11 +68,11 @@
                 {{this.getDistanceTill(item)}}
               </div>
               <div *ngIf="shoutBelongsToLoggedInUser(shout)">
-                <button ion-button (click)="removeMyShout()" style="background-color: #d90707ad; margin-left: 6px; display: inline-block;">Cancel</button>
+                <button ion-button (click)="removeMyShout()" style="background-color: darkred; margin-left: 6px; display: inline-block;">Cancel</button>
                 <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
               </div>
               <div *ngIf="!shoutBelongsToLoggedInUser(shout)">
-                <button ion-button (click)="chatWithUser(shout.shouter_uid)" style="background-color: #00008bb0; margin-left: 6px; display: inline-block;">Chat</button>
+                <button ion-button (click)="chatWithUser(shout.shouter_uid)" style="background-color: darkblue; margin-left: 6px; display: inline-block;">Chat</button>
                 <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
               </div>
             </ion-card>
