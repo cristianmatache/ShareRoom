@@ -34,7 +34,7 @@ export class PostItemPage {
               public platform: Platform, private formBuilder: FormBuilder,
               public database: Database) {
     this.postForm = this.formBuilder.group({
-      name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.maxLength(30)])],
+      name: ['', Validators.compose([Validators.required, Validators.maxLength(30)])],
       description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
       category: ['Other', Validators.compose([Validators.required])],
       type: ['', Validators.compose([Validators.required])],
