@@ -53,9 +53,7 @@ export class ItemPage {
   }
 
   startChat() {
-    this.navCtrl.push(ChatPage, {
-      friendId: this.item.owner_uid
-    })
+    this.navCtrl.push("ChatPage", {"friendId": this.item.owner_uid});
   }
 
   goToOtherUsersPage(userId) {
