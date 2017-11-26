@@ -134,8 +134,6 @@ export class PostItemPage {
   addItem(form) {
     this.findMaxBorrowDuration(form);
 
-    console.log("BEFORE ITEM UPLOADS");
-
     this.database.addItem(
       form.name,
       form.description,
@@ -143,8 +141,6 @@ export class PostItemPage {
       form.type,
       form.max_borrow_duration,
       form.category);
-
-    console.log("ITEM UPLOADED");
 
     this.navCtrl.setRoot(HomePage);
   }
