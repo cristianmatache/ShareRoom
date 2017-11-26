@@ -25,6 +25,8 @@ export interface Item {
   percentage_time: number;
 
   shout: Shout;
+
+  borrower_claimed_to_return: number;
 }
 
 // TODO: I plagiaried categories from shpock, might want to change them.

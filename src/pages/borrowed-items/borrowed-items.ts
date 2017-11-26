@@ -116,7 +116,14 @@ export class BorrowedItemsPage {
   }
 
   returnedItemToOwner(item) {
-    this.db.removeBorrower(item.owner_uid, item.id);
+    this.db.setBorrowerClaimedToReturn(item.owner_uid, item.id, 1);
+    //this.db.removeBorrower(item.owner_uid, item.id);
+    this.navCtrl.push("BorrowedItemsPage");
+  }
+
+  cancelReturnClaim(item) {
+    this.db.setBorrowerClaimedToReturn(item.owner_uid, item.id, 0);
+    //this.db.removeBorrower(item.owner_uid, item.id);
     this.navCtrl.push("BorrowedItemsPage");
   }
 

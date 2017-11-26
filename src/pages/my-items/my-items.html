@@ -66,7 +66,7 @@
       <ion-grid>
         <ion-row *ngFor="let item of itemsLoggedInUserLent;">
 
-          <ion-card class="request-card">
+          <ion-card *ngIf="item.borrower_claimed_to_return == 1; else display_normal;" class="request-card" style="background: rgba(250, 15, 15, 0.5);">
             <div>
               <div style="display: inline-block; float:left;">
                 <ion-avatar item-start>
@@ -103,6 +103,49 @@
             </div>
 
           </ion-card>
+
+
+          <ng-template #display_normal>
+            <ion-card class="request-card">
+              <div>
+                <div style="display: inline-block; float:left;">
+                  <ion-avatar item-start>
+                    <img [src]="item.picture" class="requester-avatar">
+                  </ion-avatar>
+                </div>
+                <div style="display: inline-block; margin-left: 9px;">
+                  <div class="request-title">
+                    {{item.name}}
+                  </div>
+                  <div class="request-dates">
+                    From: {{getDateFromTimestamp(item.borrow_time)}}
+                    <br>
+                    To: {{getDateFromTimestamp(item.max_borrow_duration)}}
+                    <br>
+                    Borrower: <u class="link-to-user" (click)="goToOtherUsersPage(item)"> {{item.borrower}}</u>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <br>
+                <div style="padding: 10px">
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" [attr.data-percentage-value]="item.percentage_time">
+                      <span class="title">{{item.percentage_time}}%</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button ion-button class="accept-button" (click)="receivedItemBack(item)">Received</button>
+                  <button ion-button class="decline-button" (click)="reviewOwner(item)" style="background-color: darkgoldenrod; margin-left: 2px">Review★</button>
+                  <button ion-button class="chat-button" (click)="chatWith(item)" style="background-color: darkblue; float: right;">Chat</button>
+                </div>
+              </div>
+
+            </ion-card>
+          </ng-template>
+
+
         </ion-row>
 
       </ion-grid>

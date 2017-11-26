@@ -48,6 +48,7 @@ export class HomePage {
         owner: "",
         borrower : "",
         shout: null,
+        borrower_claimed_to_return: -1,
       });
     });
   }

@@ -236,7 +236,12 @@ export class Database {
   }
 
   removeBorrower(owner_uid: string, item_id:string) {
+    this.setBorrowerClaimedToReturn(owner_uid, item_id, 0);
     firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_uid').remove();
+  }
+
+  setBorrowerClaimedToReturn(owner_uid: string, item_id: string, value: number) {
+    firebase.database().ref().child('users/' + owner_uid + '/items/' + item_id + '/borrower_claimed_to_return').set(value);
   }
 
   requestItem(item_id: string, owner_uid: string, borrow_time: number, max_borrow_duration: number) {
