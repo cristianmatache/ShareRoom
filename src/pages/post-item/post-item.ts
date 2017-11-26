@@ -93,21 +93,18 @@ export class PostItemPage {
   }
 
   async selectPic() {
-    const options : CameraOptions = {
+    let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     };
     try {
       const result = await this.camera.getPicture(options);
       const image = 'data:image/jpeg;base64,' + result;
       const pictures = storage().ref('pictures/' + this.database.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
       await pictures.putString(image, 'data_url');
-      pictures.getDownloadURL().then((downloadURL) =>
-      {
-        this.postForm.value.picture = downloadURL;
-        (document.getElementById('picture') as HTMLImageElement).src = this.postForm.value.picture;
-      });
+      const downloadURL = await pictures.getDownloadURL();
+      this.postForm.value.picture = downloadURL;
+      (document.getElementById('picture') as HTMLImageElement).src = this.postForm.value.picture;
     } catch (e) {
       console.log(e);
     }
@@ -130,7 +127,6 @@ export class PostItemPage {
         this.postForm.value.picture = downloadURL;
         (document.getElementById('picture') as HTMLImageElement).src = this.postForm.value.picture;
       });
-
     } catch (e) {
       console.log(e);
     }

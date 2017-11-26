@@ -145,7 +145,7 @@ export class Database {
     this.geolocation.getCurrentPosition().then((resp) =>
     {
       if (!picture) {
-        picture = "something";
+        picture = "no_picture";
       }
       let item = {
         name: name,
