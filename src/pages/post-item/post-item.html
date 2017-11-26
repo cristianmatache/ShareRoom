@@ -46,9 +46,19 @@
       <!--TODO: add rest of options.-->
       <ion-item class="general-ion-item">
         <ion-label>Choose Category</ion-label>
-        <ion-select formControlName="category" interface="popover">
+        <ion-select formControlName="category">
           <ion-option value="Other">Other</ion-option>
           <ion-option value="Baby and child">Baby and child</ion-option>
+          <ion-option value="Clothing">Clothing</ion-option>
+          <ion-option value="DIY">DIY</ion-option>
+          <ion-option value="Garden">Garden</ion-option>
+          <ion-option value="Kitchen">Kitchen</ion-option>
+          <ion-option value="Pets">Pets</ion-option>
+          <ion-option value="IT">IT</ion-option>
+          <ion-option value="Board Games">Board Games</ion-option>
+          <ion-option value="Video Games">Video Games</ion-option>
+
+
         </ion-select>
       </ion-item>
 
@@ -62,21 +72,21 @@
       </ion-item>
 
       <!--Only want borrowing time if item is for loan-->
-      <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
-      <ion-item *ngIf="postForm.controls.type.value == 'Loan'" interface="popover" class="general-ion-item">
-        <ion-label stacked>
-          Maxloan
-        </ion-label>
-        <ion-select formControlName="borrow_duration" >
-          <ion-option value="one_day">1 day</ion-option>
-          <ion-option value="two_days">2 days</ion-option>
-          <ion-option value="three_days">3 days</ion-option>
-          <ion-option value="five_days">5 days</ion-option>
-          <ion-option value="one_week">1 week</ion-option>
-          <ion-option value="two_weeks">2 weeks</ion-option>
-          <ion-option value="four_weeks">4 weeks</ion-option>
-        </ion-select>
-      </ion-item>
+      <!--&lt;!&ndash;TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.&ndash;&gt;-->
+      <!--<ion-item *ngIf="postForm.controls.type.value == 'Loan'" interface="popover" class="general-ion-item">-->
+        <!--<ion-label stacked>-->
+          <!--Maxloan-->
+        <!--</ion-label>-->
+        <!--<ion-select formControlName="borrow_duration" >-->
+          <!--<ion-option value="one_day">1 day</ion-option>-->
+          <!--<ion-option value="two_days">2 days</ion-option>-->
+          <!--<ion-option value="three_days">3 days</ion-option>-->
+          <!--<ion-option value="five_days">5 days</ion-option>-->
+          <!--<ion-option value="one_week">1 week</ion-option>-->
+          <!--<ion-option value="two_weeks">2 weeks</ion-option>-->
+          <!--<ion-option value="four_weeks">4 weeks</ion-option>-->
+        <!--</ion-select>-->
+      <!--</ion-item>-->
 
       <button ion-button full color="primary" [disabled]="!postForm.valid" style="margin-top: 20px;" type="submit">Post</button>
     </form>

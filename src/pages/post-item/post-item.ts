@@ -39,7 +39,7 @@ export class PostItemPage {
       category: ['Other', Validators.compose([Validators.required])],
       type: ['', Validators.compose([Validators.required])],
       picture: ['', Validators.compose([Validators.required])],
-      borrow_duration: ['', Validators.compose([Validators.required])],
+      max_borrow_duration: ['', Validators.compose([Validators.required])],
     });
   }
 

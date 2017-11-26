@@ -7,7 +7,7 @@ import {Item} from "../models/item";
 import { Geolocation } from '@ionic-native/geolocation';
 import {Review} from "../models/review";
 import {Injectable} from "@angular/core";
-import {Shout} from "../models/Shout";
+import {Shout} from "../models/shout";
 
 
 @Injectable()
