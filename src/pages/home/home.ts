@@ -6,6 +6,7 @@ import {Item, ItemType} from "../../models/item";
 import { ItemPage } from "../item/item";
 import { Database } from "../../providers/database";
 import {ItemByUserPage} from "../item-by-user/item-by-user";
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
   selector: 'page-home',
@@ -19,10 +20,16 @@ export class HomePage {
   filteredItems: Item[] = [];
   searchQuery: string = "";
   addItems: string[] = ["addItemCard"];
+  user_location = null;
 
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController, public app: App, private db: Database) {}
+  constructor(public navCtrl: NavController, public menuCtrl: MenuController,
+              public app: App, private db: Database, private geolocation : Geolocation) {}
 
   ionViewDidLoad() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.user_location = [resp.coords.latitude, resp.coords.longitude];
+    });
+
     this.db.getAllItems().then((items) => {
       this.items = items;
       this.filteredItems = items;
@@ -76,7 +83,14 @@ export class HomePage {
   }
 
   getDistanceTill(item) {
-    return "15miles";
+    if (this.user_location) {
+      var lat = this.user_location[0];
+      var lon = this.user_location[1];
+      var distance = this.db.getDistanceFromLatLonInKm(item.location[1], item.location[0], lat, lon);
+      return distance.toFixed(1) + " km";
+    } else {
+      return "";
+    }
   }
 
   getPostItemPage() {
