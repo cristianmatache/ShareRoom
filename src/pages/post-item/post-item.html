@@ -23,23 +23,23 @@
   <button ion-button full (click)="changePhoto()">Add Picture</button>
 
   <ion-list>
-    <form [formGroup]="authForm" (ngSubmit)="addItem(authForm.value)">
-      <ion-item [ngClass]="{'error-border':!authForm.controls.name.valid && authForm.controls.name.touched}">
+    <form [formGroup]="postForm" (ngSubmit)="addItem(postForm.value)">
+      <ion-item [ngClass]="{'error-border':!postForm.controls.name.valid && postForm.controls.name.touched}">
         <ion-label floating>Item Name</ion-label>
         <ion-input formControlName="name" type="text"></ion-input>
       </ion-item>
-      <ion-item *ngIf="authForm.controls.name.hasError('required') && authForm.controls.name.touched">
+      <ion-item *ngIf="postForm.controls.name.hasError('required') && postForm.controls.name.touched">
         <p>Sorry, field Item name is required!</p>
       </ion-item>
 
-      <ion-item [ngClass]="{'error-border':!authForm.controls.description.valid && authForm.controls.description.touched}">
+      <ion-item [ngClass]="{'error-border':!postForm.controls.description.valid && postForm.controls.description.touched}">
         <ion-label floating>Description</ion-label>
         <ion-textarea formControlName="description" type="text"></ion-textarea>
       </ion-item>
-      <ion-item *ngIf="authForm.controls.description.hasError('required') && authForm.controls.description.touched">
+      <ion-item *ngIf="postForm.controls.description.hasError('required') && postForm.controls.description.touched">
         <p>Sorry, field description is required!</p>
       </ion-item>
-      <ion-item *ngIf="authForm.controls.description.hasError('minlength') && authForm.controls.description.touched">
+      <ion-item *ngIf="postForm.controls.description.hasError('minlength') && postForm.controls.description.touched">
         <p>Sorry, minimum description length is 20!</p>
       </ion-item>
 
@@ -63,7 +63,7 @@
 
       <!--Only want borrowing time if item is for loan-->
       <!--TODO: Rudimentary implementation. Ideally would want fully customizable duration alongside presets.-->
-      <ion-item *ngIf="item.type == 'Loan'" interface="popover" class="general-ion-item">
+      <ion-item *ngIf="postForm.value.type == 'Loan'" interface="popover" class="general-ion-item">
         <ion-label stacked>
           Maxloan
         </ion-label>
@@ -78,7 +78,7 @@
         </ion-select>
       </ion-item>
 
-      <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">Post</button>
+      <button ion-button full color="primary" [disabled]="!postForm.valid" style="margin-top: 20px;" type="submit">Post</button>
     </form>
 
 
