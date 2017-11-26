@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import {Database} from "../../providers/database";
 import {Shout} from "../../models/shout";
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the ShoutsHomePage page.
@@ -22,8 +23,9 @@ export class ShoutsHomePage {
   myShout: Shout = null;
   filteredShouts: Shout[] = [];
   searchQuery: string = "";
+  user_location = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private geolocation : Geolocation) {
     this.db.getAllShouts().then((shouts) => {
       this.shouts = shouts;
       this.someFunction(this.shouts).then(() => {
@@ -56,6 +58,12 @@ export class ShoutsHomePage {
     });
   }
 
+  ionViewDidLoad() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.user_location = [resp.coords.latitude, resp.coords.longitude];
+    });
+  }
+
   someFunction = (myArray) => {
     const promises = myArray.map(async (shout) => {
       this.db.getUserInfoById(shout.shouter_uid).then(
@@ -79,12 +87,15 @@ export class ShoutsHomePage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ShoutsHomePage');
-  }
-
   getDistanceTill(item) {
-    return "500 meters";
+    if (this.user_location) {
+      var lat = this.user_location[0];
+      var lon = this.user_location[1];
+      var distance = this.db.getDistanceFromLatLonInKm(item.location[1], item.location[0], lat, lon);
+      return distance.toFixed(1) + " km";
+    } else {
+      return "";
+    }
   }
 
   // not really working for web app
