@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import {AlertController, IonicPage, NavController} from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { User } from '../../models/user';
 
@@ -18,11 +18,25 @@ import { User } from '../../models/user';
 export class LoginPage {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public database : Database) {
+  constructor(public navCtrl: NavController, public database : Database, public alertCtrl: AlertController) {
   }
 
   register() {
     this.navCtrl.push('RegisterPage');
   }
 
+  login() {
+    this.database.login(this.user).catch(error => {
+      this.presentAlert(error)
+    })
+  }
+
+  presentAlert(text: string) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: text,
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
 }

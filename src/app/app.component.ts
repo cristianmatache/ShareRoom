@@ -26,8 +26,7 @@ export class ShareRoom {
         splashScreen.hide();
       }
 
-      this.subscribeLoginEvent();
-      this.fakeLogin();
+      this.subscribeLoginEvent()
     });
   }
 

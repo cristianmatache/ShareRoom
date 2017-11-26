@@ -7,15 +7,14 @@
 
 <ion-content padding class="container">
   <div class="form_box">
-    <form action="register.ts">
-
+    <form>
       <div class="form_heading button-rounded-share"></div>
-      <input type="text" id="email" placeholder="Email" required><br />
-      <input type="text" id="name" placeholder="Full Name" required=""><br />
-      <input type="text" id="password" placeholder="Password" required><br />
-      <input type="text" id="confirmPassword" placeholder="Confirm Password" required><br />
-      <input type="text" id="phone" placeholder="Phone Number"><br />
-      <input type="submit" value="Register"><br />
+      <input type="text" id="email" name="email" [(ngModel)]="user.email" placeholder="Email"><br />
+      <input type="text" id="name" name="name" [(ngModel)]="user.display_name" placeholder="Name"><br />
+      <input type="password" id="password" name="password" [(ngModel)]="user.password" placeholder="Password"><br />
+      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="this.confirmPass.value" placeholder="Confirm Password"><br />
+      <input type="text" id="phone" name="phone" [(ngModel)]="user.phoneNumber" placeholder="Phone Number"><br />
+      <input type="submit" value="Register" (click)="this.register()"><br />
     </form>
   </div>
 </ion-content>
