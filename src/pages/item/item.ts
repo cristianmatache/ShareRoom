@@ -47,8 +47,8 @@ export class ItemPage {
     return this.item.picture ? this.item.picture : "";
   }
 
-  requestItem() {
-    this.database.requestItem(this.item.id, this.item.owner_uid, Date.parse(this.fromDate)/1000, Date.parse(this.toDate)/1000);
+  requestItem() {;
+    this.database.requestItem(this.item.id, this.item.owner_uid, Math.round(Date.parse(this.fromDate)/1000), Math.round(Date.parse(this.toDate)/1000));
     this.navCtrl.push("BorrowedItemsPage");
   }
 

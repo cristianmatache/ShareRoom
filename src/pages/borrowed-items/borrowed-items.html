@@ -33,8 +33,8 @@
                   <!--<br>-->
                   <div style="font-size:1.4rem;">
                     By <u class="link-to-user" (click)="goToOtherUsersPage(item)"> {{item.owner}} </u> <br>
-                    From: {{getDateFromTimestamp(item.borrow_time)}} <br>
-                    To: {{getDateFromTimestamp(item.max_borrow_duration)}}
+                    From: {{item.borrow_readable_time}} <br>
+                    To: {{item.max_borrow_duration_readable_time}}
                   </div>
                 </div>
               </div>

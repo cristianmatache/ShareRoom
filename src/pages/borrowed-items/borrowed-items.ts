@@ -67,6 +67,17 @@ export class BorrowedItemsPage {
         return false;
       });
 
+
+      this.itemsLoggedInUserRequested = this.itemsLoggedInUserRequested.map( (item) => {
+        if (item.requests) {
+          for (let request of item.requests) {
+            item.borrow_readable_time = this.getDateFromTimestamp(request.borrow_time);
+            item.max_borrow_duration_readable_time = this.getDateFromTimestamp(request.max_borrow_duration);
+          }
+          return item;
+        }
+      });
+
       this.itemsLoggedInUserBorrowed = items.filter(item => {
         console.log("FILTERING");
         if (item.borrower_uid) {
@@ -79,6 +90,8 @@ export class BorrowedItemsPage {
       this.someFunction(this.itemsLoggedInUserBorrowed);
       this.someFunction2(this.itemsLoggedInUserRequested);
       console.log(this.itemsLoggedInUserBorrowed);
+      console.log("ITEMS LOGGED IN USER REQUESTED");
+      console.log(this.itemsLoggedInUserRequested);
     });
   }
 
