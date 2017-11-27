@@ -101,7 +101,7 @@ export class PostItemPage {
     try {
       const result = await this.camera.getPicture(options);
       const image = 'data:image/jpeg;base64,' + result;
-      const pictures = storage().ref('pictures/' + this.auth.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP + '.jpg');
+      const pictures = storage().ref('pictures/' + this.auth.getCurrentUserId()+'/'+new Date());
       await pictures.putString(image, 'data_url');
       const downloadURL = await pictures.getDownloadURL();
       this.postForm.value.picture = downloadURL;
@@ -121,7 +121,7 @@ export class PostItemPage {
     try {
       const result = await this.camera.getPicture(options);
       const image = 'data:image/jpeg;base64,' + result;
-      const pictures = storage().ref('pictures/' + this.auth.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP + '.jpg');
+      const pictures = storage().ref('pictures/' + this.auth.getCurrentUserId()+'/'+new Date());
       await pictures.putString(image, 'data_url');
       pictures.getDownloadURL().then((downloadURL) =>
       {
