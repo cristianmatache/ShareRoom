@@ -25,9 +25,9 @@
         </ion-col>
       </ion-row>
       <ion-row *ngIf="this.isFiltering">
-        <ion-col col-3 col-xl-3>
+        <ion-col col-3 col-xl-5>
           <ion-list>
-            <ion-item>
+            <ion-item color=light>
               <ion-label>Type</ion-label>
               <ion-select [(ngModel)]="filterOptions.type" multiple="true" (ionChange)="filterChanged()">
                 <ion-option>Loan</ion-option>
@@ -56,9 +56,9 @@
             </ion-item>
           </ion-list>
         </ion-col>-->
-        <ion-col col-3 col-xl-3>
+        <ion-col col-3 col-xl-5>
           <ion-list>
-            <ion-item>
+            <ion-item color=light>
               <ion-label>
                 By distance
               </ion-label>

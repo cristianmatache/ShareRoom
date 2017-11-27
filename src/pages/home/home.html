@@ -15,11 +15,11 @@
         <ion-col col-1 col-xl-1>
           <button ion-button class="filters-button" (click)="filter()">Filters</button>
         </ion-col>
-      </ion-row>
+      </ion-row >
       <ion-row *ngIf="this.isFiltering">
-        <ion-col col-3 col-xl-3>
+        <ion-col col-4 col-xl-4>
           <ion-list>
-            <ion-item>
+            <ion-item color=light>
               <ion-label>Type</ion-label>
               <ion-select [(ngModel)]="filterOptions.type" multiple="true" (ionChange)="filterChanged()">
                 <ion-option>Loan</ion-option>
@@ -29,9 +29,9 @@
             </ion-item>
           </ion-list>
         </ion-col>
-        <ion-col col-3 col-xl-3>
+        <ion-col col-4 col-xl-4>
           <ion-list>
-            <ion-item>
+            <ion-item color=light>
               <ion-label>Category</ion-label>
               <ion-select [(ngModel)]="filterOptions.category" multiple="true" (ionChange)="filterChanged()">
                 <ion-option value="Other">Other</ion-option>
@@ -48,9 +48,9 @@
             </ion-item>
           </ion-list>
         </ion-col>
-        <ion-col col-3 col-xl-3>
+        <ion-col col-4 col-xl-4>
           <ion-list>
-            <ion-item>
+            <ion-item color=light>
               <ion-label>
                 By distance
               </ion-label>
