@@ -3,21 +3,18 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {Database} from "../providers/database";
+import {Auth} from "../providers/auth";
 import {LoginPage} from "../pages/login/login";
 import {User} from "../models/user";
-import {MapPage} from "../pages/map/map";
-import {PostItemPage} from "../pages/post-item/post-item";
 import {TabsPage} from "../pages/tabs/tabs";
-import {HomePage} from "../pages/home/home";
-
+import {Database} from "../providers/database";
 @Component({
   templateUrl: 'app.html'
 })
 export class ShareRoom {
   rootPage: any = LoginPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private db: Database) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private auth: Auth, private db : Database) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -41,7 +38,7 @@ export class ShareRoom {
   }
 
   fakeLogin() {
-    this.db.login({email: "hello@google.com", password: "password"} as User).then((data) => {
+    this.auth.login({email: "hello@google.com", password: "password"} as User).then((data) => {
     }).catch((err) => {
       console.error(err);
     });

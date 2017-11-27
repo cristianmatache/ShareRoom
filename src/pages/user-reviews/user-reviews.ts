@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Review} from "../../models/review";
 import {Database} from "../../providers/database";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the UserReviewsPage page.
@@ -23,7 +24,7 @@ export class UserReviewsPage {
   userId: string;
   average: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
     this.userId = navParams.get("userId");
     this.userName = navParams.get("userName");
     this.imagePath = navParams.get("imagePath");
@@ -31,7 +32,7 @@ export class UserReviewsPage {
 
   someFunction = (myArray) => {
     const promises = myArray.map(async (review) => {
-      this.db.getUserInfoById(review.user_id).then(
+      this.auth.getUserInfoById(review.user_id).then(
         (user) => {
           review.reviewer_name = user.display_name;
           // console.log("IN SOME FUNCTION LOGGED IN REVIEWS: " + user.display_name);
@@ -43,7 +44,7 @@ export class UserReviewsPage {
   };
 
   ionViewDidLoad() {
-    this.db.getUserInfoById(this.userId).then((user) => {
+    this.auth.getUserInfoById(this.userId).then((user) => {
       this.userName = user.display_name;
       this.imagePath = user.profile_picture;
       this.db.getAllReviewsOfUID(this.userId).then((reviews) => {
@@ -56,7 +57,7 @@ export class UserReviewsPage {
   }
 
   goToOtherUsersPage(userId) {
-    if (userId != this.db.getCurrentUserId()) {
+    if (userId != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": userId});
     }
   }

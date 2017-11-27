@@ -6,6 +6,7 @@ import { Database } from "../../providers/database";
 import { HomePage } from "../home/home";
 import {default as firebase, storage} from "firebase";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the AddItemPage page.
@@ -32,7 +33,7 @@ export class PostItemPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
               public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
               public platform: Platform, private formBuilder: FormBuilder,
-              public database: Database) {
+              public database: Database, private auth : Auth) {
     this.postForm = this.formBuilder.group({
       name: ['', Validators.compose([Validators.required, Validators.maxLength(30)])],
       description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
@@ -99,7 +100,7 @@ export class PostItemPage {
     try {
       const result = await this.camera.getPicture(options);
       const image = 'data:image/jpeg;base64,' + result;
-      const pictures = storage().ref('pictures/' + this.database.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
+      const pictures = storage().ref('pictures/' + this.auth.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
       await pictures.putString(image, 'data_url');
       const downloadURL = await pictures.getDownloadURL();
       this.postForm.value.picture = downloadURL;
@@ -119,7 +120,7 @@ export class PostItemPage {
     try {
       const result = await this.camera.getPicture(options);
       const image = 'data:image/jpeg;base64,' + result;
-      const pictures = storage().ref('pictures/' + this.database.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
+      const pictures = storage().ref('pictures/' + this.auth.getCurrentUserId() + '/' + firebase.database.ServerValue.TIMESTAMP);
       await pictures.putString(image, 'data_url');
       pictures.getDownloadURL().then((downloadURL) =>
       {

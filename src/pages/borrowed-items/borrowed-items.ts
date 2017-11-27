@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import {Database} from "../../providers/database";
 import {DisplayableBorrowedItem} from "../../models/displayable-borrowed-item";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the BorrowedItemsPage page.
@@ -23,13 +24,13 @@ export class BorrowedItemsPage {
   itemsLoggedInUserBorrowed: Item[] = [];
   currentUserId: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
-    this.currentUserId = this.db.getCurrentUserId();
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
+    this.currentUserId = this.auth.getCurrentUserId();
   }
 
   someFunction = (items) => {
     const promises = items.map(async (eachItem) => {
-      this.db.getUserInfoById(eachItem.owner_uid).then(
+      this.auth.getUserInfoById(eachItem.owner_uid).then(
         (user) => {
           eachItem.owner = user.display_name;
           eachItem.borrow_readable_time = new Date(eachItem.borrow_time * 1000).toDateString();
@@ -44,7 +45,7 @@ export class BorrowedItemsPage {
 
   someFunction2 = (items) => {
     const promises = items.map(async (eachItem) => {
-      this.db.getUserInfoById(eachItem.owner_uid).then(
+      this.auth.getUserInfoById(eachItem.owner_uid).then(
         (user) => {
           eachItem.owner = user.display_name;
           return eachItem;
@@ -128,13 +129,13 @@ export class BorrowedItemsPage {
   }
 
   reviewOwner(item) {
-    if (item.owner_uid != this.db.getCurrentUserId()) {
+    if (item.owner_uid != this.auth.getCurrentUserId()) {
       this.navCtrl.push("AddReviewsPage", {"userToReviewUID": item.owner_uid});
     }
   }
 
   goToOtherUsersPage(item) {
-    if (item.owner_uid != this.db.getCurrentUserId()) {
+    if (item.owner_uid != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": item.owner_uid});
     }
   }
@@ -149,7 +150,7 @@ export class BorrowedItemsPage {
   // }
 
   removeThisRequest(owner_uid, request_item_id) {
-    this.db.removeItemRequestsFrom(this.db.getCurrentUserId(), owner_uid, request_item_id);
+    this.db.removeItemRequestsFrom(this.auth.getCurrentUserId(), owner_uid, request_item_id);
     this.navCtrl.push("BorrowedItemsPage");
     //this.navCtrl.push("ProfilePage");
   }

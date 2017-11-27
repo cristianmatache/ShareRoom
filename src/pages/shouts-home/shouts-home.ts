@@ -4,6 +4,7 @@ import {Item} from "../../models/item";
 import {Database} from "../../providers/database";
 import {Shout} from "../../models/shout";
 import { Geolocation } from '@ionic-native/geolocation';
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the ShoutsHomePage page.
@@ -25,12 +26,16 @@ export class ShoutsHomePage {
   searchQuery: string = "";
   user_location = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private geolocation : Geolocation) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private db: Database,
+              private geolocation : Geolocation,
+              private auth : Auth) {
     this.db.getAllShouts().then((shouts) => {
       this.shouts = shouts;
       this.someFunction(this.shouts).then(() => {
         this.shouts = this.shouts.filter((shout) => {
-          if (shout.shouter_uid == this.db.getCurrentUserId()) {
+          if (shout.shouter_uid == this.auth.getCurrentUserId()) {
             this.myShout = shout;
             return false;
           }
@@ -66,7 +71,7 @@ export class ShoutsHomePage {
 
   someFunction = (myArray) => {
     const promises = myArray.map(async (shout) => {
-      this.db.getUserInfoById(shout.shouter_uid).then(
+      this.auth.getUserInfoById(shout.shouter_uid).then(
         (user) => {
           shout.shouter = user.display_name;
           return shout;
@@ -113,7 +118,7 @@ export class ShoutsHomePage {
 
   goToOtherUsersPage(user_uid) {
     // TO DO: change to users reviews page not add reviews page
-    if (user_uid != this.db.getCurrentUserId()) {
+    if (user_uid != this.auth.getCurrentUserId()) {
       this.navCtrl.push("AddReviewsPage", {"userToReviewUID": user_uid});
     }
   }
@@ -123,6 +128,6 @@ export class ShoutsHomePage {
   }
 
   shoutBelongsToLoggedInUser(shout) {
-    return shout.shouter_uid === this.db.getCurrentUserId();
+    return shout.shouter_uid === this.auth.getCurrentUserId();
   }
 }

@@ -5,6 +5,7 @@ import { TabsPage } from "../tabs/tabs";
 import { LoginPage} from "../login/login";
 import {Database} from "../../providers/database";
 import {isNull} from "util";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the RegisterPage page.
@@ -23,7 +24,7 @@ export class RegisterPage {
   user = {} as User;
   confirmPass = {value: ""};
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public db: Database) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public db: Database, private auth : Auth) {
     this.user.password = "";
     this.user.display_name = "";
     this.user.email = "";
@@ -63,8 +64,8 @@ export class RegisterPage {
       return
     }
 
-    this.db.registerEmail(this.user).then(data => {
-      this.db.login(this.user).catch(error => {
+    this.auth.registerEmail(this.user).then(data => {
+      this.auth.login(this.user).catch(error => {
         this.presentAlert(error)
       })
     }).catch(error => {

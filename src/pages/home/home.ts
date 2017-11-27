@@ -7,6 +7,7 @@ import { ItemPage } from "../item/item";
 import { Database } from "../../providers/database";
 import {ItemByUserPage} from "../item-by-user/item-by-user";
 import { Geolocation } from '@ionic-native/geolocation';
+import {Auth} from "../../providers/auth";
 
 @Component({
   selector: 'page-home',
@@ -23,13 +24,21 @@ export class HomePage {
   user_location = null;
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController,
-              public app: App, private db: Database, private geolocation : Geolocation) {}
+              public app: App, private db: Database, private geolocation : Geolocation,
+              private auth : Auth) {}
 
   ionViewDidLoad() {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.user_location = [resp.coords.latitude, resp.coords.longitude];
     });
 
+    // this.db.watchItems((snap) => {
+    //    this.refresh();
+    // })
+    this.refresh();
+  }
+
+  refresh() {
     this.db.getAllItems().then((items) => {
       this.items = items;
       this.filteredItems = items;
@@ -75,7 +84,7 @@ export class HomePage {
   }
 
   showItem(item) {
-    if (item.owner_uid == this.db.getCurrentUserId()) {
+    if (item.owner_uid == this.auth.getCurrentUserId()) {
       this.navCtrl.push("ItemByUserPage", {item: item});
     } else {
       this.navCtrl.push("ItemPage", {item: item});

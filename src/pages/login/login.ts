@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController} from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { User } from '../../models/user';
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the LoginPage page.
@@ -18,7 +19,10 @@ import { User } from '../../models/user';
 export class LoginPage {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public database : Database, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              public database : Database,
+              public alertCtrl: AlertController,
+              public auth : Auth) {
   }
 
   register() {
@@ -26,7 +30,7 @@ export class LoginPage {
   }
 
   login() {
-    this.database.login(this.user).catch(error => {
+    this.auth.login(this.user).catch(error => {
       this.presentAlert(error)
     })
   }

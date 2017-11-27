@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Database} from "../../providers/database";
 import {Review} from "../../models/review";
 import {User} from "../../models/user";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the AddReviewsPage page.
@@ -30,7 +31,7 @@ export class AddReviewsPage {
   stars: number;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
     this.userToReviewUID = navParams.get("userToReviewUID");
     this.highlight = "";
     this.comment = "";
@@ -40,7 +41,7 @@ export class AddReviewsPage {
 
   someFunction = (myArray) => {
     const promises = myArray.map(async (review) => {
-      this.db.getUserInfoById(review.user_id).then(
+      this.auth.getUserInfoById(review.user_id).then(
         (user) => {
           review.reviewer_name = user.display_name;
           // console.log("IN SOME FUNCTION LOGGED IN REVIEWS: " + user.display_name);
@@ -52,7 +53,7 @@ export class AddReviewsPage {
   };
 
   ionViewDidLoad() {
-    this.db.getUserInfoById(this.userToReviewUID).then((user) => {
+    this.auth.getUserInfoById(this.userToReviewUID).then((user) => {
       this.userToReview = user;
       this.userToReviewName = user.display_name;
       this.userToReviewPicture = user.profile_picture;
@@ -86,12 +87,12 @@ export class AddReviewsPage {
     console.log(this.comment);
     console.log(this.stars);
     console.log("USER TO REVIEW UID: " + this.userToReviewUID);
-    this.db.addReview(this.db.getCurrentUserId(), this.stars, this.comment, this.highlight, this.userToReviewUID);
+    this.db.addReview(this.auth.getCurrentUserId(), this.stars, this.comment, this.highlight, this.userToReviewUID);
     this.goToOtherUsersPage(this.userToReviewUID);
   }
 
   goToOtherUsersPage(userId) {
-    if (userId != this.db.getCurrentUserId()) {
+    if (userId != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserReviewsPage", {"userId": userId, "userName": "", "imagePath": ""});
     }
   }

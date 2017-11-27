@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import { Database } from "../../providers/database";
 import {DisplayableBorrowedItem} from "../../models/displayable-borrowed-item";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the MyItemsPage page.
@@ -23,12 +24,12 @@ export class MyItemsPage {
   itemsLoggedInUserLent: Item[] = [];
   myitems: string = "requests";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
   }
 
   someFunction = (items) => {
     const promises = items.map(async (eachItem) => {
-      this.db.getUserInfoById(eachItem.borrower_uid).then(
+      this.auth.getUserInfoById(eachItem.borrower_uid).then(
         (user) => {
           eachItem.borrower = user.display_name;
           eachItem.borrow_readable_time = new Date(eachItem.borrow_time * 1000).toDateString();
@@ -85,7 +86,7 @@ export class MyItemsPage {
   }
 
   reviewOwner(item) {
-    if (item.borrower_uid != this.db.getCurrentUserId()) {
+    if (item.borrower_uid != this.auth.getCurrentUserId()) {
       this.navCtrl.push("AddReviewsPage", {"userToReviewUID": item.borrower_uid});
     }
   }
@@ -99,7 +100,7 @@ export class MyItemsPage {
   }
 
   goToOtherUsersPage(item) {
-    if (item.borrower_uid != this.db.getCurrentUserId()) {
+    if (item.borrower_uid != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": item.borrower_uid});
     }
   }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Database } from "../../providers/database";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the ProfilePage page.
@@ -20,11 +21,11 @@ export class ProfilePage {
   loggedInName : string = "Default User";
   imagePath : string = "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/dark_star.png?raw=true";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
   }
 
   ionViewDidLoad() {
-    this.db.getUserInfoById(this.db.getCurrentUserId())
+    this.auth.getUserInfoById(this.auth.getCurrentUserId())
       .then((user) => {
         this.loggedInName = user.display_name;
         this.imagePath = user.profile_picture;
@@ -60,7 +61,7 @@ export class ProfilePage {
   }
 
   logout() {
-    this.db.logout()
+    this.auth.logout()
   }
 
 }

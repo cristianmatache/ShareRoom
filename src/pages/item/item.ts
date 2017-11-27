@@ -5,6 +5,7 @@ import {User} from "../../models/user";
 import {Database} from "../../providers/database";
 import {ChatPage} from "../chat/chat";
 import {AddReviewsPage} from "../add-reviews/add-reviews";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the ItemPage page.
@@ -28,7 +29,10 @@ export class ItemPage {
   toDate: string;
   maxSelectableDate: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private database: Database) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private database: Database,
+              private auth : Auth) {
     this.item = navParams.get("item");
 
     this.today = new Date().toISOString();
@@ -36,7 +40,7 @@ export class ItemPage {
     this.toDate = new Date().toISOString();
     this.maxSelectableDate = new Date(2018,11,30).toISOString();
 
-    this.database.getUserInfoById(this.item.owner_uid)
+    this.auth.getUserInfoById(this.item.owner_uid)
       .then((user) => {
         this.user = user;
       })
@@ -57,7 +61,7 @@ export class ItemPage {
   }
 
   goToOtherUsersPage(userId) {
-    if (userId != this.database.getCurrentUserId()) {
+    if (userId != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": userId});
     }
   }
