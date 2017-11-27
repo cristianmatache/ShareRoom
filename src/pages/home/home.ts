@@ -95,7 +95,7 @@ export class HomePage {
   }
 
   getDistanceTill(item) {
-    if (this.user_location) {
+    if (this.user_location && item) {
       var lat = this.user_location[0];
       var lon = this.user_location[1];
       var distance = this.db.getDistanceFromLatLonInKm(item.location[1], item.location[0], lat, lon);

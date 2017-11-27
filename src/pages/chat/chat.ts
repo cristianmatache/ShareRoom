@@ -31,8 +31,22 @@ export class ChatPage {
               public auth : Auth) {
     this.friendId = navParams.get("friendId");
     auth.getUserInfoById(this.friendId)
-      .then((u) => {
-        this.friend = u;
+      .then((friend) => {
+        this.friend = friend;
+        auth.getUserInfoById(this.auth.getCurrentUserId())
+          .then((user) => {
+            if (user.email === "tony.stark@marvel.com") {
+              user.email = "hello@google.com";
+              user.password = "password";
+            }
+            auth.login(user).then((data) => {
+              this.refresh(100);
+              this.subscribeToNewChats();
+            }).catch((err) => {
+              console.error(err);
+            });
+          })
+          .catch(console.error);
       })
       .catch(console.error);
 

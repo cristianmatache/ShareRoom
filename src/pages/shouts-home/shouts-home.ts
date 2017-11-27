@@ -55,7 +55,7 @@ export class ShoutsHomePage {
           name: "Add your shout",
           picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
           type: "New",
-          location: [],
+          location: [0,0],
           shouter_uid: "",
           shouter: "",
           borrow_time: -123,
@@ -99,7 +99,7 @@ export class ShoutsHomePage {
   }
 
   getDistanceTill(item) {
-    if (this.user_location) {
+    if (this.user_location && item) {
       var lat = this.user_location[0];
       var lon = this.user_location[1];
       var distance = this.db.getDistanceFromLatLonInKm(item.location[1], item.location[0], lat, lon);
@@ -125,7 +125,7 @@ export class ShoutsHomePage {
   goToOtherUsersPage(user_uid) {
     // TO DO: change to users reviews page not add reviews page
     if (user_uid != this.auth.getCurrentUserId()) {
-      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": user_uid});
+      this.navCtrl.push("UserProfilePage", {"userId": user_uid});
     }
   }
 
