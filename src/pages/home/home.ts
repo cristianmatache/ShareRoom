@@ -32,9 +32,6 @@ export class HomePage {
       this.user_location = [resp.coords.latitude, resp.coords.longitude];
     });
 
-    // this.db.watchItems((snap) => {
-    //    this.refresh();
-    // })
     this.refresh();
   }
 
