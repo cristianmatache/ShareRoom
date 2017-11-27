@@ -103,7 +103,7 @@ export class ShoutsHomePage {
   goToOtherUsersPage(user_uid) {
     // TO DO: change to users reviews page not add reviews page
     if (user_uid != this.db.getCurrentUserId()) {
-      this.navCtrl.push("AddReviewsPage", {"userToReviewUID": user_uid});
+      this.navCtrl.push("UserProfilePage", {"userId": user_uid});
     }
   }
 

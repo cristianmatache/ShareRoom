@@ -27,17 +27,24 @@ export class ChatPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public database: Database, public chat: Chat, public db: Database) {
     this.friendId = navParams.get("friendId");
     database.getUserInfoById(this.friendId)
-      .then((u) => {
-        this.friend = u;
+      .then((friend) => {
+        this.friend = friend;
+        database.getUserInfoById(this.database.getCurrentUserId())
+          .then((user) => {
+            if (user.email === "tony.stark@marvel.com") {
+              user.email = "hello@google.com";
+              user.password = "password";
+            }
+            database.login(user).then((data) => {
+              this.refresh(100);
+              this.subscribeToNewChats();
+            }).catch((err) => {
+              console.error(err);
+            });
+          })
+          .catch(console.error);
       })
       .catch(console.error);
-
-    database.login({email: "hello@google.com", password: "password"} as User).then((data) => {
-      this.refresh(100);
-      this.subscribeToNewChats();
-    }).catch((err) => {
-      console.error(err);
-    });
   }
 
   ngOnDestroy() {
