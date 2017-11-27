@@ -51,7 +51,7 @@ export class HomePage {
     borrower : "",
     shout: null,
     borrower_claimed_to_return: -1,
-  }
+  };
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController,
               public app: App, private db: Database, private geolocation : Geolocation,
@@ -153,8 +153,14 @@ export class HomePage {
 
     if (this.filterOptions.byDistance) {
       this.filteredItems.sort((a, b) => {
-        let aDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], a.location[0], a.location[1]);
-        let bDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], b.location[0], b.location[1]);
+        if (a === this.fakeItem) {
+          return -1;
+        }
+        if (b === this.fakeItem) {
+          return 1;
+        }
+        let aDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], a.location[1], a.location[0]);
+        let bDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], b.location[1], b.location[0]);
 
         if (aDist > bDist) {
           return 1;
@@ -163,7 +169,7 @@ export class HomePage {
         } else {
           return 0;
         }
-      })
+      });
     }
   }
 

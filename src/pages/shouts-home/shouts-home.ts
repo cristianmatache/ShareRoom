@@ -31,6 +31,16 @@ export class ShoutsHomePage {
     type: [],
     byDistance: false
   };
+  addShout = {
+    name: "Add your shout",
+    picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
+    type: "New",
+    location: [0,0],
+    shouter_uid: "",
+    shouter: "",
+    borrow_time: -123,
+    max_borrow_duration: 0,
+  }
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -51,16 +61,7 @@ export class ShoutsHomePage {
           this.shouts.unshift(this.myShout);
         }
 
-        this.shouts.unshift({
-          name: "Add your shout",
-          picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
-          type: "New",
-          location: [0,0],
-          shouter_uid: "",
-          shouter: "",
-          borrow_time: -123,
-          max_borrow_duration: 0,
-        });
+        this.shouts.unshift(this.addShout);
         this.filteredShouts = this.shouts;
 
         console.log("ALL SHOUTS *******");
@@ -154,16 +155,16 @@ export class ShoutsHomePage {
       });
     }
 
-    /*if (this.filterOptions.category.length > 0) {
-      this.filteredShouts = this.filteredShouts.filter(item => {
-        return this.filterOptions.category.indexOf(item.category) > -1;
-      });
-    }*/
-
     if (this.filterOptions.byDistance) {
       this.filteredShouts.sort((a, b) => {
-        let aDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], a.location[0], a.location[1]);
-        let bDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], b.location[0], b.location[1]);
+        if (a === this.addShout) {
+          return -1;
+        }
+        if (b === this.addShout) {
+          return 1;
+        }
+        let aDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], a.location[1], a.location[0]);
+        let bDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], b.location[1], b.location[0]);
 
         if (aDist > bDist) {
           return 1;
