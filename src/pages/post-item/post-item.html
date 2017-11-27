@@ -96,7 +96,7 @@
               full
               color="primary"
               style="margin-top: 20px;"
-              [disabled]="currentlyPostingItem"
+              [disabled]="!postForm.valid"
               type="submit">Post</button>
     </form>
 

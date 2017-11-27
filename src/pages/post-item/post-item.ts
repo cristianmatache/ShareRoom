@@ -40,8 +40,8 @@ export class PostItemPage {
       description: ['', Validators.compose([Validators.required, Validators.minLength(20)])],
       category: ['Other', Validators.compose([Validators.required])],
       type: ['', Validators.compose([Validators.required])],
-      picture: ['', Validators.compose([Validators.required])],
-      max_borrow_duration: ['', Validators.compose([Validators.required])],
+      picture: [''],
+      max_borrow_duration: [''],
     });
   }
 
