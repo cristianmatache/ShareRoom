@@ -29,6 +29,30 @@ export class HomePage {
     byDistance: false
   };
 
+  fakeItem : Item = {
+    id: "default0",
+    name: "Add item",
+    location: [],
+    owner_uid: "",
+    picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
+    description: "",
+    date_posted: -123,
+    type: "New",
+    borrower_uid : "",
+    borrow_time: -123,
+    return_time: 0,
+    max_borrow_duration: 0,
+    category: "",
+    requests: [],
+    borrow_readable_time: "",
+    max_borrow_duration_readable_time: "",
+    percentage_time: 0,
+    owner: "",
+    borrower : "",
+    shout: null,
+    borrower_claimed_to_return: -1,
+  }
+
   constructor(public navCtrl: NavController, public menuCtrl: MenuController,
               public app: App, private db: Database, private geolocation : Geolocation,
               private auth : Auth) {}
@@ -41,39 +65,25 @@ export class HomePage {
     this.refresh();
   }
 
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
   refresh() {
     this.db.getAllItems().then((items) => {
       this.items = items;
-      this.filteredItems = items;
+      this.searchQuery = "";
 
-      this.filteredItems.unshift({
-        id: "default0",
-        name: "Add item",
-        location: [],
-        owner_uid: "",
-        picture: "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/add-item-dark.png?raw=true",
-        description: "",
-        date_posted: -123,
-        type: "New",
-        borrower_uid : "",
-        borrow_time: -123,
-        return_time: 0,
-        max_borrow_duration: 0,
-        category: "",
-        requests: [],
-        borrow_readable_time: "",
-        max_borrow_duration_readable_time: "",
-        percentage_time: 0,
-        owner: "",
-        borrower : "",
-        shout: null,
-        borrower_claimed_to_return: -1,
-      });
+      // Fake item leads to Post Item page when clicked
+      this.items.unshift(this.fakeItem);
+
+      this.filteredItems = items;
     });
   }
 
   onSearch(event) {
     this.filteredItems = this.items.filter((item) => {
+      if (item.id == "default0") return true;
       return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
     });
   }

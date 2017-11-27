@@ -27,6 +27,7 @@ export class PostItemPage {
   description: AbstractControl;
   postForm: FormGroup;
   ONE_DAY_AS_MS : number = 86400000;
+  currentlyPostingItem: boolean = false;
 
   private isActiveToast: boolean = false;
 
@@ -135,15 +136,18 @@ export class PostItemPage {
   addItem(form) {
     this.findMaxBorrowDuration(form);
 
+    this.currentlyPostingItem = true;
+
     this.database.addItem(
       form.name,
       form.description,
       form.picture,
       form.type,
       form.max_borrow_duration,
-      form.category);
+      form.category).then((resp) => {
+      this.navCtrl.pop();
+    });
 
-    this.navCtrl.setRoot(HomePage);
   }
 
   private findMaxBorrowDuration(form) {

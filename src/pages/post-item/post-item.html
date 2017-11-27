@@ -88,11 +88,17 @@
         <!--</ion-select>-->
       <!--</ion-item>-->
 
-      <button ion-button full color="primary" style="margin-top: 20px;" type="submit">Post</button>
+      <ion-item *ngIf="currentlyPostingItem">
+        <p>Posting item, please wait...</p>
+      </ion-item>
+
+      <button ion-button
+              full
+              color="primary"
+              style="margin-top: 20px;"
+              [disabled]="currentlyPostingItem"
+              type="submit">Post</button>
     </form>
-
-
-
 
   </ion-list>
 

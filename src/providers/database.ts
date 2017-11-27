@@ -35,33 +35,33 @@ export class Database {
     )
   }
 
-  addItem(name : string,
+  async addItem(name : string,
           description : string,
           picture: string,
           type : string,
           max_borrow_duration: number,
-          category: string) {
-    this.geolocation.getCurrentPosition().then((resp) =>
-    {
-      if (!picture) {
-        picture = "no_picture";
-      }
-      let item = {
-        name: name,
-        description: description,
-        location: [resp.coords.longitude,resp.coords.latitude],
-        owner_uid: this.auth.getCurrentUserId(),
-        picture: picture,
-        date_posted: firebase.database.ServerValue.TIMESTAMP,
-        type: type,
-        borrower_uid: null,
-        borrowTime: 0,
-        returnTime: 0,
-        max_borrow_duration: max_borrow_duration,
-        category: category
-      };
-      firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
-    }).catch((error) => console.log(error));
+          category: string) : Promise<any> {
+    let resp = await this.geolocation.getCurrentPosition();
+
+    if (!picture) {
+      picture = "no_picture";
+    }
+    let item = {
+      name: name,
+      description: description,
+      location: [resp.coords.longitude,resp.coords.latitude],
+      owner_uid: this.auth.getCurrentUserId(),
+      picture: picture,
+      date_posted: firebase.database.ServerValue.TIMESTAMP,
+      type: type,
+      borrower_uid: null,
+      borrowTime: 0,
+      returnTime: 0,
+      max_borrow_duration: max_borrow_duration,
+      category: category
+    };
+
+    return firebase.database().ref().child('users/' + item.owner_uid + '/items/').push(item);
   }
 
   editItem(id: string, name : string, description : string, picture: string, type : string) {
