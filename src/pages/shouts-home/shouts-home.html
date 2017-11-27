@@ -21,7 +21,51 @@
           </ion-searchbar>
         </ion-col>
         <ion-col col-1 col-xl-1>
-          <button ion-button class="filters-button">Filters</button>
+          <button ion-button class="filters-button" (click)="filter()">Filters</button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="this.isFiltering">
+        <ion-col col-3 col-xl-3>
+          <ion-list>
+            <ion-item>
+              <ion-label>Type</ion-label>
+              <ion-select [(ngModel)]="filterOptions.type" multiple="true" (ionChange)="filterChanged()">
+                <ion-option>Loan</ion-option>
+                <ion-option>Swap</ion-option>
+                <ion-option>Free</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <!--<ion-col col-3 col-xl-3>
+          <ion-list>
+            <ion-item>
+              <ion-label>Category</ion-label>
+              <ion-select [(ngModel)]="filterOptions.category" multiple="true" (ionChange)="filterChanged()">
+                <ion-option value="Other">Other</ion-option>
+                <ion-option value="Baby and child">Baby and child</ion-option>
+                <ion-option value="Clothing">Clothing</ion-option>
+                <ion-option value="DIY">DIY</ion-option>
+                <ion-option value="Garden">Garden</ion-option>
+                <ion-option value="Kitchen">Kitchen</ion-option>
+                <ion-option value="Pets">Pets</ion-option>
+                <ion-option value="IT">IT</ion-option>
+                <ion-option value="Board Games">Board Games</ion-option>
+                <ion-option value="Video Games">Video Games</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>-->
+        <ion-col col-3 col-xl-3>
+          <ion-list>
+            <ion-item>
+              <ion-label>
+                By distance
+              </ion-label>
+              <ion-toggle [(ngModel)]="filterOptions.byDistance" (ionChange)="filterChanged()">
+              </ion-toggle>
+            </ion-item>
+          </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>

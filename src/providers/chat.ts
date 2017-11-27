@@ -82,4 +82,8 @@ export class Chat {
     return uid1 < uid2 ? uid1+'/'+uid2 : uid2+'/'+uid1;
   }
 
+  getChattingFriends() {
+
+  }
+
 }

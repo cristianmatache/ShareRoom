@@ -8,6 +8,7 @@ import {LoginPage} from "../pages/login/login";
 import {User} from "../models/user";
 import {TabsPage} from "../pages/tabs/tabs";
 import {Database} from "../providers/database";
+import {ChatListPage} from "../pages/chat-list/chat-list";
 @Component({
   templateUrl: 'app.html'
 })
@@ -30,17 +31,10 @@ export class ShareRoom {
   subscribeLoginEvent() {
     this.db.subscribeLoginEvent(() => {
       if (this.db.isLoggedin()) {
-        this.rootPage = TabsPage;//HomePage;
+        this.rootPage = TabsPage;
       } else {
         this.rootPage = LoginPage;
       }
-    });
-  }
-
-  fakeLogin() {
-    this.auth.login({email: "hello@google.com", password: "password"} as User).then((data) => {
-    }).catch((err) => {
-      console.error(err);
     });
   }
 }

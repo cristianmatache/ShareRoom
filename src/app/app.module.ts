@@ -28,6 +28,8 @@ import {ProfilePage} from "../pages/profile/profile";
 //import {LoggedInReviewsPage} from "../pages/logged-in-reviews/logged-in-reviews";
 import {EditItemPage} from "../pages/edit-item/edit-item";
 import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
+import {ChatListPage} from "../pages/chat-list/chat-list";
+import {ChatListPageModule} from "../pages/chat-list/chat-list.module";
 
 @NgModule({
   declarations: [
@@ -40,14 +42,15 @@ import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
     ProfilePage,
     //LoggedInReviewsPage,
     EditItemPage,
-    ShoutsHomePage,
+    ShoutsHomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(ShareRoom),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ChatListPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,6 +64,7 @@ import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
     //LoggedInReviewsPage,
     EditItemPage,
     ShoutsHomePage,
+    ChatListPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

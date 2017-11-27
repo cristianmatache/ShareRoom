@@ -24,7 +24,13 @@ export class ShoutsHomePage {
   myShout: Shout = null;
   filteredShouts: Shout[] = [];
   searchQuery: string = "";
-  user_location = null;
+  user_location = [];
+  isFiltering = false;
+  filterOptions = {
+    category: [],
+    type: [],
+    byDistance: false
+  };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -129,5 +135,44 @@ export class ShoutsHomePage {
 
   shoutBelongsToLoggedInUser(shout) {
     return shout.shouter_uid === this.auth.getCurrentUserId();
+  }
+
+  filter() {
+    this.isFiltering = !this.isFiltering;
+    this.filterOptions = {
+      category: [],
+      type: [],
+      byDistance: false
+    };
+  }
+
+  filterChanged() {
+    this.onSearch(this.searchQuery);
+    if (this.filterOptions.type.length > 0) {
+      this.filteredShouts = this.filteredShouts.filter(item => {
+        return this.filterOptions.type.indexOf(item.type) > -1;
+      });
+    }
+
+    /*if (this.filterOptions.category.length > 0) {
+      this.filteredShouts = this.filteredShouts.filter(item => {
+        return this.filterOptions.category.indexOf(item.category) > -1;
+      });
+    }*/
+
+    if (this.filterOptions.byDistance) {
+      this.filteredShouts.sort((a, b) => {
+        let aDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], a.location[0], a.location[1]);
+        let bDist = this.db.getDistanceFromLatLonInKm(this.user_location[0], this.user_location[1], b.location[0], b.location[1]);
+
+        if (aDist > bDist) {
+          return 1;
+        } else if (aDist < bDist) {
+          return -1;
+        } else {
+          return 0;
+        }
+      })
+    }
   }
 }

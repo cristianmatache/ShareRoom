@@ -36,12 +36,8 @@ export class ChatPage {
       })
       .catch(console.error);
 
-    auth.login({email: "hello@google.com", password: "password"} as User).then((data) => {
-      this.refresh(100);
-      this.subscribeToNewChats();
-    }).catch((err) => {
-      console.error(err);
-    });
+    this.refresh(100);
+    this.subscribeToNewChats();
   }
 
   ngOnDestroy() {

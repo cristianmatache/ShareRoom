@@ -64,4 +64,8 @@ export class ProfilePage {
     this.auth.logout()
   }
 
+  openChat() {
+    this.navCtrl.push('ChatListPage');
+  }
+
 }
