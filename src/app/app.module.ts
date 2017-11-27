@@ -19,6 +19,7 @@ import { Camera } from '@ionic-native/camera';
 import { Facebook } from '@ionic-native/facebook';
 import { Database } from '../providers/database';
 import { Chat } from "../providers/chat";
+import { Auth } from "../providers/auth";
 import { Geolocation } from '@ionic-native/geolocation';
 import {MapPage} from "../pages/map/map";
 import {PostItemPage} from "../pages/post-item/post-item";
@@ -71,6 +72,7 @@ import {ShoutsHomePage} from "../pages/shouts-home/shouts-home";
     AngularFireDatabaseModule,
     Database,
     Chat,
+    Auth,
     Geolocation,
     File,
     Camera,

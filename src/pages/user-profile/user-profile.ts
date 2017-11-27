@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Database} from "../../providers/database";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -21,7 +22,7 @@ export class UserProfilePage {
   userName : string = "Default User";
   imagePath : string = "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/dark_star.png?raw=true";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
     this.userId = navParams.get("userId");
 
     this.db.getAllReviewsOfUID(this.userId).then((reviews) => {
@@ -30,7 +31,7 @@ export class UserProfilePage {
   }
 
   ionViewDidLoad() {
-    this.db.getUserInfoById(this.userId)
+    this.auth.getUserInfoById(this.userId)
       .then((user) => {
         this.userName = user.display_name;
         this.imagePath = user.profile_picture;

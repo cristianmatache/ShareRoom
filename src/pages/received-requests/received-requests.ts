@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Item} from "../../models/item";
 import {Database} from "../../providers/database";
 import {Request} from "../../models/request";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the ReceivedRequestsPage page.
@@ -24,7 +25,7 @@ export class ReceivedRequestsPage {
   maxDate:number = 0;
   minDate:number = 8640000000000;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
     this.item = navParams.get("item");
     this.maxDate = 0;
     this.minDate = 8640000000000;
@@ -54,7 +55,7 @@ export class ReceivedRequestsPage {
       console.log(myValue);
       console.log(myValue.requester_uid);
 
-      this.db.getUserInfoById(myValue.requester_uid).then(
+      this.auth.getUserInfoById(myValue.requester_uid).then(
         (user) => {
           myValue.requester_name = user.display_name;
           myValue.requester_picture = user.profile_picture;
@@ -85,7 +86,7 @@ export class ReceivedRequestsPage {
   }
 
   removeThisRequest(requester_uid, request_item_id) {
-    console.log(this.db.removeItemRequestsFrom(requester_uid, this.db.getCurrentUserId(), request_item_id));
+    console.log(this.db.removeItemRequestsFrom(requester_uid, this.auth.getCurrentUserId(), request_item_id));
     this.navCtrl.push("MyItemsPage");
     //this.navCtrl.push("ProfilePage");
   }
@@ -95,7 +96,7 @@ export class ReceivedRequestsPage {
   }
 
   goToOtherUsersPage(userId) {
-    if (userId != this.db.getCurrentUserId()) {
+    if (userId != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": userId});
     }
   }

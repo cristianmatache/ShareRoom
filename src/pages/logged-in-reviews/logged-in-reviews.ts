@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Database } from "../../providers/database";
 import { Review} from "../../models/review";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the LoggedInReviewsPage page.
@@ -22,7 +23,10 @@ export class LoggedInReviewsPage {
   loggedInName : string = "Default User";
   imagePath : string = "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/dark_star.png?raw=true";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db : Database) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private db : Database,
+              private auth : Auth) {
     this.loggedInName = navParams.get("loggedInName");
     this.imagePath = navParams.get("imagePath");
   }
@@ -38,7 +42,7 @@ export class LoggedInReviewsPage {
 
   someFunction = (myArray) => {
     const promises = myArray.map(async (review) => {
-      this.db.getUserInfoById(review.user_id).then(
+      this.auth.getUserInfoById(review.user_id).then(
         (user) => {
           review.reviewer_name = user.display_name;
           // console.log("IN SOME FUNCTION LOGGED IN REVIEWS: " + user.display_name);
@@ -60,7 +64,7 @@ export class LoggedInReviewsPage {
 
   goToOtherUsersPage(userId) {
     // TO DO: change to users reviews page not add reviews page
-    if (userId != this.db.getCurrentUserId()) {
+    if (userId != this.auth.getCurrentUserId()) {
       this.navCtrl.push("UserProfilePage", {"userId": userId});
     }
   }

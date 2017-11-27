@@ -6,6 +6,7 @@ import {Database} from "../../providers/database";
 import {ChatPage} from "../chat/chat";
 import {EditItemPage} from "../edit-item/edit-item";
 import {HomePage} from "../home/home";
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the ItemPage page.
@@ -31,7 +32,10 @@ export class ItemByUserPage {
   maxSelectableDate: string;
   /* For test purpose */
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private database: Database) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private database: Database,
+              private auth : Auth) {
     this.item = navParams.get("item");
 
     /* For test purpose */
@@ -41,7 +45,7 @@ export class ItemByUserPage {
     this.maxSelectableDate = new Date(2018,11,30).toISOString();
     /* For test purpose */
 
-    this.database.getUserInfoById(this.item.owner_uid)
+    this.auth.getUserInfoById(this.item.owner_uid)
       .then((user) => {
         this.user = user;
       })
@@ -53,7 +57,7 @@ export class ItemByUserPage {
   }
 
   removeItem() {
-    this.database.removeItem(this.item.id, this.database.getCurrentUserId());
+    this.database.removeItem(this.item.id, this.auth.getCurrentUserId());
     this.navCtrl.setRoot(HomePage);
   }
 

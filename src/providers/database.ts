@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {Review} from "../models/review";
 import {Injectable} from "@angular/core";
 import {Shout} from "../models/shout";
+import {Auth} from "./auth";
 
 
 @Injectable()
@@ -15,133 +16,21 @@ export class Database {
 
   constructor(private afAuth: AngularFireAuth,
               private fb: Facebook, private platform: Platform,
-              private geolocation : Geolocation) {
+              private geolocation : Geolocation, private auth : Auth) {
   }
-
-  login(user: User): Promise<any> {
-    return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-  }
-
-  logout(): Promise<any> {
-    return this.afAuth.auth.signOut()
-  }
-
-  registerEmail(user: User): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
-        .then(data => {
-          this.saveBasicUserInfo(this.getCurrentUserId(), user.display_name, "", "", user.phoneNumber, user.email);
-          resolve(data)
-        })
-        .catch(reject);
-    });
-  }
-
-  facebookRegister(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      if (this.platform.is('cordova')) {
-        this.fb.login(['email', 'public_profile']).then(res => {
-          const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-          firebase.auth().signInWithCredential(facebookCredential).then(res => {
-            this.saveBasicUserInfo(res.user.uid, res.user.displayName,
-              res.additionalUserInfo.profile.picture.data.url,
-              res.user.emailVerified, res.user.phoneNumber, res.user.email);
-            resolve();
-          }).catch(reject);
-        }).catch(reject);
-      } else {
-        this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
-          console.log(res);
-          this.saveBasicUserInfo(res.user.uid, res.user.displayName,
-            res.additionalUserInfo.profile.picture.data.url,
-            res.user.emailVerified, res.user.phoneNumber, res.user.email);
-          resolve();
-        }).catch(reject);
-      }
-    });
-  }
-
-  googleLogin(): Promise<any> {
-    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
-
-  saveBasicUserInfo(uid: string, display_name: string, profile_picture: string,
-                    email_verified: string, phone_number: string, email: string) {
-    this.saveUserInfoParam(uid, 'display_name', display_name);
-    this.saveUserInfoParam(uid, 'profile_picture', profile_picture);
-    this.saveUserInfoParam(uid, 'email_verified', email_verified);
-    this.saveUserInfoParam(uid, 'phone_number', phone_number);
-    this.saveUserInfoParam(uid, 'email', email);
-  }
-
-  private saveUserInfoParam(uid: string, param: string, value: string) {
-    firebase.database().ref('users/' + uid + '/' + param).set(value);
-  }
-
-  getCurrentUserId(): string {
-    if (firebase.auth().currentUser) {
-      return firebase.auth().currentUser.uid;
-    } else {
-      return null;
-    }
-  };
-
-  getUserInfoById(uid: string): Promise<User> {
-
-    console.log('UID IS: ' + uid);
-
-    return new Promise<User>((resolve, reject) => {
-      firebase.database().ref('/users/' + uid).once('value',
-        function (snapshot) {
-          var db_user = snapshot.val();
-            let user: User = {
-              uid: db_user.uid,
-              email: db_user.email,
-              password: null,
-              profile_picture: db_user.profile_picture,
-              display_name: db_user.display_name,
-              emailVerified: db_user.email_verified,
-              phoneNumber: db_user.phone_number,
-              items: db_user.items,
-              reviews: db_user.reviews
-            };
-            resolve(user);
-        }, function (errorObject) {
-          reject("Error on returning: " + errorObject.code);
-        });
-    });
-  }
-
-  /*private getCurrentUserParam(param_name : string) : Promise<string> {
-    var userId = this.getCurrentUserId();
-    if (userId) {
-      return new Promise<string>((resolve, reject) => {
-        firebase.database().ref('/users/' + userId + '/' + param_name).once('value',
-          function(snapshot) {
-            resolve(snapshot.val());
-          }, function (errorObject) {
-            reject("The read failed: " + errorObject.code);
-          });
-      });
-    } else {
-      return new Promise<string>((resolve, reject) => {
-        reject("You need to log in");
-      });
-    }
-  }*/
 
   addShout(name: string, type: string, picture: string) {
-    firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/name').set(name);
+    firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/name').set(name);
 
-    firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/type').set(type);
-    firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/picture').set(picture);
+    firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/type').set(type);
+    firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/picture').set(picture);
 
     this.geolocation.getCurrentPosition().then(
       (resp) => {
-        firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/location').set([resp.coords.longitude, resp.coords.latitude]);
+        firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/location').set([resp.coords.longitude, resp.coords.latitude]);
       },
       () => {
-        firebase.database().ref('/users/' + this.getCurrentUserId() + '/shout/location').set([0, 0]);
+        firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/location').set([0, 0]);
       }
     )
   }
@@ -161,7 +50,7 @@ export class Database {
         name: name,
         description: description,
         location: [resp.coords.longitude,resp.coords.latitude],
-        owner_uid: this.getCurrentUserId(),
+        owner_uid: this.auth.getCurrentUserId(),
         picture: picture,
         date_posted: firebase.database.ServerValue.TIMESTAMP,
         type: type,
@@ -183,7 +72,7 @@ export class Database {
         name: name,
         description: description,
         location: [resp.coords.longitude,resp.coords.latitude],
-        owner_uid: this.getCurrentUserId(),
+        owner_uid: this.auth.getCurrentUserId(),
         picture: 'some/picture',
         date_posted: firebase.database.ServerValue.TIMESTAMP,
         type: type,
@@ -200,8 +89,8 @@ export class Database {
   }
 
   removeLoggedInUserShout() {
-    console.log("REMOVING --- " + 'users/' + this.getCurrentUserId() + '/shout/');
-    firebase.database().ref().child('users/' + this.getCurrentUserId() + '/shout/').remove()
+    console.log("REMOVING --- " + 'users/' + this.auth.getCurrentUserId() + '/shout/');
+    firebase.database().ref().child('users/' + this.auth.getCurrentUserId() + '/shout/').remove()
   }
 
   removeItemRequestsFrom(requester_uid: string, owner_uid: string, item_id: string) : Promise<string[]> {
@@ -225,10 +114,10 @@ export class Database {
   }
 
   borrowItem(id: string, owner_uid: string, max_borrow_time: number) {
-    if (this.getCurrentUserId()) {
+    if (this.auth.getCurrentUserId()) {
       firebase.database().ref()
         .child('users/' + owner_uid + '/' + id + 'borrower_uid')
-        .set(this.getCurrentUserId());
+        .set(this.auth.getCurrentUserId());
       firebase.database().ref()
         .child('users/' + owner_uid + '/' + id + 'borrow_time')
         .set(firebase.database.ServerValue.TIMESTAMP);
@@ -258,13 +147,13 @@ export class Database {
     // THIS BRINGS RACE CONDITIONS -------------> WE ASSUME NO 2 PEOPLE WILL REQUEST AN ITEM AT THE SAME TIME :)
     // IF WE WANT TO AVOID THIS WE CHANGED THE IMPLEMENTATION FROM [{}] TO {{}}
     // TODO
-    if (this.getCurrentUserId()) {
+    if (this.auth.getCurrentUserId()) {
 
       let req = {
         max_borrow_duration: max_borrow_duration,
         borrow_time: borrow_time,
         item_id: item_id,
-        requester_uid: this.getCurrentUserId(),
+        requester_uid: this.auth.getCurrentUserId(),
         owner_uid: owner_uid,
       };
 
@@ -287,7 +176,7 @@ export class Database {
     // THIS BRINGS RACE CONDITIONS -------------> WE ASSUME NO 2 PEOPLE WILL REQUEST AN ITEM AT THE SAME TIME :)
     // IF WE WANT TO AVOID THIS WE CHANGED THE IMPLEMENTATION FROM [{}] TO {{}}
     // TODO
-    if (this.getCurrentUserId()) {
+    if (this.auth.getCurrentUserId()) {
       let req = {
         max_borrow_duration: max_borrow_duration,
         borrow_time: borrow_time,
@@ -311,7 +200,7 @@ export class Database {
   }
 
   returnItem(id: string, owner_uid: string) {
-    if (this.getCurrentUserId()) {
+    if (this.auth.getCurrentUserId()) {
       firebase.database().ref().child('users/' + owner_uid + '/' + id + 'borrower_uid').set(null);
       firebase.database().ref().child('users/' + owner_uid + '/' + id + 'borrow_time').set(0);
       firebase.database().ref().child('users/' + owner_uid + '/' + id + 'return_time').set(0);
@@ -533,7 +422,6 @@ export class Database {
   }
 
   public getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    console.log(lat1 +", "+lon1 + ", " + lat2 + ", "+lon2);
     var R = 6371; // Radius of the earth in km
     var dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
     var dLon = this.deg2rad(lon2 - lon1);

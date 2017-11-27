@@ -65,7 +65,7 @@
               <ion-card-title>{{shout.name}}</ion-card-title>
               <div class="distance">
                 By: <em class="link-to-user" (click)="goToOtherUsersPage(shout.shouter_uid)"> {{shout.shouter}}</em><br>
-                {{this.getDistanceTill(item)}}
+                {{this.getDistanceTill(shout)}}
               </div>
               <div *ngIf="shoutBelongsToLoggedInUser(shout)">
                 <button ion-button (click)="removeMyShout()" style="background-color: darkred; margin-left: 6px; display: inline-block;">Cancel</button>
