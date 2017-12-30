@@ -47,6 +47,21 @@ export class ShoutsHomePage {
               private db: Database,
               private geolocation : Geolocation,
               private auth : Auth) {
+
+  }
+
+  ionViewDidLoad() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.user_location = [resp.coords.latitude, resp.coords.longitude];
+      this.refresh();
+    });
+  }
+
+  ionViewWillEnter() {
+    this.refresh();
+  }
+
+  refresh() {
     this.db.getAllShouts().then((shouts) => {
       this.shouts = shouts;
       this.someFunction(this.shouts).then(() => {
@@ -67,12 +82,6 @@ export class ShoutsHomePage {
         console.log("ALL SHOUTS *******");
         console.log(this.shouts);
       });
-    });
-  }
-
-  ionViewDidLoad() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.user_location = [resp.coords.latitude, resp.coords.longitude];
     });
   }
 
