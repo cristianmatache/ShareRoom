@@ -19,6 +19,8 @@ import {Auth} from "../../providers/auth";
 })
 export class MyItemsPage {
 
+  MS_IN_A_DAY: number = 86400000;
+
   filteredItems: Item[] = [];
   itemsWithRequests: Item[] = [];
   itemsLoggedInUserLent: Item[] = [];
@@ -34,10 +36,13 @@ export class MyItemsPage {
           eachItem.borrower = user.display_name;
           eachItem.borrow_readable_time = new Date(eachItem.borrow_time).toDateString();
           eachItem.max_borrow_duration_readable_time = new Date(eachItem.max_borrow_duration).toDateString();
+
+          // Add 1 day to the denominator since the end day is also part of the borrow time.
+          // I.E. end day - beginning day + 1.
           eachItem.percentage_time = Math.floor(
             100
             * (Date.now() - eachItem.borrow_time)
-            / (eachItem.max_borrow_duration - eachItem.borrow_time));
+            / (eachItem.max_borrow_duration - eachItem.borrow_time + this.MS_IN_A_DAY));
           return eachItem;
         }
       ).catch(console.error);
