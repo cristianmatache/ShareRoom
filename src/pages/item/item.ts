@@ -35,9 +35,18 @@ export class ItemPage {
               private auth : Auth) {
     this.item = navParams.get("item");
 
-    this.today = new Date().toISOString();
-    this.fromDate = new Date().toISOString();
-    this.toDate = new Date().toISOString();
+    let today = new Date();
+    Database.standardizeDate(today);
+    this.today = today.toISOString();
+
+    let fromDate = new Date();
+    fromDate = Database.standardizeDate(fromDate);
+    this.fromDate = fromDate.toISOString();
+
+    let toDate = new Date();
+    Database.standardizeDate(toDate);
+    this.toDate = toDate.toISOString();
+
     this.maxSelectableDate = new Date(2018,11,30).toISOString();
 
     this.auth.getUserInfoById(this.item.owner_uid)
@@ -52,7 +61,7 @@ export class ItemPage {
   }
 
   requestItem() {
-    this.database.requestItem(this.item.id, this.item.owner_uid, Math.round(Date.parse(this.fromDate)/1000), Math.round(Date.parse(this.toDate)/1000));
+    this.database.requestItem(this.item.id, this.item.owner_uid, Date.parse(this.fromDate), Date.parse(this.toDate));
     this.navCtrl.push("BorrowedItemsPage");
   }
 

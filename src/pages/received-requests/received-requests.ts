@@ -75,7 +75,7 @@ export class ReceivedRequestsPage {
   }
 
   getDateFromTimestamp(timestamp) {
-    return (new Date(timestamp * 1000)).toDateString();
+    return new Date(timestamp).toDateString();
   }
 
   moveToLent(request) {

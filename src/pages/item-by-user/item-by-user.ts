@@ -39,9 +39,18 @@ export class ItemByUserPage {
     this.item = navParams.get("item");
 
     /* For test purpose */
-    this.today = new Date().toISOString();
-    this.fromDate = new Date().toISOString();
-    this.toDate = new Date().toISOString();
+    let today = new Date();
+    Database.standardizeDate(today);
+    this.today = today.toISOString();
+
+    let fromDate = new Date();
+    Database.standardizeDate(fromDate);
+    this.fromDate = fromDate.toISOString();
+
+    let toDate = new Date();
+    Database.standardizeDate(toDate);
+    this.toDate = toDate.toISOString();
+
     this.maxSelectableDate = new Date(2018,11,30).toISOString();
     /* For test purpose */
 
@@ -69,6 +78,6 @@ export class ItemByUserPage {
     console.log("fromDate timestamp " + Date.parse(this.fromDate));
     console.log("toDate timestamp " + Date.parse(this.toDate));
     //this.database.requestItem(this.item.id, this.item.owner_uid, 1511269416, 1514937600);
-    this.database.requestItemInNameOfUserId("PhMUkbbHHRXFy9XqmeYxHN3GYx13",this.item.id, this.item.owner_uid, Date.parse(this.fromDate)/1000, Date.parse(this.toDate)/1000);
+    this.database.requestItemInNameOfUserId("PhMUkbbHHRXFy9XqmeYxHN3GYx13",this.item.id, this.item.owner_uid, Date.parse(this.fromDate), Date.parse(this.toDate));
   }
 }

@@ -33,9 +33,12 @@ export class BorrowedItemsPage {
       this.auth.getUserInfoById(eachItem.owner_uid).then(
         (user) => {
           eachItem.owner = user.display_name;
-          eachItem.borrow_readable_time = new Date(eachItem.borrow_time * 1000).toDateString();
-          eachItem.max_borrow_duration_readable_time = new Date(eachItem.max_borrow_duration * 1000).toDateString();
-          eachItem.percentage_time = Math.floor(100 * (Date.now() / 1000 - eachItem.borrow_time) / (eachItem.max_borrow_duration - eachItem.borrow_time));
+          console.log(eachItem.borrow_time);
+          eachItem.borrow_readable_time = new Date(eachItem.borrow_time).toDateString();
+          eachItem.max_borrow_duration_readable_time = new Date(eachItem.max_borrow_duration).toDateString();
+          eachItem.percentage_time = Math.floor(100
+            * (Date.now() - eachItem.borrow_time)
+            / (eachItem.max_borrow_duration - eachItem.borrow_time));
           return eachItem;
         }
       ).catch(console.error);
@@ -113,7 +116,7 @@ export class BorrowedItemsPage {
   }
 
   getDateFromTimestamp(timestamp) {
-    return (new Date(timestamp * 1000)).toDateString();
+    return new Date(timestamp).toDateString();
   }
 
   returnedItemToOwner(item) {

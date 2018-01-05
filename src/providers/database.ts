@@ -46,17 +46,16 @@ export class Database {
     if (!picture) {
       picture = "no_picture";
     }
+
     let item = {
       name: name,
       description: description,
       location: [resp.coords.longitude,resp.coords.latitude],
       owner_uid: this.auth.getCurrentUserId(),
       picture: picture,
-      date_posted: firebase.database.ServerValue.TIMESTAMP,
+      date_posted: Database.standardizeDateNumber(Date.now()),
       type: type,
       borrower_uid: null,
-      borrowTime: 0,
-      returnTime: 0,
       max_borrow_duration: max_borrow_duration,
       category: category
     };
@@ -74,11 +73,9 @@ export class Database {
         location: [resp.coords.longitude,resp.coords.latitude],
         owner_uid: this.auth.getCurrentUserId(),
         picture: 'some/picture',
-        date_posted: firebase.database.ServerValue.TIMESTAMP,
+        date_posted: Database.standardizeDateNumber(Date.now()),
         type: type,
         borrower_uid: null,
-        borrowTime: 0,
-        returnTime: 0,
       };
       firebase.database().ref().child('users/' + item.owner_uid + '/items/' + id + '/').set(item);
     });
@@ -437,6 +434,22 @@ export class Database {
 
   private deg2rad(deg) {
     return deg * (Math.PI/180)
+  }
+
+  // Rounds a Date object to millisecond 0 of the day it was created.
+  // TODO: Probably shouldn't be here, but in a separate static class, idc.
+  public static standardizeDate(date: Date): Date {
+    console.log("INITIAL DATE: " + date.toDateString());
+    date.setUTCHours(0, 0, 0, 0);
+    console.log("INITIAL DATE4: " + date.toDateString());
+    console.log(date.getTimezoneOffset());
+    return date;
+  }
+
+  public static standardizeDateNumber(number: number): number {
+    let date: Date = new Date(number);
+    Database.standardizeDate(date);
+    return date.getTime();
   }
 
 }

@@ -18,7 +18,7 @@ export interface Item {
   requests: Array<Request>;
 
   owner: string;
-  borrower : string;
+  borrower: string;
 
   borrow_readable_time: string;
   max_borrow_duration_readable_time: string;
@@ -37,3 +37,4 @@ export let ItemType = {
   FREE: "FREE",
   LOAN: "LOAN",
 };
+
