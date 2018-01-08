@@ -26,7 +26,6 @@
 
 
         <!--<h2 class="profile_des" style="margin-top:15px">oana.ciocioman@gmail.com</h2>-->
-
         <section class="btn-space">
           <section class="btn-align">
             <button style="background-image: url('https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/package2.png?raw=true'); margin:auto; background-size: cover; background-repeat: no-repeat" class="button-custom" (click)="this.getMyItems()">
@@ -39,13 +38,21 @@
           </section>
         </section>
 
-
         <button style="background-image: url('https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/review2.png?raw=true'); margin:auto; background-size: cover; background-repeat: no-repeat" class="btn button-custom" (click)="this.getReviews()">
           <section class="text-pos">Reviews</section>
         </button>
 
-        <button ion-button color="primary" (click)="this.logout()">Logout</button>
-        <button ion-button color="primary" (click)="this.openChat()">Chat list</button>
+        <ion-grid style="padding-top: 15px;">
+          <ion-row>
+            <ion-col>
+              <button ion-button color="primary" (click)="this.logout()">Logout</button>
+            </ion-col>
+            <ion-col></ion-col>
+            <ion-col>
+              <button ion-button color="primary" (click)="this.openChat()">Chat list</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
     </div>
   <!--</div>-->

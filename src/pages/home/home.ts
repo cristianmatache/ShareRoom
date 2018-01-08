@@ -28,6 +28,7 @@ export class HomePage {
     type: [],
     byDistance: false
   };
+  currentUserId: string;
 
   fakeItem : Item = {
     id: "default0",
@@ -55,7 +56,9 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController,
               public app: App, private db: Database, private geolocation : Geolocation,
-              private auth : Auth) {}
+              private auth : Auth) {
+    this.currentUserId = this.auth.getCurrentUserId();
+  }
 
   ionViewDidLoad() {
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -70,6 +73,11 @@ export class HomePage {
 
   refresh() {
     this.db.getAllItems().then((items) => {
+
+      items = items.filter((item) => {
+        return !(item.owner_uid === this.currentUserId);
+      });
+
       this.items = items;
       this.searchQuery = "";
 
