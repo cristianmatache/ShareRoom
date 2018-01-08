@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { User } from "../../models/user";
 import { Message } from "../../models/message";
 import { Database } from "../../providers/database";
@@ -20,6 +20,7 @@ import {Auth} from "../../providers/auth";
 })
 export class ChatPage {
 
+  @ViewChild(Content) content: Content;
   input: string = "";
   friendId: string;
   messages: Message[] = [];
@@ -35,18 +36,16 @@ export class ChatPage {
       .then(value => {
         this.friend = value;
       });
+
     this.refresh(this.refreshNr);
-    this.subscribeToNewChats();
+
+    this.chat.subscribeToChat(this.friendId, (snap) => {
+      this.refresh(this.refreshNr);
+    })
   }
 
   ngOnDestroy() {
     this.chat.unsubscribeFromChat(this.friendId);
-  }
-
-  private subscribeToNewChats() {
-    this.chat.subscribeToChat(this.friendId, (snap) => {
-      this.refresh(this.refreshNr);
-    })
   }
 
   public refresh(num) {
@@ -67,8 +66,14 @@ export class ChatPage {
             this.messages.push(value);
           }
         });
+        this.scrollToBottom();
       })
       .catch(console.error);
+  }
+
+  public scrollToBottom() {
+    let dimensions = this.content.getContentDimensions();
+    this.content.scrollTo(0, dimensions.scrollHeight, 100);
   }
 
   public sendMessage() {
@@ -77,7 +82,7 @@ export class ChatPage {
     }
 
     this.chat.sendMessage(this.input, this.friendId).then(msg => {
-      this.messages.push(msg);
+      this.refresh(this.refreshNr);
     }).catch(console.error);
 
     this.input = ""
@@ -85,5 +90,11 @@ export class ChatPage {
 
   public isOther(message: Message): boolean {
     return message.from !== this.auth.getCurrentUserId()
+  }
+
+  public openFriendProfile() {
+    this.navCtrl.push("UserProfilePage", {
+      userId: this.friend.uid
+    })
   }
 }

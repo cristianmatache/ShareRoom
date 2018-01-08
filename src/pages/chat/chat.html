@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar color="light">
-    <ion-title>
+    <ion-title (click)="openFriendProfile()">
       <img [src]="friend?.profile_picture" style="margin-top: 10px; margin-left: 20px; width: 30px; height: 30px; border-radius: 15px; float: left;">
       <h3 style="font-size: 18px; color: white; margin-left: 5px;">{{friend?.display_name}}</h3>
     </ion-title>
@@ -27,14 +27,15 @@
   </ul>
 </ion-content>
 
-<ion-footer>
+<ion-footer no-padding>
   <ion-toolbar>
     <form (ngSubmit)="sendMessage()">
       <ion-item id="input-bar">
         <ion-input name="textInput" (ngEnter)="sendMessage()"
                    [(ngModel)]="input"
                    type="search"
-                   placeholder="Say something.."></ion-input>
+                   placeholder="Say something..">
+        </ion-input>
       </ion-item>
     </form>
   </ion-toolbar>

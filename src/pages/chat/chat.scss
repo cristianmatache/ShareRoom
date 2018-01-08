@@ -22,7 +22,8 @@ page-chat {
   }
 
   .chat-bubble-text-me {
-    background-color: lightgrey;
+    background-color: cornflowerblue;
+    color: white;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
@@ -32,8 +33,7 @@ page-chat {
   .chat-bubble-text-other {
     margin-left: 35px;
     padding: 10px;
-    background-color: cornflowerblue;
-    color: white;
+    background-color: lightgrey;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
