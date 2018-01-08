@@ -184,6 +184,7 @@ page-borrowed-items {
   }
 
   .progress-bar {
+    @include progress-percentage();
     margin-top: 5px;
     color: color($colors, light);
     background-color: lighten(color($colors, primary), 30%);
