@@ -7,7 +7,8 @@
 <ion-header>
   <ion-navbar color="light">
     <ion-title>
-      {{friend?.display_name}}
+      <img [src]="friend?.profile_picture" style="margin-top: 10px; margin-left: 20px; width: 30px; height: 30px; border-radius: 15px; float: left;">
+      <h3 style="font-size: 18px; color: white; margin-left: 5px;">{{friend?.display_name}}</h3>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -15,7 +16,13 @@
 <ion-content>
   <ul>
     <li *ngFor="let message of messages">
-      <div class={{getBubbleClass(message)}}>{{message.text}}</div>
+      <div *ngIf="isOther(message)" class="chat-bubble chat-bubble-other">
+        <img [src]="friend?.profile_picture" class="chat-bubble-img-other">
+        <div class="chat-bubble-text-other">{{message.text}}</div>
+      </div>
+      <div *ngIf="!isOther(message)" class="chat-bubble chat-bubble-me">
+        <div class="chat-bubble-text-me">{{message.text}}</div>
+      </div>
     </li>
   </ul>
 </ion-content>

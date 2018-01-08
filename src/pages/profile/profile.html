@@ -47,12 +47,13 @@
             <ion-col>
               <button ion-button color="primary" (click)="this.logout()">Logout</button>
             </ion-col>
-            <ion-col></ion-col>
-            <ion-col>
-              <button ion-button color="primary" (click)="this.openChat()">Chat list</button>
-            </ion-col>
           </ion-row>
         </ion-grid>
+        <ion-fab bottom right>
+          <button ion-fab (click)="this.openChat()">
+            <ion-icon name="chatboxes"></ion-icon>
+          </button>
+        </ion-fab>
       </div>
     </div>
   <!--</div>-->

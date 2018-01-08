@@ -24,33 +24,18 @@ export class ChatPage {
   friendId: string;
   messages: Message[] = [];
   friend: User = {} as User;
+  refreshNr = 1000;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chat: Chat,
               public auth : Auth) {
     this.friendId = navParams.get("friendId");
-    auth.getUserInfoById(this.friendId)
-      .then((friend) => {
-        this.friend = friend;
-        auth.getUserInfoById(this.auth.getCurrentUserId())
-          .then((user) => {
-            if (user.email === "tony.stark@marvel.com") {
-              user.email = "hello@google.com";
-              user.password = "password";
-            }
-            auth.login(user).then((data) => {
-              this.refresh(100);
-              this.subscribeToNewChats();
-            }).catch((err) => {
-              console.error(err);
-            });
-          })
-          .catch(console.error);
-      })
-      .catch(console.error);
-
-    this.refresh(100);
+    this.auth.getUserInfoById(this.friendId)
+      .then(value => {
+        this.friend = value;
+      });
+    this.refresh(this.refreshNr);
     this.subscribeToNewChats();
   }
 
@@ -60,25 +45,26 @@ export class ChatPage {
 
   private subscribeToNewChats() {
     this.chat.subscribeToChat(this.friendId, (snap) => {
-      this.refresh(1);
+      this.refresh(this.refreshNr);
     })
   }
 
   public refresh(num) {
     this.chat.getFriendMessages(num, this.friendId)
       .then(messages => {
-        messages.map(m => {
-          if (this.messages.indexOf(m) < 0) {
-            this.messages.push(m);
-          }
-        });
-        this.messages.sort((a, b) => {
+        messages.sort((a, b) => {
           if (a.timestamp === b.timestamp) {
             return 0;
           } else if (a.timestamp > b.timestamp) {
             return 1;
           } else {
             return -1;
+          }
+        });
+        this.messages = [];
+        messages.forEach((value, index) => {
+          if (messages.length - index < num) {
+            this.messages.push(value);
           }
         });
       })
@@ -97,9 +83,7 @@ export class ChatPage {
     this.input = ""
   }
 
-  public getBubbleClass(message: Message): string {
-    return message.from == this.auth.getCurrentUserId() ? "chat-bubble" +
-      " chat-bubble-me" : "chat-bubble chat-bubble-other";
+  public isOther(message: Message): boolean {
+    return message.from !== this.auth.getCurrentUserId()
   }
-
 }

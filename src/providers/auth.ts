@@ -90,7 +90,7 @@ export class Auth {
         function (snapshot) {
           var db_user = snapshot.val();
           let user: User = {
-            uid: db_user.uid,
+            uid: uid,
             email: db_user.email,
             password: null,
             profile_picture: db_user.profile_picture,

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { Events } from 'ionic-angular';
 import { Message } from '../models/message';
+import { User } from "../models/user";
+import {Auth} from "./auth";
 
 @Injectable()
 export class Chat {
 
   private databaseChats = firebase.database().ref('/chats');
 
-  constructor(public events: Events) {
+  constructor(public events: Events, public auth: Auth) {
 
   }
 
@@ -82,8 +84,54 @@ export class Chat {
     return uid1 < uid2 ? uid1+'/'+uid2 : uid2+'/'+uid1;
   }
 
-  getChattingFriends() {
+  getChats() : Promise<Array<User>> {
+    return new Promise<Array<User>>((resolve, reject) => {
+      this.getAllUsersUIDs()
+        .then(users => {
+          var friends = [];
+          var promises = [];
+          users.forEach(user => {
+            promises.push(this.getFriendMessages(1, user)
+              .then(messages => {
+                if (messages.length != 0) {
+                  friends.push(user);
+                }
+              })
+              .catch(reject))
+          });
+          Promise.all(promises)
+            .then(_ => {
+              promises = [];
+              friends.forEach(friend => {
+                promises.push(this.auth.getUserInfoById(friend));
+              });
+              Promise.all(promises)
+                .then(friendsDetails => {
+                  resolve(friendsDetails)
+                })
+                .catch(reject)
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
+  }
 
+  private getAllUsersUIDs(): Promise<Array<string>> {
+    return new Promise<string[]>((resolve, reject) => {
+      firebase.database().ref('users/').once(
+        'value',
+        function (snapshot) {
+          var users = [];
+          snapshot.forEach(function (user) {
+            users.push(user.key);
+            return false;
+          });
+          resolve(users);
+        }, () => {
+          reject("Error in fetching users from the database!");
+        });
+    });
   }
 
 }
