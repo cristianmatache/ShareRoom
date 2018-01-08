@@ -19,13 +19,13 @@ export class Database {
               private geolocation : Geolocation, private auth : Auth) {
   }
 
-  addShout(name: string, type: string, picture: string) {
-    firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/name').set(name);
+  addShout(name: string, type: string, picture: string): Promise<any> {
+    let p1: Promise<any> = firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/name').set(name);
 
-    firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/type').set(type);
-    firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/picture').set(picture);
+    let p2: Promise<any>  = firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/type').set(type);
+    let p3: Promise<any>  = firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/picture').set(picture);
 
-    this.geolocation.getCurrentPosition().then(
+    let p4: Promise<any> = this.geolocation.getCurrentPosition().then(
       (resp) => {
         firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/location').set([resp.coords.longitude, resp.coords.latitude]);
       },
@@ -33,6 +33,7 @@ export class Database {
         firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/location').set([0, 0]);
       }
     )
+    return Promise.all([p1, p2, p3, p4]);
   }
 
   async addItem(name : string,

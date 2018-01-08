@@ -41,6 +41,11 @@
         <ion-option value="Loan">Loan</ion-option>
       </ion-select>
     </ion-item>
+
+    <ion-item *ngIf="currentlyPostingShout">
+      <p>Posting shout, please wait...</p>
+    </ion-item>
+
   </ion-list>
 
 
