@@ -69,10 +69,6 @@ export class MyItemsPage {
     return nrList;
   }
 
-  getDistanceTill(item) {
-    return "15 miles";
-  }
-
   getNumberOfRequests(item) {
     return String(item.requests.length) + " requests";
   }
