@@ -25,7 +25,7 @@ export class Auth {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
         .then(data => {
-          this.saveBasicUserInfo(this.getCurrentUserId(), user.display_name, "", "", user.phoneNumber, user.email);
+          this.saveBasicUserInfo(this.getCurrentUserId(), user.display_name, user.profile_picture, "", user.phoneNumber, user.email);
           resolve(data)
         })
         .catch(reject);
@@ -90,7 +90,7 @@ export class Auth {
         function (snapshot) {
           var db_user = snapshot.val();
           let user: User = {
-            uid: db_user.uid,
+            uid: uid,
             email: db_user.email,
             password: null,
             profile_picture: db_user.profile_picture,

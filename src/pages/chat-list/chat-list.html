@@ -15,8 +15,9 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let user of users" (click)="this.openChat(user)">
-
+    <ion-item *ngFor="let user of users" (click)="this.openChat(user)" style="background-color: #474B4F">
+          <img [src]="user.profile_picture" style="width: 30px; height: 30px; border-radius: 15px; float: left;">
+          <h3 style="font-size: 18px; color: white; margin-top: 4px; margin-left: 35px;">{{user.display_name}}</h3>
     </ion-item>
   </ion-list>
 </ion-content>

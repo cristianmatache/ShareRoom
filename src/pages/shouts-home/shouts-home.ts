@@ -109,13 +109,13 @@ export class ShoutsHomePage {
   }
 
   getDistanceTill(item) {
-    if (this.user_location && item) {
+    if (this.user_location.length > 0 && item) {
       var lat = this.user_location[0];
       var lon = this.user_location[1];
       var distance = this.db.getDistanceFromLatLonInKm(item.location[1], item.location[0], lat, lon);
       return distance.toFixed(1) + " km";
     } else {
-      return "";
+      return "Loading...";
     }
   }
 

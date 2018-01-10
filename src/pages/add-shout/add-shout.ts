@@ -19,6 +19,7 @@ import {ShoutsHomePage} from "../shouts-home/shouts-home";
 export class AddShoutPage {
 
   shout = {} as Shout;
+  currentlyPostingShout: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private database: Database) {
   }
@@ -27,13 +28,14 @@ export class AddShoutPage {
     console.log('ionViewDidLoad AddShoutPage');
   }
 
-  addShout() {
+  async addShout() {
     console.log("shout picture " + this.shout.picture);
     if (this.shout.picture == undefined) {
       this.shout.picture = "https://files.itemku.com/images/gacha/gacha-icon.png";
     }
     if (this.shout.name != undefined) {
-      this.database.addShout(this.shout.name, this.shout.type, this.shout.picture);
+      this.currentlyPostingShout = true;
+      await this.database.addShout(this.shout.name, this.shout.type, this.shout.picture);
       //window.location.reload();
       this.navCtrl.setRoot(ShoutsHomePage);
     }

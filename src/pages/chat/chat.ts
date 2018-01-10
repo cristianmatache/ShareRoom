@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { User } from "../../models/user";
 import { Message } from "../../models/message";
 import { Database } from "../../providers/database";
@@ -20,59 +20,38 @@ import {Auth} from "../../providers/auth";
 })
 export class ChatPage {
 
+  @ViewChild(Content) content: Content;
   input: string = "";
   friendId: string;
   messages: Message[] = [];
   friend: User = {} as User;
+  refreshNr = 1000;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chat: Chat,
               public auth : Auth) {
     this.friendId = navParams.get("friendId");
-    auth.getUserInfoById(this.friendId)
-      .then((friend) => {
-        this.friend = friend;
-        auth.getUserInfoById(this.auth.getCurrentUserId())
-          .then((user) => {
-            if (user.email === "tony.stark@marvel.com") {
-              user.email = "hello@google.com";
-              user.password = "password";
-            }
-            auth.login(user).then((data) => {
-              this.refresh(100);
-              this.subscribeToNewChats();
-            }).catch((err) => {
-              console.error(err);
-            });
-          })
-          .catch(console.error);
-      })
-      .catch(console.error);
+    this.auth.getUserInfoById(this.friendId)
+      .then(value => {
+        this.friend = value;
+      });
 
-    this.refresh(100);
-    this.subscribeToNewChats();
+    this.refresh(this.refreshNr);
+
+    this.chat.subscribeToChat(this.friendId, (snap) => {
+      this.refresh(this.refreshNr);
+    })
   }
 
   ngOnDestroy() {
     this.chat.unsubscribeFromChat(this.friendId);
   }
 
-  private subscribeToNewChats() {
-    this.chat.subscribeToChat(this.friendId, (snap) => {
-      this.refresh(1);
-    })
-  }
-
   public refresh(num) {
     this.chat.getFriendMessages(num, this.friendId)
       .then(messages => {
-        messages.map(m => {
-          if (this.messages.indexOf(m) < 0) {
-            this.messages.push(m);
-          }
-        });
-        this.messages.sort((a, b) => {
+        messages.sort((a, b) => {
           if (a.timestamp === b.timestamp) {
             return 0;
           } else if (a.timestamp > b.timestamp) {
@@ -81,8 +60,20 @@ export class ChatPage {
             return -1;
           }
         });
+        this.messages = [];
+        messages.forEach((value, index) => {
+          if (messages.length - index < num) {
+            this.messages.push(value);
+          }
+        });
+        this.scrollToBottom();
       })
       .catch(console.error);
+  }
+
+  public scrollToBottom() {
+    let dimensions = this.content.getContentDimensions();
+    this.content.scrollTo(0, dimensions.scrollHeight, 100);
   }
 
   public sendMessage() {
@@ -91,15 +82,19 @@ export class ChatPage {
     }
 
     this.chat.sendMessage(this.input, this.friendId).then(msg => {
-      this.messages.push(msg);
+      this.refresh(this.refreshNr);
     }).catch(console.error);
 
     this.input = ""
   }
 
-  public getBubbleClass(message: Message): string {
-    return message.from == this.auth.getCurrentUserId() ? "chat-bubble" +
-      " chat-bubble-me" : "chat-bubble chat-bubble-other";
+  public isOther(message: Message): boolean {
+    return message.from !== this.auth.getCurrentUserId()
   }
 
+  public openFriendProfile() {
+    this.navCtrl.push("UserProfilePage", {
+      userId: this.friend.uid
+    })
+  }
 }

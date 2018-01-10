@@ -16,16 +16,19 @@ import {Chat} from "../../providers/chat";
   templateUrl: 'chat-list.html',
 })
 export class ChatListPage {
-  users: [User];
+  users: Array<User>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public chat: Chat) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public chat: Chat) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChatListPage');
+    this.chat.getChats()
+      .then(users => {
+        this.users = users;
+      })
+      .catch(alert)
   }
 
-  openChat(user) {
+  openChat(user: User) {
     this.navCtrl.push("ChatPage", {
       friendId: user.uid
     })

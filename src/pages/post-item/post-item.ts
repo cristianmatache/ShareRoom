@@ -112,7 +112,6 @@ export class PostItemPage {
   }
 
   async takePic() {
-    console.log("TAKE PIC");
     const options : CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -125,8 +124,7 @@ export class PostItemPage {
       await pictures.putString(image, 'data_url');
       pictures.getDownloadURL().then((downloadURL) =>
       {
-        this.postForm.value.picture = downloadURL;
-        (document.getElementById('picture') as HTMLImageElement).src = this.postForm.value.picture;
+        (document.getElementById('picture') as HTMLImageElement).src = downloadURL;
       });
     } catch (e) {
       console.log(e);
@@ -141,7 +139,7 @@ export class PostItemPage {
     this.database.addItem(
       form.name,
       form.description,
-      form.picture,
+      (document.getElementById('picture') as HTMLImageElement).src,
       form.type,
       form.max_borrow_duration,
       form.category).then((resp) => {
