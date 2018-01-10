@@ -65,9 +65,7 @@ export class Chat {
     let uid1 : string = firebase.auth().currentUser.uid;
     var path = this.getChatPath(uid1, friend_uid);
 
-    firebase.database().ref(path).on('child_added', snapshot => {
-      alert(JSON.stringify(snapshot));
-      alert("refresh");
+    firebase.database().ref("/chats/" + path).on('child_added', snapshot => {
       sub(snapshot);
     });
   }
