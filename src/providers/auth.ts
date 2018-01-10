@@ -18,7 +18,7 @@ export class Auth {
   }
 
   logout(): Promise<any> {
-    return this.afAuth.auth.signOut()
+    return this.afAuth.auth.signOut();
   }
 
   registerEmail(user: User): Promise<any> {
@@ -38,18 +38,19 @@ export class Auth {
         this.fb.login(['email', 'public_profile']).then(res => {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
           firebase.auth().signInWithCredential(facebookCredential).then(res => {
-            this.saveBasicUserInfo(res.user.uid, res.user.displayName,
+            let user = res.user;
+            this.saveBasicUserInfo(user.uid, user.displayName,
               res.additionalUserInfo.profile.picture.data.url,
-              res.user.emailVerified, res.user.phoneNumber, res.user.email);
+              user.emailVerified, user.phoneNumber, user.email);
             resolve();
           }).catch(reject);
         }).catch(reject);
       } else {
         this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
-          console.log(res);
-          this.saveBasicUserInfo(res.user.uid, res.user.displayName,
+          let user = res.user;
+          this.saveBasicUserInfo(user.uid, user.displayName,
             res.additionalUserInfo.profile.picture.data.url,
-            res.user.emailVerified, res.user.phoneNumber, res.user.email);
+            user.emailVerified, user.phoneNumber, user.email);
           resolve();
         }).catch(reject);
       }
@@ -57,11 +58,19 @@ export class Auth {
   }
 
   googleLogin(): Promise<any> {
-    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+      res => {
+        let user = res.user;
+        this.saveBasicUserInfo(user.uid, user.displayName,
+          null, user.emailVerified,
+          user.phoneNumber, user.email);
+      }
+    );
   }
 
   saveBasicUserInfo(uid: string, display_name: string, profile_picture: string,
                     email_verified: string, phone_number: string, email: string) {
+    if (profile_picture === null) profile_picture = "https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png";
     this.saveUserInfoParam(uid, 'display_name', display_name);
     this.saveUserInfoParam(uid, 'profile_picture', profile_picture);
     this.saveUserInfoParam(uid, 'email_verified', email_verified);
@@ -82,9 +91,6 @@ export class Auth {
   };
 
   getUserInfoById(uid: string): Promise<User> {
-
-    console.log('UID IS: ' + uid);
-
     return new Promise<User>((resolve, reject) => {
       firebase.database().ref('/users/' + uid).once('value',
         function (snapshot) {
