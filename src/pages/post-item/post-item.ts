@@ -96,7 +96,10 @@ export class PostItemPage {
   async selectPic() {
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      encodingType: this.camera.EncodingType.JPEG,
+      targetWidth: 600,
+      correctOrientation: true
     };
     try {
       const result = await this.camera.getPicture(options);
@@ -116,6 +119,8 @@ export class PostItemPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 600,
+      correctOrientation: true
     };
     try {
       const result = await this.camera.getPicture(options);
