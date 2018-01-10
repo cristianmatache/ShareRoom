@@ -20,7 +20,7 @@ export class UserProfilePage {
   average : number = 0;
   userId: string;
   userName : string = "Default User";
-  imagePath : string = "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/dark_star.png?raw=true";
+  imagePath : string = "https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: Database, private auth : Auth) {
     this.userId = navParams.get("userId");
@@ -34,7 +34,9 @@ export class UserProfilePage {
     this.auth.getUserInfoById(this.userId)
       .then((user) => {
         this.userName = user.display_name;
-        this.imagePath = user.profile_picture;
+        if(user.profile_picture !== "") {
+          this.imagePath = user.profile_picture;
+        }
         //console.log(this.loggedInName);
       })
       .catch(console.error);

@@ -25,7 +25,7 @@ export class Auth {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
         .then(data => {
-          this.saveBasicUserInfo(this.getCurrentUserId(), user.display_name, "", "", user.phoneNumber, user.email);
+          this.saveBasicUserInfo(this.getCurrentUserId(), user.display_name, user.profile_picture, "", user.phoneNumber, user.email);
           resolve(data)
         })
         .catch(reject);

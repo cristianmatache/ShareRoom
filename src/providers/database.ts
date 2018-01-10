@@ -45,7 +45,7 @@ export class Database {
     let resp = await this.geolocation.getCurrentPosition();
 
     if (!picture) {
-      picture = "no_picture";
+      picture = "http://myarenaonline.com/screen/demos/demo_item.png";
     }
 
     let item = {
