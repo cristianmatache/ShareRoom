@@ -53,7 +53,7 @@ export class ReceivedRequestsPage {
     const promises = myArray.map(async (myValue) => {
       console.log("------------- in someFunc");
       console.log(myValue);
-      console.log(myValue.requester_uid);
+      //console.log(myValue.requester_uid);
 
       this.auth.getUserInfoById(myValue.requester_uid).then(
         (user) => {

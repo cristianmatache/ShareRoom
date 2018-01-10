@@ -30,7 +30,7 @@ export class AddShoutPage {
   addShout() {
     console.log("shout picture " + this.shout.picture);
     if (this.shout.picture == undefined) {
-      this.shout.picture = "no picture";
+      this.shout.picture = "https://files.itemku.com/images/gacha/gacha-icon.png";
     }
     if (this.shout.name != undefined) {
       this.database.addShout(this.shout.name, this.shout.type, this.shout.picture);
