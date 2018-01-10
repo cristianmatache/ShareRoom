@@ -117,25 +117,20 @@ page-profile {
     border: 2px solid white !important;
     border-radius: 50% !important;
     color: white !important;
-    text-align: center !important;
-    text-decoration: none !important;
     font-size: 10px !important;
     font-weight: bold !important;
-    text-align: center;
     padding: 5px 10px;
     background-color: #abb6c5;
-    text-decoration: none;
-    //margin:0 auto;
   }
 
   .text-pos {
+    position: relative;
     white-space: nowrap;
-    margin-top: 90px;
+    top: 60px;
     color: color($colors, light);
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 800;
   }
-
 
   .btn{
     display: block;
