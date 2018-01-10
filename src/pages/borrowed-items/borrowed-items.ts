@@ -68,7 +68,7 @@ export class BorrowedItemsPage {
       this.itemsLoggedInUserRequested = items.filter(item => {
         if (item.requests) {
           for (let request of item.requests) {
-            if (request.requester_uid === this.currentUserId) {
+            if (typeof request != 'undefined' && request.requester_uid === this.currentUserId) {
               return true;
             }
           }

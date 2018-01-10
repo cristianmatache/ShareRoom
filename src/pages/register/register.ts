@@ -29,7 +29,7 @@ export class RegisterPage {
     this.user.display_name = "";
     this.user.email = "";
     this.user.phoneNumber = "";
-    this.user.profile_picture = "https://github.com/TomaAlexandru96/ShareRoom/blob/master/src/assets/images/default_user.png?raw=true";
+    this.user.profile_picture = "https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png";
   }
 
   presentAlert(text: string) {

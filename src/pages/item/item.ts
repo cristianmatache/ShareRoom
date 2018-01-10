@@ -57,7 +57,7 @@ export class ItemPage {
   }
 
   getPicture() {
-    return this.item.picture ? this.item.picture : "";
+    return this.item.picture ? this.item.picture : "http://myarenaonline.com/screen/demos/demo_item.png";
   }
 
   requestItem() {
