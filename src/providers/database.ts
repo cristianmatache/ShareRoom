@@ -32,7 +32,7 @@ export class Database {
       () => {
         firebase.database().ref('/users/' + this.auth.getCurrentUserId() + '/shout/location').set([0, 0]);
       }
-    )
+    );
     return Promise.all([p1, p2, p3, p4]);
   }
 

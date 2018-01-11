@@ -40,7 +40,7 @@ export class ShoutsHomePage {
     shouter: "",
     borrow_time: -123,
     max_borrow_duration: 0,
-  }
+  };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

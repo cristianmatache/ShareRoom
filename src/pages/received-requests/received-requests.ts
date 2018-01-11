@@ -30,6 +30,9 @@ export class ReceivedRequestsPage {
     this.maxDate = 0;
     this.minDate = 8640000000000;
     for (var r of this.item.requests) {
+      if (!r) {
+        continue;
+      }
       if (r.borrow_time < this.minDate) {
         this.minDate = r.borrow_time;
       }
@@ -37,31 +40,27 @@ export class ReceivedRequestsPage {
         this.maxDate = r.max_borrow_duration;
       }
     }
-    //console.log("IT'S RAINING MEN ------ initial requests");
     this.requests = this.item.requests;
-    console.log(this.requests);
   }
 
   ionViewDidLoad() {
-    console.log("ReceivedRequests did load");
-    //console.log(this.requests);
-    //console.log("START MAP -----------------");
     console.log(this.someFunction(this.requests));
   }
 
   someFunction = (myArray) => {
     const promises = myArray.map(async (myValue) => {
-      console.log("------------- in someFunc");
-      console.log(myValue);
-      //console.log(myValue.requester_uid);
 
-      this.auth.getUserInfoById(myValue.requester_uid).then(
-        (user) => {
-          myValue.requester_name = user.display_name;
-          myValue.requester_picture = user.profile_picture;
-          return myValue;
-        }
-      ).catch(console.error);
+      if (myValue) {
+        console.log(myValue);
+        this.auth.getUserInfoById(myValue.requester_uid).then(
+          (user) => {
+            myValue.requester_name = user.display_name;
+            myValue.requester_picture = user.profile_picture;
+            return myValue;
+          }
+        ).catch(console.error);
+      }
+
     });
     return Promise.all(promises);
   };

@@ -74,7 +74,6 @@ export class MyItemsPage {
   }
 
   getReceivedRequests(item) {
-    console.log("ENTERED RECEIVED REQUESTS ------------------");
     return this.navCtrl.push("ReceivedRequestsPage", {item: item});
   }
 

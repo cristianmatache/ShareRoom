@@ -99,7 +99,6 @@ export class BorrowedItemsPage {
       this.someFunction(this.itemsLoggedInUserBorrowed);
       this.someFunction2(this.itemsLoggedInUserRequested);
       console.log(this.itemsLoggedInUserBorrowed);
-      console.log("ITEMS LOGGED IN USER REQUESTED");
       console.log(this.itemsLoggedInUserRequested);
     });
   }
