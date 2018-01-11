@@ -85,25 +85,6 @@
               <ion-card-title>{{shout.name}}</ion-card-title>
             </ion-card>
 
-            <ng-template #display_normal>
-              <ion-card *ngIf="i===0">
-                <img [src]="shout.picture" class="item-image">
-                <ion-card-title>{{shout.name}}</ion-card-title>
-                <div class="distance">
-                  By: <em class="link-to-user" (click)="goToOtherUsersPage(shout.shouter_uid)"> {{shout.shouter}}</em><br>
-                  {{this.getDistanceTill(item)}}
-                </div>
-                <div *ngIf="shoutBelongsToLoggedInUser(shout)">
-                  <button ion-button (click)="removeMyShout()" style="background-color: darkred; margin-left: 6px; display: inline-block;">Cancel</button>
-                  <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
-                </div>
-                <div *ngIf="!shoutBelongsToLoggedInUser(shout)">
-                  <button ion-button (click)="chatWithUser()" style="background-color: darkblue; margin-left: 6px; display: inline-block;">Chat</button>
-                  <ion-badge item-end style="display: inline-block;"> {{shout.type}} </ion-badge>
-                </div>
-              </ion-card>
-            </ng-template>
-
             <ion-card *ngIf="i > 0">
               <img [src]="shout.picture" class="item-image">
               <ion-card-title>{{shout.name}}</ion-card-title>

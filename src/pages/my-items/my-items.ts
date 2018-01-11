@@ -43,6 +43,7 @@ export class MyItemsPage {
             100
             * ((Date.now() - eachItem.borrow_time) < 0 ? 0 : (Date.now() - eachItem.borrow_time))
             / (eachItem.max_borrow_duration - eachItem.borrow_time + this.MS_IN_A_DAY));
+          console.log((Date.now() - eachItem.borrow_time) < 0);
           return eachItem;
         }
       ).catch(console.error);
