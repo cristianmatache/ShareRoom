@@ -41,7 +41,7 @@ export class MyItemsPage {
           // I.E. end day - beginning day + 1.
           eachItem.percentage_time = Math.floor(
             100
-            * (Date.now() - eachItem.borrow_time)
+            * ((Date.now() - eachItem.borrow_time) < 0 ? 0 : (Date.now() - eachItem.borrow_time))
             / (eachItem.max_borrow_duration - eachItem.borrow_time + this.MS_IN_A_DAY));
           return eachItem;
         }
