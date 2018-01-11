@@ -185,6 +185,7 @@ page-my-items {
   .progress {
     background-color: mintcream;
     border-radius: 5px;
+    text-align: center;
   }
 
   .progress-bar {
@@ -201,6 +202,7 @@ page-my-items {
     .title {
       opacity: 0;
       animation: show 0.35s forwards ease-in-out 0.5s;
+      text-align: center;
     }
   }
 
