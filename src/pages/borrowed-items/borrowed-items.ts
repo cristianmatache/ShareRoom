@@ -42,7 +42,7 @@ export class BorrowedItemsPage {
           // Add 1 day to the denominator since the end day is also part of the borrow time.
           // I.E. end day - beginning day + 1.
           eachItem.percentage_time = Math.floor(100
-            * (Date.now() - eachItem.borrow_time)
+            * (Date.now() - eachItem.borrow_time) < 0 ? 0 : (Date.now() - eachItem.borrow_time)
             / (eachItem.max_borrow_duration - eachItem.borrow_time + this.MS_IN_A_DAY));
           return eachItem;
         }
