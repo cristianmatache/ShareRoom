@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TomaAlexandru96/ShareRoom.svg?branch=master)](https://travis-ci.org/TomaAlexandru96/ShareRoom)
+
 # ShareRoom
 Software Engineering 3rd Year Group Project
 Please read the tutorials and the instalation guides if you want to clone properly so you don't have to get `mad`.
